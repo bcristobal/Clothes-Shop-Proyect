@@ -1,22 +1,25 @@
 package clothes.shop.clases;
 
-public class Ropa {
+public abstract class Ropa {
+	
 	private int id;
 	private String nombre;
 	private Tipo tipo;
+	private float precio;
 	
-	public Ropa(int id, String nombre, Tipo tipo) {
+	public Ropa(int id, String nombre, Tipo tipo, float precio) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
+		this.precio = precio;
 	}
 	
 	public Ropa() {
 		super();
-		this.id = 0;
 		this.nombre = null;
 		this.tipo = null;
+		this.precio = 0;
 	}
 
 	public int getId() {
@@ -41,6 +44,14 @@ public class Ropa {
 
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
+	}
+
+	public float getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(float precio) {
+		this.precio = precio;
 	}
 
 }
