@@ -1,12 +1,14 @@
 package clothes.shop.clases;
 
-public class Persona {
+public abstract class Persona {
 	
+	private int id;
 	private String nombre;
 	private String apellido;
 	
-	public Persona(String nombre, String apellido) {
+	public Persona(int id, String nombre, String apellido) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 	}
@@ -15,6 +17,14 @@ public class Persona {
 		super();
 		this.nombre = null;
 		this.apellido = null;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
