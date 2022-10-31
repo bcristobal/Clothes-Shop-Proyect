@@ -13,7 +13,7 @@ public class Cliente extends Persona {
 
 	public Cliente(int id, String nombre, String apellido, Boolean esSocio, int edad, List<Ropa> listaRopa) {
 		super(id, nombre, apellido);
-		this.esSocio = esSocio;
+		this.esSocio = false;
 		this.edad = edad;
 		this.listaRopa = listaRopa;
 	}
@@ -38,7 +38,12 @@ public class Cliente extends Persona {
 	}
 
 	public void setEdad(int edad) {
-		this.edad = edad;
+		if (edad > 0){
+			this.edad = edad;
+		} else {
+			this.edad = 18;
+		}
+		
 	}
 
 	public List<Ropa> getListaRopa() {
@@ -47,6 +52,12 @@ public class Cliente extends Persona {
 
 	public void setListaRopa(List<Ropa> listaRopa) {
 		this.listaRopa = listaRopa;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s %s  %s" + " años," + " socio: %s, lista de la ropa: %s", 
+				String.valueOf(getNombre()), getApellido(), edad, esSocio, listaRopa);
 	}
 
 	public double calculaPrecio() {
