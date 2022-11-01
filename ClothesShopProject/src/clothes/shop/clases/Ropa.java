@@ -52,7 +52,7 @@ public abstract class Ropa {
 
 	public void setPrecio(float precio) {
 		if (precio < 0) {
-			this.precio = 0;
+			throw new IllegalArgumentException(); //No acepta precios negativos
 		} else {
 			this.precio = precio;
 		}
