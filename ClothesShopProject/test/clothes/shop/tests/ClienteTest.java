@@ -83,9 +83,11 @@ public class ClienteTest {
 
 	@Test
 	public void testSetEdad() {
-		int edadNueva = 30;
-		cliente.setEdad(edadNueva);
-		assertEquals(edadNueva, cliente.getEdad());
+		if (edad > 0) {
+			int edadNueva = 30;
+			cliente.setEdad(edadNueva);
+			assertEquals(edadNueva, cliente.getEdad());
+		}
 	}
 
 	@Test
