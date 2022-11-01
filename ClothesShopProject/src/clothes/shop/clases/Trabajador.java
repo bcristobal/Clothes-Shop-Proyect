@@ -22,11 +22,10 @@ public class Trabajador extends Persona {
 	}
 
 	public void setSueldo(int sueldo) {
-		if (sueldo < 0) {
-			System.err.println("ERROR: sueldo invalido");
-			throw new IllegalArgumentException(); //No acepta sueldos negativos
-		} else {
+		if (sueldo > 0) {
 			this.sueldo = sueldo;
+		} else {
+			System.err.println("ERROR: sueldo invalido");
 		}
 	}
 

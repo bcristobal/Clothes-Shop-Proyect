@@ -11,6 +11,8 @@ import org.junit.Test;
 
 import clothes.shop.clases.Cliente;
 import clothes.shop.clases.Ropa;
+import clothes.shop.clases.Talla;
+import clothes.shop.clases.Tipo;
 
 public class ClienteTest {
 	private Cliente cliente;
@@ -20,6 +22,7 @@ public class ClienteTest {
 	int edad = 19;
 	boolean esSocio = false;
 	List<Ropa> listaRopa = new ArrayList<Ropa>();
+	Tipo tipo;
 	
 
 	@Before
@@ -79,10 +82,12 @@ public class ClienteTest {
 	}
 
 	@Test
-	public void testSetEdad() {
-		int edadNueva = 30;
-		cliente.setEdad(edadNueva);
-		assertEquals(edadNueva, cliente.getEdad());
+	public void testSetEdad() { //TODO
+		if (edad > 0) {
+			int edadNueva = 30;
+			cliente.setEdad(edadNueva);
+			assertEquals(edadNueva, cliente.getEdad());
+		}
 	}
 
 	@Test
@@ -98,8 +103,10 @@ public class ClienteTest {
 	}
 
 	@Test
-	public void testCalculaPrecio() {
-		assertEquals(cliente.calculaPrecio(), 0.0, 0);
+	public void testCalculaPrecio() { //TODO
+		listaRopa.add(new Ropa(0, "Prueba", Tipo.camiseta, 10, Talla.XL));
+		cliente.setEsSocio(false);
+		assertEquals(cliente.calculaPrecio(), 10.0, 0);
 	}
 
 }

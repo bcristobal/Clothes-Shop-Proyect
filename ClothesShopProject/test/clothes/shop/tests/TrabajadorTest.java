@@ -2,6 +2,8 @@ package clothes.shop.tests;
 
 import static org.junit.Assert.*;
 
+import java.util.Objects;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,10 +64,12 @@ public class TrabajadorTest {
 	}
 
 	@Test
-	public void testSetSueldo() {
-		int sueldoNuevo = 2000;
-		trabajador.setSueldo(sueldoNuevo);
-		assertEquals(sueldoNuevo, trabajador.getSueldo());
+	public void testSetSueldo() { //TODO
+		if (sueldo > 0) { 
+			int sueldoNuevo = 2000;
+			trabajador.setSueldo(sueldoNuevo);
+			assertEquals(sueldoNuevo, trabajador.getSueldo());
+		}
 	}
 
 	@Test
