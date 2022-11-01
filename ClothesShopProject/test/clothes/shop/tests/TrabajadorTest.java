@@ -2,8 +2,7 @@ package clothes.shop.tests;
 
 import static org.junit.Assert.*;
 
-import java.io.Console;
-import java.io.PrintStream;
+import java.util.Objects;
 
 import org.junit.After;
 import org.junit.Before;
@@ -66,10 +65,7 @@ public class TrabajadorTest {
 
 	@Test
 	public void testSetSueldo() {
-		if (sueldo < 0) {
-			String consoleText = "ERROR: sueldo invalido";
-			assertEquals(consoleText, System.console());
-		} else {
+		if (sueldo > 0) { 
 			int sueldoNuevo = 2000;
 			trabajador.setSueldo(sueldoNuevo);
 			assertEquals(sueldoNuevo, trabajador.getSueldo());
