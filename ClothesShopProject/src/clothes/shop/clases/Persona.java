@@ -43,8 +43,9 @@ public abstract class Persona {
 		this.apellido = apellido;
 	}
 	
-	
-	
-	
+	@Override
+	public String toString() {
+		return String.format("(%s)" +  " %s %s", id, nombre, apellido);
+	}
 
 }

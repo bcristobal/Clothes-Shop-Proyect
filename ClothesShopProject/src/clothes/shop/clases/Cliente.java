@@ -14,14 +14,14 @@ public class Cliente extends Persona {
 	public Cliente(int id, String nombre, String apellido, Boolean esSocio, int edad, List<Ropa> listaRopa) {
 		super(id, nombre, apellido);
 		this.esSocio = false;
-		this.edad = edad;
+		setEdad(edad);
 		this.listaRopa = listaRopa;
 	}
 
 	public Cliente() {
 		super();
 		this.esSocio = false;
-		this.edad = 0;
+		setEdad(18);
 		this.listaRopa = new ArrayList<Ropa>();
 	}
 
@@ -38,10 +38,11 @@ public class Cliente extends Persona {
 	}
 
 	public void setEdad(int edad) {
-		if (edad > 0){
-			this.edad = edad;
+		if (edad < 0){
+			System.err.println("ERROR: edad invalida");
+			throw new IllegalArgumentException(); //No acepta edades negativos
 		} else {
-			this.edad = 18;
+			this.edad = edad;
 		}
 		
 	}

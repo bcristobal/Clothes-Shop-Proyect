@@ -12,14 +12,14 @@ public abstract class Ropa {
 		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
-		this.precio = precio;
+		setPrecio(precio);
 	}
 	
 	public Ropa() {
 		super();
 		this.nombre = null;
 		this.tipo = null;
-		this.precio = 0;
+		setPrecio(0);
 	}
 
 	public int getId() {
@@ -51,7 +51,17 @@ public abstract class Ropa {
 	}
 
 	public void setPrecio(float precio) {
-		this.precio = precio;
+		if (precio < 0) {
+			System.err.println("ERROR: precio invalido");
+			throw new IllegalArgumentException(); //No acepta precios negativos
+		} else {
+			this.precio = precio;
+		}
 	}
 
+	@Override
+	public String toString() {
+		return String.format("(%s)" +  " %s %s", id, nombre, precio);
+	}
+	
 }
