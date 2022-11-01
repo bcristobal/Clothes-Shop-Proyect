@@ -51,7 +51,16 @@ public abstract class Ropa {
 	}
 
 	public void setPrecio(float precio) {
-		this.precio = precio;
+		if (precio < 0) {
+			this.precio = 0;
+		} else {
+			this.precio = precio;
+		}
 	}
 
+	@Override
+	public String toString() {
+		return String.format("(%s)" +  " %s %s", id, nombre, precio);
+	}
+	
 }

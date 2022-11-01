@@ -45,7 +45,7 @@ public abstract class Persona {
 	
 	@Override
 	public String toString() {
-		return String.format("%s," +  " %s %s", nombre, apellido, id);
+		return String.format("(%s)" +  " %s %s", id, nombre, apellido);
 	}
 
 }
