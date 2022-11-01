@@ -12,14 +12,14 @@ public abstract class Ropa {
 		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
-		this.precio = precio;
+		setPrecio(precio);
 	}
 	
 	public Ropa() {
 		super();
 		this.nombre = null;
 		this.tipo = null;
-		this.precio = 0;
+		setPrecio(0);
 	}
 
 	public int getId() {
