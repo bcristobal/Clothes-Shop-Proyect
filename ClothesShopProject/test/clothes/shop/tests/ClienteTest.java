@@ -1,4 +1,4 @@
-package clothes.shop.test;
+package clothes.shop.tests;
 
 import static org.junit.Assert.*;
 
