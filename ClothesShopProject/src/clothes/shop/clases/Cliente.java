@@ -38,10 +38,10 @@ public class Cliente extends Persona {
 	}
 
 	public void setEdad(int edad) {
-		if (edad > 0){
-			this.edad = edad;
-		} else {
+		if (edad < 0){
 			this.edad = 18;
+		} else {
+			this.edad = edad;
 		}
 		
 	}
