@@ -57,7 +57,7 @@ public class Cliente extends Persona {
 	
 	@Override
 	public String toString() {
-		return String.format("%s %s  %s" + " años," + " socio: %s, lista de la ropa: %s", 
+		return String.format("%s %s %s" + " años," + " socio: %s, lista de la ropa: %s", 
 				String.valueOf(getNombre()), getApellido(), edad, esSocio, listaRopa);
 	}
 

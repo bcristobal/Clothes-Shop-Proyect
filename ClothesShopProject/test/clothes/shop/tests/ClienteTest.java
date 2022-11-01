@@ -2,68 +2,104 @@ package clothes.shop.tests;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import clothes.shop.clases.Cliente;
+import clothes.shop.clases.Ropa;
+
 public class ClienteTest {
+	private Cliente cliente;
+	int id = 0;
+	String nombre = "Iker";
+	String apellido = "Cristobal";
+	int edad = 19;
+	boolean esSocio = false;
+	List<Ropa> listaRopa = new ArrayList<Ropa>();
+	
 
 	@Before
 	public void setUp() throws Exception {
+		cliente = new Cliente(id, nombre, apellido, esSocio, edad, listaRopa);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		cliente = null;
 	}
 
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		String toString = String.format("%s %s %s" + " años," + " socio: %s, lista de la ropa: %s",nombre, apellido, edad, esSocio, listaRopa);
+        assertEquals(toString, cliente.toString());
 	}
 
 	@Test
 	public void testClienteIntStringStringBooleanIntListOfRopa() {
-		fail("Not yet implemented");
+		assertNotNull(cliente);
+		assertEquals(cliente.getId(), id);
+		assertEquals(cliente.getNombre(), nombre);
+		assertEquals(cliente.getApellido(), apellido);
+		assertEquals(cliente.getEsSocio(), esSocio);
+		assertEquals(cliente.getEdad(), edad);
+		assertEquals(cliente.getListaRopa(), listaRopa);
 	}
 
 	@Test
 	public void testCliente() {
-		fail("Not yet implemented");
+		Cliente clienteVacio = new Cliente();
+		assertNotNull(clienteVacio);
+		assertEquals(clienteVacio.getId(), 0);
+		assertEquals(clienteVacio.getNombre(), null);
+		assertEquals(clienteVacio.getApellido(), null);
+		assertEquals(clienteVacio.getEsSocio(), false);
+		assertEquals(clienteVacio.getEdad(), 18);
+		assertEquals(clienteVacio.getListaRopa(), new ArrayList<Ropa>());
 	}
 
 	@Test
 	public void testGetEsSocio() {
-		fail("Not yet implemented");
+		assertEquals(cliente.getEsSocio(), esSocio);
 	}
 
 	@Test
 	public void testSetEsSocio() {
-		fail("Not yet implemented");
+		boolean esSocioNuevo = false;
+		cliente.setEsSocio(esSocioNuevo);
+		assertEquals(esSocioNuevo, cliente.getEsSocio());
 	}
 
 	@Test
 	public void testGetEdad() {
-		fail("Not yet implemented");
+		assertEquals(cliente.getEdad(), edad);
 	}
 
 	@Test
 	public void testSetEdad() {
-		fail("Not yet implemented");
+		int edadNueva = 30;
+		cliente.setEdad(edadNueva);
+		assertEquals(edadNueva, cliente.getEdad());
 	}
 
 	@Test
 	public void testGetListaRopa() {
-		fail("Not yet implemented");
+		assertEquals(cliente.getListaRopa(), listaRopa);
 	}
 
 	@Test
 	public void testSetListaRopa() {
-		fail("Not yet implemented");
+		ArrayList<Ropa> listaRopaNueva = new ArrayList<Ropa>();
+		cliente.setListaRopa(listaRopaNueva);
+		assertEquals(listaRopaNueva, cliente.getListaRopa());
 	}
 
 	@Test
 	public void testCalculaPrecio() {
-		fail("Not yet implemented");
+		assertEquals(cliente.calculaPrecio(), 0.0, 0);
 	}
 
 }
