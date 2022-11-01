@@ -1,8 +1,7 @@
 package clothes.shop.tests;
 
-import static org.junit.Assert.*;
-
-import java.util.Objects;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
 import org.junit.Before;

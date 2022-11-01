@@ -1,14 +1,13 @@
 package clothes.shop.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import clothes.shop.clases.Persona;
-import clothes.shop.clases.Puesto;
-import clothes.shop.clases.Trabajador;
 
 public class PersonaTest {
 	private Persona persona;
