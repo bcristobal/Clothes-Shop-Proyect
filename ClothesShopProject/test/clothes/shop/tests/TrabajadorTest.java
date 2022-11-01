@@ -64,7 +64,7 @@ public class TrabajadorTest {
 	}
 
 	@Test
-	public void testSetSueldo() {
+	public void testSetSueldo() { //TODO
 		if (sueldo > 0) { 
 			int sueldoNuevo = 2000;
 			trabajador.setSueldo(sueldoNuevo);

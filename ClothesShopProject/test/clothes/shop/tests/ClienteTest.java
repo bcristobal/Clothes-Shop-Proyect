@@ -82,7 +82,7 @@ public class ClienteTest {
 	}
 
 	@Test
-	public void testSetEdad() {
+	public void testSetEdad() { //TODO
 		if (edad > 0) {
 			int edadNueva = 30;
 			cliente.setEdad(edadNueva);
@@ -103,7 +103,7 @@ public class ClienteTest {
 	}
 
 	@Test
-	public void testCalculaPrecio() {
+	public void testCalculaPrecio() { //TODO
 		listaRopa.add(new Ropa(0, "Prueba", Tipo.camiseta, 10, Talla.XL));
 		cliente.setEsSocio(false);
 		assertEquals(cliente.calculaPrecio(), 10.0, 0);
