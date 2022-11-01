@@ -6,59 +6,89 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import clothes.shop.clases.Persona;
+import clothes.shop.clases.Puesto;
+import clothes.shop.clases.Trabajador;
+
 public class PersonaTest {
+	private Persona persona;
+	private int id = 0;
+	private String nombre = "Nombre";
+	private String apellido = "Apellido";
 
 	@Before
 	public void setUp() throws Exception {
+		persona = new Persona(id, nombre, apellido) {
+		};
 	}
-
+	
 	@After
 	public void tearDown() throws Exception {
+		persona = null;
 	}
 
 	@Test
 	public void testPersonaIntStringString() {
-		fail("Not yet implemented");
+		assertNotNull(persona);
+		assertEquals(id, persona.getId());
+		assertEquals(nombre, persona.getNombre());
+		assertEquals(apellido, persona.getApellido());
 	}
 
 	@Test
 	public void testPersona() {
-		fail("Not yet implemented");
+		Persona personaVacia = new Persona() {};
+		assertNotNull(personaVacia);
+		assertEquals(personaVacia.getId(), 0);
+		assertEquals(personaVacia.getNombre(), null);
+		assertEquals(personaVacia.getApellido(), null);
+		
 	}
 
 	@Test
 	public void testGetId() {
-		fail("Not yet implemented");
+		assertEquals(id, persona.getId());
 	}
-
+	
 	@Test
 	public void testSetId() {
-		fail("Not yet implemented");
+		int newId = 0;
+		persona.setId(newId);
+		
+		assertEquals(newId, persona.getId());
 	}
 
 	@Test
 	public void testGetNombre() {
-		fail("Not yet implemented");
+		assertEquals(nombre, persona.getNombre());
 	}
-
+	
 	@Test
 	public void testSetNombre() {
-		fail("Not yet implemented");
+		String newName = "New name";
+		persona.setNombre(newName);
+		
+		assertEquals(newName, persona.getNombre());
 	}
 
 	@Test
 	public void testGetApellido() {
-		fail("Not yet implemented");
+		assertEquals(apellido, persona.getApellido());
 	}
-
+	
 	@Test
 	public void testSetApellido() {
-		fail("Not yet implemented");
+		String newSurname = "New Surname";
+		persona.setApellido(newSurname);
+		
+		assertEquals(newSurname, persona.getApellido());
 	}
 
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		String toString = String.format("(%s)" + " %s %s", id, nombre, apellido);
+
+		assertEquals(toString, persona.toString());
 	}
 
 }

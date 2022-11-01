@@ -15,6 +15,7 @@ public abstract class Persona {
 	
 	public Persona() {
 		super();
+		this.id = 0;
 		this.nombre = null;
 		this.apellido = null;
 	}
