@@ -1,6 +1,6 @@
 package clothes.shop.clases;
 
-public abstract class Ropa {
+public class Ropa {
 	
 	private int id;
 	private String nombre;
