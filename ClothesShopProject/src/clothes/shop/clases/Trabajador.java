@@ -7,13 +7,13 @@ public class Trabajador extends Persona {
 	
 	public Trabajador(int id, String nombre, String apellido, int sueldo, Puesto puesto) {
 		super(id, nombre, apellido);
-		this.sueldo = sueldo;
+		setSueldo(sueldo);
 		this.puesto = puesto;
 	}
 	
 	public Trabajador() {
 		super();
-		this.sueldo = 1000;
+		setSueldo(1000);
 		this.puesto = Puesto.EMPLEADO;
 	}
 
@@ -22,7 +22,11 @@ public class Trabajador extends Persona {
 	}
 
 	public void setSueldo(int sueldo) {
-		this.sueldo = sueldo;
+		if (sueldo < 0) {
+			throw new IllegalArgumentException(); //No acepta sueldos negativos
+		} else {
+			this.sueldo = sueldo;
+		}
 	}
 
 	public Puesto getPuesto() {
@@ -33,11 +37,11 @@ public class Trabajador extends Persona {
 		this.puesto = puesto;
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("%s %s," +  " %s €," + " %s", 
+				String.valueOf(getNombre()), getApellido(), sueldo, puesto);
+	}
 	
 	
-	
-	
-	
-	
-
 }
