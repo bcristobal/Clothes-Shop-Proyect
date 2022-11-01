@@ -6,13 +6,15 @@ public abstract class Ropa {
 	private String nombre;
 	private Tipo tipo;
 	private float precio;
+	private Talla talla;
 	
-	public Ropa(int id, String nombre, Tipo tipo, float precio) {
+	public Ropa(int id, String nombre, Tipo tipo, float precio, Talla talla) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
 		setPrecio(precio);
+		this.talla = talla;
 	}
 	
 	public Ropa() {
@@ -20,6 +22,7 @@ public abstract class Ropa {
 		this.nombre = null;
 		this.tipo = null;
 		setPrecio(0);
+		this.talla = null;
 	}
 
 	public int getId() {
@@ -59,9 +62,17 @@ public abstract class Ropa {
 		}
 	}
 
+	public Talla getTalla() {
+		return talla;
+	}
+
+	public void setTalla(Talla talla) {
+		this.talla = talla;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("(%s)" +  " %s %s", id, nombre, precio);
+		return String.format("(%s)" +  " %s %s %s", id, nombre, precio, talla);
 	}
 	
 }
