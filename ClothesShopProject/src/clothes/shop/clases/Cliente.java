@@ -14,14 +14,14 @@ public class Cliente extends Persona {
 	public Cliente(int id, String nombre, String apellido, Boolean esSocio, int edad, List<Ropa> listaRopa) {
 		super(id, nombre, apellido);
 		this.esSocio = false;
-		this.edad = edad;
+		setEdad(edad);
 		this.listaRopa = listaRopa;
 	}
 
 	public Cliente() {
 		super();
 		this.esSocio = false;
-		this.edad = 0;
+		setEdad(18);
 		this.listaRopa = new ArrayList<Ropa>();
 	}
 
