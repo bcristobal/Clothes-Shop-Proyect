@@ -39,7 +39,7 @@ public class Cliente extends Persona {
 
 	public void setEdad(int edad) {
 		if (edad < 0){
-			System.err.println("ERROR: edad invalido");
+			System.err.println("ERROR: edad invalida");
 			throw new IllegalArgumentException(); //No acepta edades negativos
 		} else {
 			this.edad = edad;
