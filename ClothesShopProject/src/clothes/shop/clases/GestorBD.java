@@ -1,5 +1,7 @@
 package clothes.shop.clases;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -109,6 +111,15 @@ public class GestorBD {
 			System.err.println(String.format("* Error al borrar la BBDD: %s", ex.getMessage()));
 			ex.printStackTrace();			
 		}
+		try {
+			//Se borra el fichero de la BBDD
+			Files.delete(Paths.get(DATABASE_FILE));
+			System.out.println("- Se ha borrado el fichero de la BBDD");
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al borrar el archivo de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();						
+		}
+		
 	}
 	
 	
