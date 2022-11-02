@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.print.attribute.standard.PrinterInfo;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -87,7 +89,10 @@ public class ClienteTest {
 			int edadNueva = 30;
 			cliente.setEdad(edadNueva);
 			assertEquals(edadNueva, cliente.getEdad());
+		} else {
+			//System.err.println("ERROR: edad invalida");
 		}
+	
 	}
 
 	@Test
@@ -105,8 +110,8 @@ public class ClienteTest {
 	@Test
 	public void testCalculaPrecio() { //TODO
 		listaRopa.add(new Ropa(0, "Prueba", Tipo.camiseta, 10, Talla.XL));
-		cliente.setEsSocio(false);
-		assertEquals(cliente.calculaPrecio(), 10.0, 0);
+		cliente.setEsSocio(true);			
+		assertEquals(cliente.calculaPrecio(), 8.5, 0);
 	}
 
 }
