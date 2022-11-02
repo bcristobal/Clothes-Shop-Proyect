@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="ClienteTest (4)" project="ClothesShopProject" tests="41" started="41" failures="0" errors="0" ignored="0">
+  <testsuite name="clothes.shop.tests.PersonaTest" time="0.0">
+    <testcase name="testSetApellido" classname="clothes.shop.tests.PersonaTest" time="0.0"/>
+    <testcase name="testPersonaIntStringString" classname="clothes.shop.tests.PersonaTest" time="0.0"/>
+    <testcase name="testGetApellido" classname="clothes.shop.tests.PersonaTest" time="0.0"/>
+    <testcase name="testGetId" classname="clothes.shop.tests.PersonaTest" time="0.0"/>
+    <testcase name="testSetId" classname="clothes.shop.tests.PersonaTest" time="0.0"/>
+    <testcase name="testPersona" classname="clothes.shop.tests.PersonaTest" time="0.0"/>
+    <testcase name="testToString" classname="clothes.shop.tests.PersonaTest" time="0.0"/>
+    <testcase name="testSetNombre" classname="clothes.shop.tests.PersonaTest" time="0.0"/>
+    <testcase name="testGetNombre" classname="clothes.shop.tests.PersonaTest" time="0.0"/>
+  </testsuite>
+  <testsuite name="clothes.shop.tests.TrabajadorTest" time="0.0">
+    <testcase name="testGetContraseña" classname="clothes.shop.tests.TrabajadorTest" time="0.0"/>
+    <testcase name="testSetContraseña" classname="clothes.shop.tests.TrabajadorTest" time="0.0"/>
+    <testcase name="testToString" classname="clothes.shop.tests.TrabajadorTest" time="0.0"/>
+    <testcase name="testTrabajador" classname="clothes.shop.tests.TrabajadorTest" time="0.0"/>
+    <testcase name="testTrabajadorIntStringStringIntPuesto" classname="clothes.shop.tests.TrabajadorTest" time="0.0"/>
+    <testcase name="testSetPuesto" classname="clothes.shop.tests.TrabajadorTest" time="0.0"/>
+    <testcase name="testSetSueldo" classname="clothes.shop.tests.TrabajadorTest" time="0.0"/>
+    <testcase name="testGetPuesto" classname="clothes.shop.tests.TrabajadorTest" time="0.0"/>
+    <testcase name="testGetSueldo" classname="clothes.shop.tests.TrabajadorTest" time="0.0"/>
+  </testsuite>
+  <testsuite name="clothes.shop.tests.ClienteTest" time="0.004">
+    <testcase name="testGetEsSocio" classname="clothes.shop.tests.ClienteTest" time="0.003"/>
+    <testcase name="testToString" classname="clothes.shop.tests.ClienteTest" time="0.0"/>
+    <testcase name="testGetEdad" classname="clothes.shop.tests.ClienteTest" time="0.0"/>
+    <testcase name="testGetListaRopa" classname="clothes.shop.tests.ClienteTest" time="0.0"/>
+    <testcase name="testClienteIntStringStringBooleanIntListOfRopa" classname="clothes.shop.tests.ClienteTest" time="0.0"/>
+    <testcase name="testCalculaPrecio" classname="clothes.shop.tests.ClienteTest" time="0.0"/>
+    <testcase name="testCliente" classname="clothes.shop.tests.ClienteTest" time="0.0"/>
+    <testcase name="testSetEsSocio" classname="clothes.shop.tests.ClienteTest" time="0.0"/>
+    <testcase name="testSetListaRopa" classname="clothes.shop.tests.ClienteTest" time="0.0"/>
+    <testcase name="testSetEdad" classname="clothes.shop.tests.ClienteTest" time="0.0"/>
+  </testsuite>
+  <testsuite name="clothes.shop.tests.RopaTest" time="0.003">
+    <testcase name="testGetTalla" classname="clothes.shop.tests.RopaTest" time="0.001"/>
+    <testcase name="testRopaIntStringTipoFloatTalla" classname="clothes.shop.tests.RopaTest" time="0.0"/>
+    <testcase name="testGetId" classname="clothes.shop.tests.RopaTest" time="0.0"/>
+    <testcase name="testSetId" classname="clothes.shop.tests.RopaTest" time="0.0"/>
+    <testcase name="testRopa" classname="clothes.shop.tests.RopaTest" time="0.0"/>
+    <testcase name="testToString" classname="clothes.shop.tests.RopaTest" time="0.001"/>
+    <testcase name="testGetTipo" classname="clothes.shop.tests.RopaTest" time="0.0"/>
+    <testcase name="testSetNombre" classname="clothes.shop.tests.RopaTest" time="0.0"/>
+    <testcase name="testSetPrecio" classname="clothes.shop.tests.RopaTest" time="0.0"/>
+    <testcase name="testGetNombre" classname="clothes.shop.tests.RopaTest" time="0.0"/>
+    <testcase name="testGetPrecio" classname="clothes.shop.tests.RopaTest" time="0.0"/>
+    <testcase name="testSetTipo" classname="clothes.shop.tests.RopaTest" time="0.001"/>
+    <testcase name="testSetTalla" classname="clothes.shop.tests.RopaTest" time="0.0"/>
+  </testsuite>
+</testrun>

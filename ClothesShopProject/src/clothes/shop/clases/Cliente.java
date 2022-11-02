@@ -38,10 +38,10 @@ public class Cliente extends Persona {
 	}
 
 	public void setEdad(int edad) {
-		if (edad > 0){
-			this.edad = edad;
+		if (edad < 0){
+			throw new IllegalArgumentException("ERROR: edad invalida"); //No acepta precios negativos
 		} else {
-			System.err.println("ERROR: edad invalida");
+			this.edad = edad;
 		}
 		
 	}

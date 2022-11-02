@@ -84,8 +84,9 @@ public class ClienteTest {
 	}
 
 	@Test
-	public void testSetEdad() {
-		assertThrows(IllegalArgumentException.class, () -> {cliente.setEdad(-1);});
+	public void testSetEdad() { //TODO
+		assertThrows(IllegalArgumentException.class, () -> {ciente.setEdad(-1);});
+	
 	}
 
 	@Test
@@ -101,7 +102,7 @@ public class ClienteTest {
 	}
 
 	@Test
-	public void testCalculaPrecio() {
+	public void testCalculaPrecio() { //TODO
 		listaRopa.add(new Ropa(0, "Prueba", Tipo.camiseta, 10, Talla.XL));
 		cliente.setEsSocio(true);			
 		assertEquals(cliente.calculaPrecio(), 8.5, 0);
