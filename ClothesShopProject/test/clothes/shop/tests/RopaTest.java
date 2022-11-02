@@ -2,9 +2,11 @@ package clothes.shop.tests;
 
 import static org.junit.Assert.*;
 
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
 
 import clothes.shop.clases.Ropa;
 import clothes.shop.clases.Talla;
@@ -94,9 +96,7 @@ public class RopaTest {
 
 	@Test
 	public void testSetPrecio() {
-		float precioNuevo = 20;
-		ropa.setPrecio(precioNuevo);
-		assertEquals(ropa.getPrecio(), precioNuevo, 0);
+		assertThrows(IllegalArgumentException.class, () -> {ropa.setPrecio(1);});
 	}
 
 	@Test

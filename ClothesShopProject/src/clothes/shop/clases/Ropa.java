@@ -55,8 +55,7 @@ public class Ropa {
 
 	public void setPrecio(float precio) {
 		if (precio < 0) {
-			System.err.println("ERROR: precio invalido");
-			throw new IllegalArgumentException(); //No acepta precios negativos
+			throw new IllegalArgumentException("ERROR: precio invalido"); //No acepta precios negativos
 		} else {
 			this.precio = precio;
 		}
