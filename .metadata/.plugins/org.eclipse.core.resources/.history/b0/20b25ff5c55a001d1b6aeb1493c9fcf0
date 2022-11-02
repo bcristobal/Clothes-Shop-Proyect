@@ -85,7 +85,14 @@ public class ClienteTest {
 
 	@Test
 	public void testSetEdad() { //TODO
-		assertThrows(IllegalArgumentException.class, () -> {cliente.setEdad(-1);});
+		if (edad > 0) {
+			int edadNueva = 30;
+			cliente.setEdad(edadNueva);
+			assertEquals(edadNueva, cliente.getEdad());
+		} else {
+			//System.err.println("ERROR: edad invalida");
+		}
+	
 	}
 
 	@Test
