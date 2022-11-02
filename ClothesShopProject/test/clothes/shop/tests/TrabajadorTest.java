@@ -19,10 +19,11 @@ public class TrabajadorTest {
 	private String apellido = "Apellido";
 	private int sueldo = 1000;
 	private Puesto puesto = Puesto.EMPLEADO;
+	private String contraseña = "P@ssw0rd123!";
 
 	@Before
 	public void setUp() throws Exception {
-		trabajador = new Trabajador(id, nombre, apellido, sueldo, puesto);
+		trabajador = new Trabajador(id, nombre, apellido, sueldo, puesto, contraseña);
 		
 	}
 
@@ -45,6 +46,7 @@ public class TrabajadorTest {
 		assertEquals(trabajador.getApellido(), apellido);
 		assertEquals(trabajador.getSueldo(), sueldo);
 		assertEquals(trabajador.getPuesto(), puesto);
+		assertEquals(trabajador.getContraseña(), contraseña);
 	}
 
 	@Test
@@ -56,6 +58,7 @@ public class TrabajadorTest {
 		assertEquals(trabajadorVacio.getApellido(), null);
 		assertEquals(trabajadorVacio.getSueldo(), 1000);
 		assertEquals(trabajadorVacio.getPuesto(), Puesto.EMPLEADO);
+		assertEquals(trabajadorVacio.getContraseña(), null);
 	}
 
 	@Test
@@ -82,6 +85,18 @@ public class TrabajadorTest {
 		Puesto puestoNuevo = Puesto.JEFE;
 		trabajador.setPuesto(puestoNuevo);
 		assertEquals(trabajador.getPuesto(), puestoNuevo);
+	}
+	
+	@Test
+	public void testGetContraseña() {
+		assertEquals(trabajador.getContraseña(), contraseña);
+	}
+
+	@Test
+	public void testSetContraseña() {
+		String contraseñaNueva = "newP@ssw0rd123!";
+		trabajador.setContraseña(contraseñaNueva);
+		assertEquals(trabajador.getContraseña(), contraseñaNueva);
 	}
 
 }
