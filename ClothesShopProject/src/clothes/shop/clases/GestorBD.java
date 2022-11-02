@@ -299,7 +299,21 @@ public class GestorBD {
 //	}
 	
 	
-	// actualizar password
+	public void actualizarPassword(Trabajador trabajador, String newPassword) {
+		//Se abre la conexión y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			//Se ejecuta la sentencia de borrado de datos
+			String sql = "UPDATE TRABAJADOR SET PASSWORD = '%s' WHERE ID_TRABAJADOR = %d;";
+			
+			int result = stmt.executeUpdate(String.format(sql, newPassword, trabajador.getId()));
+			
+			System.out.println(String.format("- Se ha actulizado %d trabajadores", result));
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error actualizando datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();						
+		}		
+	}
 	
 	public void borrarDatosTrabajador() {
 		//Se abre la conexión y se obtiene el Statement

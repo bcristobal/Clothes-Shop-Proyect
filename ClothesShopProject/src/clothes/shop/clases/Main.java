@@ -16,8 +16,10 @@ public class Main {
 		bd.insertarDatosTrabajador(trabajador);
 		
 		bd.obtenerDatosClientes();
-//		bd.obtenerDatosRopa();
-//		bd.obtenerDatosTrabajador;
+//		bd.obtenerDatosRopa();     //TODO
+//		bd.obtenerDatosTrabajador; //TODO
+		
+		bd.actualizarPassword(trabajador, "aaa");
 		
 		bd.borrarDatosCliente();
 		bd.borrarDatosTrabajador();
