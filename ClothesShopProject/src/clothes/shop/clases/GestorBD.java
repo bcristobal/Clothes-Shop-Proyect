@@ -41,16 +41,16 @@ public class GestorBD {
                    + " NOMBRE_TRABAJADOR TEXT NOT NULL,\n"
                    + " APELLIDO_TRABAJADOR TEXT NOT NULL,\n"
                    + " SUELDO INTEGER NOT NULL, \n"
-                   + " PUESTO ENUM ('EMPLEADO', 'ENCARGADO', 'JEFE')  NOT NULL, \n"
+                   + " PUESTO TEXT  NOT NULL, \n"
                    + " PASSWORD TEXT NOT NULL" // El enum de Puesto lo he puesto como texto y no como enum
                    + ");";
 	       
 	       String sql3 = "CREATE TABLE IF NOT EXISTS ROPA (\n"
                    + " ID_ROPA INTEGER PRIMARY KEY AUTOINCREMENT,\n"
                    + " NOMBRE_ROPA TEXT NOT NULL,\n"
-                   + " TIPO ENUM ('camiseta', 'pantalon', 'sudadera', 'calcetines', 'zapatillas') NOT NULL,\n" // El enum esta puesto como texto
+                   + " TIPO TEXT NOT NULL,\n" // El enum esta puesto como texto
                    + " PRECIO INTEGER NOT NULL, \n" // El precio se guarda en centimos
-                   + " TALLA ENUM ('XS', 'S', 'M', 'M_L', 'L', 'L_XL', 'XL', 'XL_XXL', 'XXL') NOT NULL\n" // El enum esta puesto como texto
+                   + " TALLA TEXT NOT NULL\n" // El enum esta puesto como texto
                    + ");";
 	       
 	       String sql4 = "CREATE TABLE IF NOT EXISTS CLIENTE_ROPA (\n"
@@ -145,13 +145,13 @@ public class GestorBD {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			//Se define la plantilla de la sentencia SQL
-			String sql = "INSERT INTO CLIENTE (ID_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR, SUELDO, PUESTO) VALUES ('%s', '%s', '%s', '%s', '%s');";
+			String sql = "INSERT INTO TRABAJADOR (ID_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR, SUELDO, PUESTO, PASSWORD) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');";
 			
 			System.out.println("- Insertando trabajadores...");
 			
 			//Se recorren los clientes y se insertan uno a uno
 			for (Trabajador t : trabajador) {
-				if (1 == stmt.executeUpdate(String.format(sql, t.getId(), t.getNombre(), t.getApellido(), t.getSueldo(), t.getPuesto()))) {					
+				if (1 == stmt.executeUpdate(String.format(sql, t.getId(), t.getNombre(), t.getApellido(), t.getSueldo(), t.getPuesto(), t.getContraseña()))) {					
 					System.out.println(String.format(" - Trabajador insertado: %s", t.toString()));
 				} else {
 					System.out.println(String.format(" - No se ha insertado el trabajador: %s", t.toString()));
