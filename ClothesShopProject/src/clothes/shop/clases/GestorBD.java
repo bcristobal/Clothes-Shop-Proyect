@@ -45,7 +45,7 @@ public class GestorBD {
                    + " APELLIDO_TRABAJADOR TEXT NOT NULL,\n"
                    + " SUELDO INTEGER NOT NULL, \n"
                    + " PUESTO TEXT  NOT NULL, \n"
-                   + " PASSWORD TEXT NOT NULL" // El enum de Puesto lo he puesto como texto y no como enum
+                   + " PASSWORD TEXT NOT NULL" // El enum esta puesto como texto
                    + ");";
 	       
 	       String sql3 = "CREATE TABLE IF NOT EXISTS ROPA (\n"
@@ -210,6 +210,7 @@ public class GestorBD {
 				cliente.setApellido(rs.getString("APELLIDO_CLIENTE"));
 				cliente.setEsSocio(rs.getBoolean("ES_SOCIO"));
 				cliente.setEdad(rs.getInt("EDAD"));
+				cliente.setListaRopa(new ArrayList<Ropa>());
 				
 				//Se inserta cada nuevo cliente en la lista de clientes
 				clientes.add(cliente);
