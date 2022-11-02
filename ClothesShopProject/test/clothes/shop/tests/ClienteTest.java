@@ -101,7 +101,7 @@ public class ClienteTest {
 	}
 
 	@Test
-	public void testCalculaPrecio() { //TODO
+	public void testCalculaPrecio() {
 		listaRopa.add(new Ropa(0, "Prueba", Tipo.camiseta, 10, Talla.XL));
 		cliente.setEsSocio(true);			
 		assertEquals(cliente.calculaPrecio(), 8.5, 0);
