@@ -19,6 +19,10 @@ public class Main {
 //		bd.obtenerDatosRopa();
 //		bd.obtenerDatosTrabajador;
 		
+		bd.borrarDatosCliente();
+		bd.borrarDatosTrabajador();
+		bd.borrarDatosRopa();
+		
 		bd.borrarBBDD();
 
 	}

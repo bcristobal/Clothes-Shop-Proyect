@@ -299,4 +299,52 @@ public class GestorBD {
 //	}
 	
 	
+	// actualizar password
+	
+	public void borrarDatosTrabajador() {
+		//Se abre la conexión y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			//Se ejecuta la sentencia de borrado de datos
+			String sql = "DELETE FROM TRABAJADOR;";			
+			int result = stmt.executeUpdate(sql);
+			
+			System.out.println(String.format("- Se han borrado %d trabajadores", result));
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al borrar datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();						
+		}		
+	}
+	
+	public void borrarDatosCliente() {
+		//Se abre la conexión y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			//Se ejecuta la sentencia de borrado de datos
+			String sql = "DELETE FROM CLIENTE;";			
+			int result = stmt.executeUpdate(sql);
+			
+			System.out.println(String.format("- Se han borrado %d clientes", result));
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al borrar datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();						
+		}		
+	}
+	
+	public void borrarDatosRopa() {
+		//Se abre la conexión y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			//Se ejecuta la sentencia de borrado de datos
+			String sql = "DELETE FROM ROPA;";			
+			int result = stmt.executeUpdate(sql);
+			
+			System.out.println(String.format("- Se han borrado %d ropas", result));
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al borrar datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();						
+		}		
+	}
+	
+	
 }
