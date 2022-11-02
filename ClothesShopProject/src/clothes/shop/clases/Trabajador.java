@@ -25,10 +25,10 @@ public class Trabajador extends Persona {
 	}
 
 	public void setSueldo(int sueldo) {
-		if (sueldo > 0) {
-			this.sueldo = sueldo;
+		if (sueldo < 0) {
+			throw new IllegalArgumentException("ERROR: sueldo invalido");
 		} else {
-			System.err.println("ERROR: sueldo invalido");
+			this.sueldo = sueldo;
 		}
 	}
 
