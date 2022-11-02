@@ -41,15 +41,16 @@ public class GestorBD {
                    + " NOMBRE_TRABAJADOR TEXT NOT NULL,\n"
                    + " APELLIDO_TRABAJADOR TEXT NOT NULL,\n"
                    + " SUELDO INTEGER NOT NULL, \n"
-                   + " PUESTO TEXT NOT NULL\n" // El enum de Puesto lo he puesto como texto y no como enum
+                   + " PUESTO ENUM ('EMPLEADO', 'ENCARGADO', 'JEFE')  NOT NULL, \n"
+                   + " PASSWORD TEXT NOT NULL" // El enum de Puesto lo he puesto como texto y no como enum
                    + ");";
 	       
 	       String sql3 = "CREATE TABLE IF NOT EXISTS ROPA (\n"
                    + " ID_ROPA INTEGER PRIMARY KEY AUTOINCREMENT,\n"
                    + " NOMBRE_ROPA TEXT NOT NULL,\n"
-                   + " TIPO TEXT NOT NULL,\n" // El enum esta puesto como texto
+                   + " TIPO ENUM ('camiseta', 'pantalon', 'sudadera', 'calcetines', 'zapatillas') NOT NULL,\n" // El enum esta puesto como texto
                    + " PRECIO INTEGER NOT NULL, \n" // El precio se guarda en centimos
-                   + " TALLA TEXT NOT NULL\n" // El enum esta puesto como texto
+                   + " TALLA ENUM ('XS', 'S', 'M', 'M_L', 'L', 'L_XL', 'XL', 'XL_XXL', 'XXL') NOT NULL\n" // El enum esta puesto como texto
                    + ");";
 	       
 	       String sql4 = "CREATE TABLE IF NOT EXISTS CLIENTE_ROPA (\n"
@@ -59,14 +60,7 @@ public class GestorBD {
                    + " FOREIGN KEY(ID_CLIENTE_F) REFERENCES CLIENTE(ID_CLIENTE), \n"
                    + " FOREIGN KEY(ID_ROPA_F) REFERENCES ROPA(ID_ROPA) \n"
                    + ");";
-
-	        	        
-	       /*
-	        * 
-	        * FALTA LA TABLA DE CLIENTE_ROPA
-	        * 
-	        */
-	       
+           
 	        if (!stmt.execute(sql1)) {
 	        	System.out.println("- Se ha creado la tabla Cliente");
 	        }
@@ -123,7 +117,74 @@ public class GestorBD {
 		
 	}
 	
+	public void insertarDatos(Cliente... clientes ) {
+		//Se abre la conexión y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			//Se define la plantilla de la sentencia SQL
+			String sql = "INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, ES_SOCIO, EDAD) VALUES ('%s', '%s', '%s', '%s', '%s');";
+			
+			System.out.println("- Insertando clientes...");
+			
+			//Se recorren los clientes y se insertan uno a uno
+			for (Cliente c : clientes) {
+				if (1 == stmt.executeUpdate(String.format(sql, c.getId(), c.getNombre(), c.getApellido(), c.getEsSocio(), c.getEdad()))) {					
+					System.out.println(String.format(" - Cliente insertado: %s", c.toString()));
+				} else {
+					System.out.println(String.format(" - No se ha insertado el cliente: %s", c.toString()));
+				}
+			}			
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al insertar datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();						
+		}				
+	}
 	
+	public void insertarDatos(Trabajador... trabajador ) {
+		//Se abre la conexión y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			//Se define la plantilla de la sentencia SQL
+			String sql = "INSERT INTO CLIENTE (ID_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR, SUELDO, PUESTO) VALUES ('%s', '%s', '%s', '%s', '%s');";
+			
+			System.out.println("- Insertando trabajadores...");
+			
+			//Se recorren los clientes y se insertan uno a uno
+			for (Trabajador t : trabajador) {
+				if (1 == stmt.executeUpdate(String.format(sql, t.getId(), t.getNombre(), t.getApellido(), t.getSueldo(), t.getPuesto()))) {					
+					System.out.println(String.format(" - Trabajador insertado: %s", t.toString()));
+				} else {
+					System.out.println(String.format(" - No se ha insertado el trabajador: %s", t.toString()));
+				}
+			}			
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al insertar datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();						
+		}				
+	}
+	
+	public void insertarDatos(Ropa... ropa ) {
+		//Se abre la conexión y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			//Se define la plantilla de la sentencia SQL
+			String sql = "INSERT INTO ROPA (ID_ROPA, NOMBRE_ROPA, TIPO, PRECIO, TALLA) VALUES ('%s', '%s', '%s', '%s', '%s');";
+			
+			System.out.println("- Insertando trabajadores...");
+			
+			//Se recorren los clientes y se insertan uno a uno
+			for (Ropa r : ropa) {
+				if (1 == stmt.executeUpdate(String.format(sql, r.getId(), r.getNombre(), r.getTipo(), r.getPrecio(), r.getTalla()))) {					
+					System.out.println(String.format(" - Ropa insertado: %s", r.toString()));
+				} else {
+					System.out.println(String.format(" - No se ha insertado el Ropa: %s", r.toString()));
+				}
+			}			
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al insertar datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();						
+		}				
+	}
 	
 	
 	
