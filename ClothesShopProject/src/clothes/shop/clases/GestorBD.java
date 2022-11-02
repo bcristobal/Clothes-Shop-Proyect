@@ -53,10 +53,11 @@ public class GestorBD {
                    + ");";
 	       
 	       String sql4 = "CREATE TABLE IF NOT EXISTS CLIENTE_ROPA (\n"
-                   + " ID_CLIENTE_F INTEGER PRIMARY KEY NOT NULL ,\n"
-                   + " ID_ROPA_F INTEGER PRIMARY KEY NOT NULL, "
+                   + " ID_CLIENTE_F INTEGER NOT NULL ,\n"
+                   + " ID_ROPA_F INTEGER NOT NULL, \n"
+                   + " PRIMARY KEY (ID_CLIENTE_F, ID_ROPA_F), \n"
                    + " FOREIGN KEY(ID_CLIENTE_F) REFERENCES CLIENTE(ID_CLIENTE), \n"
-                   + " FOREIGN KEY(ID_ROPA_F) REFERENCES ROPA(ID_ROPA) \\n"
+                   + " FOREIGN KEY(ID_ROPA_F) REFERENCES ROPA(ID_ROPA) \n"
                    + ");";
 
 	        	        
@@ -76,7 +77,7 @@ public class GestorBD {
 	        	System.out.println("- Se ha creado la tabla Ropa");
 	        }
 	        if (!stmt.execute(sql4)) {
-	        	System.out.println("- Se ha creado la tabla Ropa");
+	        	System.out.println("- Se ha creado la tabla Cliente_Ropa");
 	        }
 		} catch (Exception ex) {
 			System.err.println(String.format("* Error al crear la BBDD: %s", ex.getMessage()));
