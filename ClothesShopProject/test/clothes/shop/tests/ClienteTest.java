@@ -84,7 +84,7 @@ public class ClienteTest {
 	}
 
 	@Test
-	public void testSetEdad() { //TODO
+	public void testSetEdad() {
 		assertThrows(IllegalArgumentException.class, () -> {cliente.setEdad(-1);});
 	}
 
