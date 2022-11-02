@@ -96,7 +96,7 @@ public class RopaTest {
 
 	@Test
 	public void testSetPrecio() {
-		assertThrows(IllegalArgumentException.class, () -> {ropa.setPrecio(1);});
+		assertThrows(IllegalArgumentException.class, () -> {ropa.setPrecio(-1);});
 	}
 
 	@Test
