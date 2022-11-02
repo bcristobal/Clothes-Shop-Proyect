@@ -4,7 +4,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GestorBD {
 	
@@ -117,7 +120,7 @@ public class GestorBD {
 		
 	}
 	
-	public void insertarDatos(Cliente... clientes ) {
+	public void insertarDatosCliente(Cliente... clientes ) {
 		//Se abre la conexión y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
@@ -140,7 +143,7 @@ public class GestorBD {
 		}				
 	}
 	
-	public void insertarDatos(Trabajador... trabajador ) {
+	public void insertarDatosTrabajador(Trabajador... trabajador ) {
 		//Se abre la conexión y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
@@ -163,7 +166,7 @@ public class GestorBD {
 		}				
 	}
 	
-	public void insertarDatos(Ropa... ropa ) {
+	public void insertarDatosRopa(Ropa... ropa ) {
 		//Se abre la conexión y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
@@ -186,8 +189,114 @@ public class GestorBD {
 		}				
 	}
 	
+	public void obtenerDatosClientes() {
+		List<Cliente> clientes = new ArrayList<>();
+		
+		//Se abre la conexión y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			String sql = "SELECT * FROM CLIENTE WHERE ID_CLIENTE >= 0";
+			
+			//Se ejecuta la sentencia y se obtiene el ResultSet con los resutlados
+			ResultSet rs = stmt.executeQuery(sql);			
+			Cliente cliente;
+			
+			//Se recorre el ResultSet y se crean objetos Cliente
+			while (rs.next()) {
+				cliente = new Cliente();
+				
+				cliente.setId(rs.getInt("ID_CLIENTE"));
+				cliente.setNombre(rs.getString("NOMBRE_CLIENTE"));
+				cliente.setApellido(rs.getString("APELLIDO_CLIENTE"));
+				cliente.setEsSocio(rs.getBoolean("ES_SOCIO"));
+				cliente.setEdad(rs.getInt("EDAD"));
+				
+				//Se inserta cada nuevo cliente en la lista de clientes
+				clientes.add(cliente);
+			}
+			
+			//Se cierra el ResultSet
+			rs.close();
+			
+			System.out.println(String.format("- Se han recuperado %d clientes...", clientes.size()));			
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();						
+		}		
+	}
 	
+//	public void obtenerDatosTrabajador() {
+//		List<Cliente> trabajadores = new ArrayList<>();
+//		
+//		//Se abre la conexión y se obtiene el Statement
+//		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+//		     Statement stmt = con.createStatement()) {
+//			String sql = "SELECT * FROM TRABAJADOR WHERE ID_TRABAJADOR >= 0";
+//			
+//			//Se ejecuta la sentencia y se obtiene el ResultSet con los resutlados
+//			ResultSet rs = stmt.executeQuery(sql);			
+//			Trabajador trabajador;
+//			
+//			//Se recorre el ResultSet y se crean objetos Cliente
+//			while (rs.next()) {
+//				trabajador = new Trabajador();
+//				
+//				trabajador.setId(rs.getInt("ID_TRABAJADOR"));
+//				trabajador.setNombre(rs.getString("NOMBRE_TRABAJADOR"));
+//				trabajador.setApellido(rs.getString("APELLIDO_TRABAJADOR"));
+//				trabajador.setSueldo(rs.getInt("SUELDO"));
+//				trabajador.setPuesto(rs.getEnum("PUESTO")); //TODO pasar el enum a string
+//				trabajador.setContraseña(rs.getString("PASSWORD"));
+//				
+//				//Se inserta cada nuevo cliente en la lista de clientes
+//				trabajadores.add(trabajador);
+//			}
+//			
+//			//Se cierra el ResultSet
+//			rs.close();
+//			
+//			System.out.println(String.format("- Se han recuperado %d trabajadores...", trabajadores.size()));			
+//		} catch (Exception ex) {
+//			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
+//			ex.printStackTrace();						
+//		}		
+//	}
 	
+//	public void obtenerDatosRopa() {
+//		List<Cliente> ropas = new ArrayList<>();
+//		
+//		//Se abre la conexión y se obtiene el Statement
+//		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+//		     Statement stmt = con.createStatement()) {
+//			String sql = "SELECT * FROM ROPA WHERE ID_ROPA >= 0";
+//			
+//			//Se ejecuta la sentencia y se obtiene el ResultSet con los resutlados
+//			ResultSet rs = stmt.executeQuery(sql);			
+//			Ropa ropa;
+//			
+//			//Se recorre el ResultSet y se crean objetos Cliente
+//			while (rs.next()) {
+//				ropa = new Ropa();
+//				
+//				ropa.setId(rs.getInt("ID_ROPA"));
+//				ropa.setNombre(rs.getString("NOMBRE_ROPA"));
+//				ropa.setTipo(rs.getEnum("TIPO")); //TODO pasar el enum a string
+//				ropa.setPrecio(rs.getFloat("PRECIO"));
+//				ropa.setTalla(rs.getEnum("TALLA")); //TODO pasar el enum a string
+//				
+//				//Se inserta cada nuevo cliente en la lista de clientes
+//				ropas.add(ropa);
+//			}
+//			
+//			//Se cierra el ResultSet
+//			rs.close();
+//			
+//			System.out.println(String.format("- Se han recuperado %d ropas...", ropas.size()));			
+//		} catch (Exception ex) {
+//			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
+//			ex.printStackTrace();						
+//		}		
+//	}
 	
 	
 }

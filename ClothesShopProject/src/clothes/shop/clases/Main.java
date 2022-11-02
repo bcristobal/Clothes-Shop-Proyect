@@ -7,13 +7,17 @@ public class Main {
 		bd.crearBBDD();
 		
 //		Cliente cliente = new Cliente(); //TODO - ERROR
-//		bd.insertarDatos(cliente);
+//		bd.insertarDatosCliente(cliente);
 
 		Ropa ropa = new Ropa();
-		bd.insertarDatos(ropa);
+		bd.insertarDatosRopa(ropa);
 		
 		Trabajador trabajador = new Trabajador();
-		bd.insertarDatos(trabajador);
+		bd.insertarDatosTrabajador(trabajador);
+		
+		bd.obtenerDatosClientes();
+//		bd.obtenerDatosRopa();
+//		bd.obtenerDatosTrabajador;
 		
 		bd.borrarBBDD();
 
