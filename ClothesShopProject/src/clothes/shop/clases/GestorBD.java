@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class GestorBD {
 	
 	protected static final String DRIVER_NAME = "org.sqlite.JDBC";
-	protected static final String DATABASE_FILE = "db/database.db";
+	protected static final String DATABASE_FILE = "data/database.db";
 	protected static final String CONNECTION_STRING = "jdbc:sqlite:" + DATABASE_FILE;
 
 	public GestorBD() {		
