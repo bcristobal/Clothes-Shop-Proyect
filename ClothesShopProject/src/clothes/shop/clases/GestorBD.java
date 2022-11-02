@@ -52,7 +52,7 @@ public class GestorBD {
                    + " ID_ROPA INTEGER PRIMARY KEY AUTOINCREMENT,\n"
                    + " NOMBRE_ROPA TEXT NOT NULL,\n"
                    + " TIPO TEXT NOT NULL,\n" // El enum esta puesto como texto
-                   + " PRECIO INTEGER NOT NULL, \n" // El precio se guarda en centimos
+                   + " PRECIO REAL NOT NULL, \n" // El precio se guarda en centimos
                    + " TALLA TEXT NOT NULL\n" // El enum esta puesto como texto
                    + ");";
 	       
@@ -125,7 +125,7 @@ public class GestorBD {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			//Se define la plantilla de la sentencia SQL
-			String sql = "INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, ES_SOCIO, EDAD) VALUES ('%s', '%s', '%s', '%s', '%s');";
+			String sql = "INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, ES_SOCIO, EDAD) VALUES (%d, '%s', '%s', %b, %d);";
 			
 			System.out.println("- Insertando clientes...");
 			
@@ -148,7 +148,7 @@ public class GestorBD {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			//Se define la plantilla de la sentencia SQL
-			String sql = "INSERT INTO TRABAJADOR (ID_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR, SUELDO, PUESTO, PASSWORD) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');";
+			String sql = "INSERT INTO TRABAJADOR (ID_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR, SUELDO, PUESTO, PASSWORD) VALUES (%d, '%s', '%s', %d, '%s', '%s');";
 			
 			System.out.println("- Insertando trabajadores...");
 			
@@ -171,7 +171,7 @@ public class GestorBD {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			//Se define la plantilla de la sentencia SQL
-			String sql = "INSERT INTO ROPA (ID_ROPA, NOMBRE_ROPA, TIPO, PRECIO, TALLA) VALUES ('%s', '%s', '%s', '%s', '%s');";
+			String sql = "INSERT INTO ROPA (ID_ROPA, NOMBRE_ROPA, TIPO, PRECIO, TALLA) VALUES (%d, '%s', '%s', %s, '%s');";
 			
 			System.out.println("- Insertando trabajadores...");
 			
@@ -225,78 +225,78 @@ public class GestorBD {
 		}		
 	}
 	
-//	public void obtenerDatosTrabajador() {
-//		List<Cliente> trabajadores = new ArrayList<>();
-//		
-//		//Se abre la conexión y se obtiene el Statement
-//		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
-//		     Statement stmt = con.createStatement()) {
-//			String sql = "SELECT * FROM TRABAJADOR WHERE ID_TRABAJADOR >= 0";
-//			
-//			//Se ejecuta la sentencia y se obtiene el ResultSet con los resutlados
-//			ResultSet rs = stmt.executeQuery(sql);			
-//			Trabajador trabajador;
-//			
-//			//Se recorre el ResultSet y se crean objetos Cliente
-//			while (rs.next()) {
-//				trabajador = new Trabajador();
-//				
-//				trabajador.setId(rs.getInt("ID_TRABAJADOR"));
-//				trabajador.setNombre(rs.getString("NOMBRE_TRABAJADOR"));
-//				trabajador.setApellido(rs.getString("APELLIDO_TRABAJADOR"));
-//				trabajador.setSueldo(rs.getInt("SUELDO"));
-//				trabajador.setPuesto(rs.getEnum("PUESTO")); //TODO pasar el enum a string
-//				trabajador.setContraseña(rs.getString("PASSWORD"));
-//				
-//				//Se inserta cada nuevo cliente en la lista de clientes
-//				trabajadores.add(trabajador);
-//			}
-//			
-//			//Se cierra el ResultSet
-//			rs.close();
-//			
-//			System.out.println(String.format("- Se han recuperado %d trabajadores...", trabajadores.size()));			
-//		} catch (Exception ex) {
-//			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
-//			ex.printStackTrace();						
-//		}		
-//	}
+	public void obtenerDatosTrabajador() {
+		List<Trabajador> trabajadores = new ArrayList<>();
+		
+		//Se abre la conexión y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			String sql = "SELECT * FROM TRABAJADOR WHERE ID_TRABAJADOR >= 0";
+			
+			//Se ejecuta la sentencia y se obtiene el ResultSet con los resutlados
+			ResultSet rs = stmt.executeQuery(sql);			
+			Trabajador trabajador;
+			
+			//Se recorre el ResultSet y se crean objetos Cliente
+			while (rs.next()) {
+				trabajador = new Trabajador();
+				
+				trabajador.setId(rs.getInt("ID_TRABAJADOR"));
+				trabajador.setNombre(rs.getString("NOMBRE_TRABAJADOR"));
+				trabajador.setApellido(rs.getString("APELLIDO_TRABAJADOR"));
+				trabajador.setSueldo(rs.getInt("SUELDO"));
+				trabajador.setPuesto(Puesto.valueOf(rs.getString("PUESTO")));
+				trabajador.setContraseña(rs.getString("PASSWORD"));
+				
+				//Se inserta cada nuevo cliente en la lista de clientes
+				trabajadores.add(trabajador);
+			}
+			
+			//Se cierra el ResultSet
+			rs.close();
+			
+			System.out.println(String.format("- Se han recuperado %d trabajadores...", trabajadores.size()));			
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();						
+		}		
+	}
 	
-//	public void obtenerDatosRopa() {
-//		List<Cliente> ropas = new ArrayList<>();
-//		
-//		//Se abre la conexión y se obtiene el Statement
-//		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
-//		     Statement stmt = con.createStatement()) {
-//			String sql = "SELECT * FROM ROPA WHERE ID_ROPA >= 0";
-//			
-//			//Se ejecuta la sentencia y se obtiene el ResultSet con los resutlados
-//			ResultSet rs = stmt.executeQuery(sql);			
-//			Ropa ropa;
-//			
-//			//Se recorre el ResultSet y se crean objetos Cliente
-//			while (rs.next()) {
-//				ropa = new Ropa();
-//				
-//				ropa.setId(rs.getInt("ID_ROPA"));
-//				ropa.setNombre(rs.getString("NOMBRE_ROPA"));
-//				ropa.setTipo(rs.getEnum("TIPO")); //TODO pasar el enum a string
-//				ropa.setPrecio(rs.getFloat("PRECIO"));
-//				ropa.setTalla(rs.getEnum("TALLA")); //TODO pasar el enum a string
-//				
-//				//Se inserta cada nuevo cliente en la lista de clientes
-//				ropas.add(ropa);
-//			}
-//			
-//			//Se cierra el ResultSet
-//			rs.close();
-//			
-//			System.out.println(String.format("- Se han recuperado %d ropas...", ropas.size()));			
-//		} catch (Exception ex) {
-//			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
-//			ex.printStackTrace();						
-//		}		
-//	}
+	public void obtenerDatosRopa() {
+		List<Ropa> ropas = new ArrayList<>();
+		
+		//Se abre la conexión y se obtiene el Statement
+		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+		     Statement stmt = con.createStatement()) {
+			String sql = "SELECT * FROM ROPA WHERE ID_ROPA >= 0";
+			
+			//Se ejecuta la sentencia y se obtiene el ResultSet con los resutlados
+			ResultSet rs = stmt.executeQuery(sql);			
+			Ropa ropa;
+			
+			//Se recorre el ResultSet y se crean objetos Cliente
+			while (rs.next()) {
+				ropa = new Ropa();
+				
+				ropa.setId(rs.getInt("ID_ROPA"));
+				ropa.setNombre(rs.getString("NOMBRE_ROPA"));
+				ropa.setTipo(Tipo.valueOf(rs.getString("TIPO")));
+				ropa.setPrecio(rs.getFloat("PRECIO"));
+				ropa.setTalla(Talla.valueOf(rs.getString("TALLA")));
+				
+				//Se inserta cada nuevo cliente en la lista de clientes
+				ropas.add(ropa);
+			}
+			
+			//Se cierra el ResultSet
+			rs.close();
+			
+			System.out.println(String.format("- Se han recuperado %d ropas...", ropas.size()));			
+		} catch (Exception ex) {
+			System.err.println(String.format("* Error al obtener datos de la BBDD: %s", ex.getMessage()));
+			ex.printStackTrace();						
+		}		
+	}
 	
 	
 	public void actualizarPassword(Trabajador trabajador, String newPassword) {
