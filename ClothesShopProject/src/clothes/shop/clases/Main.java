@@ -1,12 +1,14 @@
 package clothes.shop.clases;
 
+import java.util.ArrayList;
+
 public class Main {
 
 	public static void main(String[] args) {
 		GestorBD bd = new GestorBD();
 		bd.crearBBDD();
 		
-		Cliente cliente = new Cliente();
+		Cliente cliente = new Cliente(1, "Paco", "Chocholatero", false, 30, new ArrayList<Ropa>());
 		bd.insertarDatosCliente(cliente);
 
 		Ropa ropa = new Ropa(1, "god g", Tipo.calcetines, 3.5f, Talla.L);
