@@ -5,8 +5,6 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.print.attribute.standard.PrinterInfo;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
