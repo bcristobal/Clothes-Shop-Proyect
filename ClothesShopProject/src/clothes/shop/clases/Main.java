@@ -11,7 +11,7 @@ public class Main {
 		Cliente cliente = new Cliente(1, "Paco", "Chocholatero", false, 30, new ArrayList<Ropa>());
 		bd.insertarDatosCliente(cliente);
 
-		Ropa ropa = new Ropa(1, "god g", Tipo.calcetines, 3.5f, Talla.L);
+		Ropa ropa = new Ropa(1, "god g", Tipo.calcetines, 3500, Talla.L, null);
 		bd.insertarDatosRopa(ropa);
 		
 		Trabajador trabajador = new Trabajador(1, "Pepe", "Palotes", 1000, Puesto.EMPLEADO, "contraseña");

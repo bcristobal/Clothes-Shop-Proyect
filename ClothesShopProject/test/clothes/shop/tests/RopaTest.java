@@ -1,6 +1,8 @@
 package clothes.shop.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,12 +18,13 @@ public class RopaTest {
 	private int id = 0;
 	private String nombre = "nombre";
 	private Tipo tipo = Tipo.camiseta;
-	private float precio = 10;
+	private int precio = 1095;
 	private Talla talla = Talla.L;
+	private String fotoUrl = "fotoUrl";
 
 	@Before
 	public void setUp() throws Exception {
-		ropa = new Ropa(id, nombre, tipo, precio, talla);
+		ropa = new Ropa(id, nombre, tipo, precio, talla, fotoUrl);
 	}
 
 	@After
@@ -35,7 +38,7 @@ public class RopaTest {
 		assertEquals(ropa.getId(), id);
 		assertEquals(ropa.getNombre(), nombre);
 		assertEquals(ropa.getTipo(), tipo);
-		assertEquals(ropa.getPrecio(), precio, 0);
+		assertEquals(ropa.getPrecio(), precio);
 		assertEquals(ropa.getTalla(), talla);
 		
 	}
@@ -47,7 +50,7 @@ public class RopaTest {
 		assertEquals(ropaVacio.getId(), 0);
 		assertEquals(ropaVacio.getNombre(), null);
 		assertEquals(ropaVacio.getTipo(), null);
-		assertEquals(ropaVacio.getPrecio(), 0, 0);
+		assertEquals(ropaVacio.getPrecio(), 0);
 		assertEquals(ropaVacio.getTalla(), null);
 	}
 
@@ -89,7 +92,7 @@ public class RopaTest {
 
 	@Test
 	public void testGetPrecio() {
-		assertEquals(ropa.getPrecio(), precio, 0);
+		assertEquals(ropa.getPrecio(), precio);
 	}
 
 	@Test
@@ -107,6 +110,18 @@ public class RopaTest {
 		Talla tallaNueva = Talla.XL;
 		ropa.setTalla(tallaNueva);
 		assertEquals(ropa.getTalla(), tallaNueva);
+	}
+	
+	@Test
+	public void testGetFotoUrl() {
+		assertEquals(ropa.getFotoUrl(), fotoUrl);
+	}
+
+	@Test
+	public void testSetFotoUrl() {
+		String nuevaFotoUrl = "nuevaFotoUrl";
+		ropa.setFotoUrl(nuevaFotoUrl);
+		assertEquals(ropa.getFotoUrl(), nuevaFotoUrl);
 	}
 
 	@Test

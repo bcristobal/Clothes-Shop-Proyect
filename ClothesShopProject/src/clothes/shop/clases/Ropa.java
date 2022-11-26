@@ -5,16 +5,18 @@ public class Ropa {
 	private int id;
 	private String nombre;
 	private Tipo tipo;
-	private float precio;
+	private int precio; // Esta en centimos
 	private Talla talla;
+	private String fotoUrl;
 	
-	public Ropa(int id, String nombre, Tipo tipo, float precio, Talla talla) {
+	public Ropa(int id, String nombre, Tipo tipo, int precio, Talla talla, String fotoUrl) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
 		setPrecio(precio);
 		this.talla = talla;
+		this.fotoUrl = fotoUrl;
 	}
 	
 	public Ropa() {
@@ -23,6 +25,7 @@ public class Ropa {
 		this.tipo = null;
 		setPrecio(0);
 		this.talla = null;
+		this.fotoUrl = null;
 	}
 
 	public int getId() {
@@ -49,11 +52,11 @@ public class Ropa {
 		this.tipo = tipo;
 	}
 
-	public float getPrecio() {
+	public int getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(float precio) {
+	public void setPrecio(int precio) {
 		if (precio < 0) {
 			throw new IllegalArgumentException("ERROR: precio invalido"); //No acepta precios negativos
 		} else {
@@ -67,6 +70,14 @@ public class Ropa {
 
 	public void setTalla(Talla talla) {
 		this.talla = talla;
+	}
+	
+	public String getFotoUrl() {
+		return fotoUrl;
+	}
+	
+	public void setFotoUrl(String fotoUrl) {
+		this.fotoUrl = fotoUrl;
 	}
 
 	@Override

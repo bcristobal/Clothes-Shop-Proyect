@@ -45,15 +45,16 @@ public class GestorBD {
                    + " APELLIDO_TRABAJADOR TEXT NOT NULL,\n"
                    + " SUELDO INTEGER NOT NULL, \n"
                    + " PUESTO TEXT  NOT NULL, \n"
-                   + " PASSWORD TEXT NOT NULL" // El enum esta puesto como texto
+                   + " PASSWORD TEXT NOT NULL" // El enum de Puesto lo he puesto como texto y no como enum
                    + ");";
 	       
 	       String sql3 = "CREATE TABLE IF NOT EXISTS ROPA (\n"
                    + " ID_ROPA INTEGER PRIMARY KEY AUTOINCREMENT,\n"
                    + " NOMBRE_ROPA TEXT NOT NULL,\n"
                    + " TIPO TEXT NOT NULL,\n" // El enum esta puesto como texto
-                   + " PRECIO REAL NOT NULL, \n" // El precio se guarda en centimos
-                   + " TALLA TEXT NOT NULL\n" // El enum esta puesto como texto
+                   + " PRECIO INTEGER NOT NULL, \n" // El precio se guarda en centimos
+                   + " TALLA TEXT NOT NULL,\n"
+                   + " FOTO_URL TEXT NOT NULL" // El enum esta puesto como texto
                    + ");";
 	       
 	       String sql4 = "CREATE TABLE IF NOT EXISTS CLIENTE_ROPA (\n"
@@ -171,13 +172,13 @@ public class GestorBD {
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
 		     Statement stmt = con.createStatement()) {
 			//Se define la plantilla de la sentencia SQL
-			String sql = "INSERT INTO ROPA (ID_ROPA, NOMBRE_ROPA, TIPO, PRECIO, TALLA) VALUES (%d, '%s', '%s', %s, '%s');";
+			String sql = "INSERT INTO ROPA (ID_ROPA, NOMBRE_ROPA, TIPO, PRECIO, TALLA, FOTO_URL) VALUES (%d, '%s', '%s', %d, '%s', '%s');";
 			
 			System.out.println("- Insertando trabajadores...");
 			
 			//Se recorren los clientes y se insertan uno a uno
 			for (Ropa r : ropa) {
-				if (1 == stmt.executeUpdate(String.format(sql, r.getId(), r.getNombre(), r.getTipo(), r.getPrecio(), r.getTalla()))) {					
+				if (1 == stmt.executeUpdate(String.format(sql, r.getId(), r.getNombre(), r.getTipo(), r.getPrecio(), r.getTalla(), r.getFotoUrl()))) {					
 					System.out.println(String.format(" - Ropa insertado: %s", r.toString()));
 				} else {
 					System.out.println(String.format(" - No se ha insertado el Ropa: %s", r.toString()));
@@ -210,7 +211,6 @@ public class GestorBD {
 				cliente.setApellido(rs.getString("APELLIDO_CLIENTE"));
 				cliente.setEsSocio(rs.getBoolean("ES_SOCIO"));
 				cliente.setEdad(rs.getInt("EDAD"));
-				cliente.setListaRopa(new ArrayList<Ropa>());
 				
 				//Se inserta cada nuevo cliente en la lista de clientes
 				clientes.add(cliente);
@@ -282,8 +282,9 @@ public class GestorBD {
 				ropa.setId(rs.getInt("ID_ROPA"));
 				ropa.setNombre(rs.getString("NOMBRE_ROPA"));
 				ropa.setTipo(Tipo.valueOf(rs.getString("TIPO")));
-				ropa.setPrecio(rs.getFloat("PRECIO"));
+				ropa.setPrecio(rs.getInt("PRECIO"));
 				ropa.setTalla(Talla.valueOf(rs.getString("TALLA")));
+				ropa.setFotoUrl(rs.getString("FOTO_URL"));
 				
 				//Se inserta cada nuevo cliente en la lista de clientes
 				ropas.add(ropa);

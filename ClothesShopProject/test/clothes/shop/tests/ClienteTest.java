@@ -1,6 +1,8 @@
 package clothes.shop.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +102,7 @@ public class ClienteTest {
 
 	@Test
 	public void testCalculaPrecio() {
-		listaRopa.add(new Ropa(0, "Prueba", Tipo.camiseta, 10, Talla.XL));
+		listaRopa.add(new Ropa(0, "Prueba", Tipo.camiseta, 10, Talla.XL, null));
 		cliente.setEsSocio(true);			
 		assertEquals(cliente.calculaPrecio(), 8.5, 0);
 	}
