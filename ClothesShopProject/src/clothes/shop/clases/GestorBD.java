@@ -360,7 +360,6 @@ public class GestorBD {
 			System.err.println(String.format("* Error al borrar datos de la BBDD: %s", ex.getMessage()));
 			ex.printStackTrace();						
 		}		
-	}
-	
+	}	
 	
 }
