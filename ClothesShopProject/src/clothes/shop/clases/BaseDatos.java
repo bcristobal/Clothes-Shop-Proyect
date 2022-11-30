@@ -28,7 +28,7 @@ public class BaseDatos {
 			logger.log( Level.INFO, "Carga de librería org.sqlite.JDBC" );
 			Class.forName("org.sqlite.JDBC");  // Carga la clase de BD para sqlite
 			logger.log( Level.INFO, "Abriendo conexión con " + nombreBD );
-			conexion = DriverManager.getConnection("jdbc:sqlite:" + nombreBD );
+			conexion = DriverManager.getConnection("jdbc:sqlite:data/" + nombreBD );
 			if (reiniciaBD){
 				Statement statement = conexion.createStatement();
 				// CLIENTE
