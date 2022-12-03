@@ -1,5 +1,6 @@
 package clothes.shop.clases;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -85,9 +87,20 @@ public class BaseDatos {
 		                   + ");";
 				logger.log( Level.INFO, "Statement: " + sent );
 				statement.executeUpdate( sent );
-				//
+				//TODO hacer los init.txt
 				try {
-					//TODO falta crear la ropa-init.txt
+					InputStream res = Main.class.getResourceAsStream("/clientes-inic.txt");
+					Scanner scanner = new Scanner( res );
+					scanner.nextLine(); //Saltar la cabecera
+					while (scanner.hasNextLine()) {
+						String linea = scanner.nextLine();
+						String[] datos = linea.split( "," );
+						sent = "INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, ES_SOCIO, EDAD) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "'," + datos[3] + "," + datos[4] + ");";
+						logger.log( Level.INFO, "Statement: " + sent );
+						statement.executeUpdate( sent );
+					}
+					scanner.close();
+				//
 				} catch (Exception e) {
 					logger.log( Level.SEVERE, "Excepción", e );
 				}

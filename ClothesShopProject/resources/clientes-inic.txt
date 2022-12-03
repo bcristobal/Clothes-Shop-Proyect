@@ -1,0 +1,11 @@
+ID,NOMBRE,APELLIDO,ESSOCIO,EDAD
+1,Joel,Gonzalez,true,19
+2,Marta,Suarez,true,35 
+3,Alfonso,Jimenez,false,42
+4,Eva,Rovira,false,56
+5,Jon,Villen,false,38
+6,Susana,Sanchez,false,68
+7,Mario,Armellini,true,23
+8,Clara,Merino,true,22
+9,Ibai,Llanos,false,25
+10,Rigoberto,Garcia,false,65

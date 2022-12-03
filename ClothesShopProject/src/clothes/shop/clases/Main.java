@@ -8,8 +8,8 @@ public class Main {
 		/** Base de datos con logger BIEN HECHA*/
 		BaseDatos.abrirConexion("Nombre bd", true);
 		
-		Cliente cliente1 = new Cliente(1, "Paco", "Chocholatero", false, 30, null); //TODO mirar lo de la tabla
-		Cliente cliente2 = new Cliente(2, "Jordi", "Armellini", true, 60, null); //TODO mirar lo de la tabla
+		Cliente cliente1 = new Cliente(11, "Paco", "Chocholatero", false, 30, null); //TODO mirar lo de la tabla
+		Cliente cliente2 = new Cliente(12, "Jordi", "Armellini", true, 60, null); //TODO mirar lo de la tabla
 		Trabajador trabajador1 = new Trabajador(1, "Pepe", "Palotes", 1000, Puesto.EMPLEADO, "contraseña");
 		Trabajador trabajador2 = new Trabajador(2, "Paco", "Paquete", 1400, Puesto.ENCARGADO, "contraseña2");
 		Ropa ropa1 = new Ropa(1, "god g", Tipo.calcetines, 3500, Talla.L, "foto/camisetaJurassicParkNegro");
