@@ -50,8 +50,8 @@ public class Trabajador extends Persona {
 
 	@Override
 	public String toString() {
-		return String.format("%s %s," +  " %s €," + " %s", 
-				String.valueOf(getNombre()), getApellido(), sueldo, puesto);
+		return String.format("%s %s," +  " %s €," + " %s, %s", 
+				String.valueOf(getNombre()), getApellido(), sueldo, puesto, contraseña);
 	}
 	
 	

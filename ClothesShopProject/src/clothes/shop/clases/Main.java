@@ -26,6 +26,9 @@ public class Main {
 		System.out.println(BaseDatos.getTrabajadores());
 		System.out.println(BaseDatos.getRopas());
 		
+		BaseDatos.actualizarPassword(trabajador2, "HOLA");
+		System.out.println(BaseDatos.getTrabajadores());
+		
 		try {
 			BaseDatos.borrarCliente(cliente1);
 			BaseDatos.borrarTrabajador(trabajador1);

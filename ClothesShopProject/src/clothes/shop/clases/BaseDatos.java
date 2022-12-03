@@ -299,7 +299,22 @@ public class BaseDatos {
 		statement.close();
 	}
 	
-	//TODO ACTUALIZARPASSWORD
+	/** Inserta una contraseña en la base de datos abierta (debe abrirse previamente con {@link #abrirConexion(String, boolean)}
+	 * Actualiza la contraseña del trabajador seleccionado
+	 * @param trabajador	Trabajador a modificar
+	 * @return	true si la actualizacion es correcta, false en caso contrario
+	 */
+	public static boolean actualizarPassword(Trabajador trabajador, String newPassword) {
+		try (Statement statement = conexion.createStatement()) {
+			String sent = "UPDATE TRABAJADOR SET PASSWORD='" + newPassword + "' WHERE ID_TRABAJADOR=" + trabajador.getId() + ";";
+			logger.log( Level.INFO, "Statement: " + sent );
+			statement.executeUpdate(sent); //Actualiza la contraseña
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
 	
 	/** Definir consulta de ropa entre precios (en centimos -> int)
 	 * @param precioInicio	Precio inicial de la ropa
