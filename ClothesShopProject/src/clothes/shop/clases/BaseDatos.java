@@ -56,7 +56,7 @@ public class BaseDatos {
 		                   + " APELLIDO_TRABAJADOR TEXT NOT NULL,\n"
 		                   + " SUELDO INTEGER NOT NULL, \n"
 		                   + " PUESTO TEXT  NOT NULL, \n"
-		                   + " PASSWORD TEXT NOT NULL" // El enum de Puesto lo he puesto como texto y no como enum
+		                   + " PASSWORD TEXT NOT NULL" // El enum de Puesto lo he puesto como texto
 		                   + ");";
 				logger.log( Level.INFO, "Statement: " + sent );
 				statement.executeUpdate( sent );
@@ -87,7 +87,6 @@ public class BaseDatos {
 		                   + ");";
 				logger.log( Level.INFO, "Statement: " + sent );
 				statement.executeUpdate( sent );
-				//TODO hacer los init.txt
 				try {
 					InputStream res = Main.class.getResourceAsStream("/clientes-inic.txt");
 					Scanner scanner = new Scanner( res );
@@ -96,6 +95,26 @@ public class BaseDatos {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "," );
 						sent = "INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, ES_SOCIO, EDAD) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "'," + datos[3] + "," + datos[4] + ");";
+						logger.log( Level.INFO, "Statement: " + sent );
+						statement.executeUpdate( sent );
+					}
+					scanner.close();
+					scanner = new Scanner( Main.class.getResourceAsStream("/ropas-inic.txt") );
+					scanner.nextLine(); //Saltar la cabecera
+					while (scanner.hasNextLine()) {
+						String linea = scanner.nextLine();
+						String[] datos = linea.split( "," );
+						sent = "INSERT INTO ROPA (ID_ROPA, NOMBRE_ROPA, TIPO, PRECIO, TALLA, FOTO_URL) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "'," + datos[3] + ",'" + datos[4] + "','" + datos[5] + "');";
+						logger.log( Level.INFO, "Statement: " + sent );
+						statement.executeUpdate( sent );
+					}
+					scanner.close();
+					scanner = new Scanner( Main.class.getResourceAsStream("/trabajadores-inic.txt") );
+					scanner.nextLine(); //Saltar la cabecera
+					while (scanner.hasNextLine()) {
+						String linea = scanner.nextLine();
+						String[] datos = linea.split( "," );
+						sent = "INSERT INTO TRABAJADOR (ID_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR, SUELDO, PUESTO, PASSWORD) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "'," + datos[3] + ",'" + datos[4] + "','" + datos[5] + "');";
 						logger.log( Level.INFO, "Statement: " + sent );
 						statement.executeUpdate( sent );
 					}
