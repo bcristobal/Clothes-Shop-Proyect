@@ -2,11 +2,15 @@ package clothes.shop.clases;
 
 import java.sql.SQLException;
 
+import clothes.shop.ventanas.VentanaPrincipal;
+
 public class Main {
 
 	public static void main(String[] args) {
 		/** Base de datos con logger BIEN HECHA*/
-		BaseDatos.abrirConexion("Nombre bd", true);
+		BaseDatos.abrirConexion("prueba.bd", true);
+		
+		
 		
 		Cliente cliente1 = new Cliente(11, "Paco", "Chocholatero", false, 30, null); //TODO mirar lo de la tabla
 		Cliente cliente2 = new Cliente(12, "Jordi", "Armellini", true, 60, null); //TODO mirar lo de la tabla
@@ -29,44 +33,21 @@ public class Main {
 		BaseDatos.actualizarPassword(trabajador2, "HOLA");
 		System.out.println(BaseDatos.getTrabajadores());
 		
-		try {
-			BaseDatos.borrarCliente(cliente1);
-			BaseDatos.borrarTrabajador(trabajador1);
-			BaseDatos.borrarRopa(ropa1);
-		} catch (SQLException e) {}
+		VentanaPrincipal v = new VentanaPrincipal();
 		
-		//Mostrar para ver si se ha borrado bien
-		System.out.println(BaseDatos.getClientes()); 
-		System.out.println(BaseDatos.getTrabajadores());
-		System.out.println(BaseDatos.getRopas());
+//		try {
+//			BaseDatos.borrarCliente(cliente1);
+//			BaseDatos.borrarTrabajador(trabajador1);
+//			BaseDatos.borrarRopa(ropa1);
+//		} catch (SQLException e) {}
+//		
+//		//Mostrar para ver si se ha borrado bien
+//		System.out.println(BaseDatos.getClientes()); 
+//		System.out.println(BaseDatos.getTrabajadores());
+//		System.out.println(BaseDatos.getRopas());
 		
 		BaseDatos.cerrarConexion();
 		
-		
-		/** Base de datos MAL HECHA*/
-//		GestorBD bd = new GestorBD();
-//		bd.crearBBDD();
-//		
-//		Cliente cliente = new Cliente(1, "Paco", "Chocholatero", false, 30, new ArrayList<Ropa>());
-//		bd.insertarDatosCliente(cliente);
-//
-//		Ropa ropa = new Ropa(1, "god g", Tipo.calcetines, 3500, Talla.L, "foto/camisetaJurassicParkNegro");
-//		bd.insertarDatosRopa(ropa);
-//		
-//		Trabajador trabajador = new Trabajador(1, "Pepe", "Palotes", 1000, Puesto.EMPLEADO, "contraseña");
-//		bd.insertarDatosTrabajador(trabajador);
-//		
-//		bd.obtenerDatosClientes();
-//		bd.obtenerDatosRopa();
-//		bd.obtenerDatosTrabajador();
-//		
-//		bd.actualizarPassword(trabajador, "aaa");
-//		
-//		bd.borrarDatosCliente();
-//		bd.borrarDatosTrabajador();
-//		bd.borrarDatosRopa();
-//		
-//		bd.borrarBBDD();
 
 	}
 
