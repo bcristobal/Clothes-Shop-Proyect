@@ -12,6 +12,8 @@ public class Main {
 		
 		
 		
+		
+		
 		Cliente cliente1 = new Cliente(11, "Paco", "Chocholatero", false, 30, null); //TODO mirar lo de la tabla
 		Cliente cliente2 = new Cliente(12, "Jordi", "Armellini", true, 60, null); //TODO mirar lo de la tabla
 		Trabajador trabajador1 = new Trabajador(11, "Pepe", "Palotes", 1000, Puesto.EMPLEADO, "contraseña");
