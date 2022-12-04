@@ -46,7 +46,7 @@ public VentanaLogin () {
 		Botones.add( new JButton("Registrarse") );
 		JPanel FotoPerfil = new JPanel();
 		JLabel imagen = new JLabel();
-		imagen.setIcon(new ImageIcon("../foto/prueba.jpg"));
+		imagen.setIcon(new ImageIcon("../foto/fotoPerfilPredeterminada.jpg"));
 		Dimension tamanyo = imagen.getPreferredSize();
         imagen.setBounds(50, 30, tamanyo.width, tamanyo.height);
 		FotoPerfil.add( imagen );

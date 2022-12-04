@@ -49,6 +49,6 @@ public abstract class Persona {
 		return String.format("(%s)" +  " %s %s", id, nombre, apellido);
 	}
 	
-	
+	//TODO: Crear credenciales de inicio de sesion predeterminadas
 
 }
