@@ -4,10 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -37,7 +40,8 @@ public class VentanaPrincipal extends JFrame {
 	
 	private JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pRopa, pCarrito);
 	
-	 
+	 private JButton bAñadir = new JButton("Añadir");
+	 private JButton bBorrar = new JButton("Borrar");
 	
 	
 	
@@ -58,8 +62,10 @@ public class VentanaPrincipal extends JFrame {
 		// Aqui va como se van a organizar todos los elementos por la mentana
 		pRopa.add(new JLabel("Ropa:"), BorderLayout.NORTH);
 		pRopa.add(scrollRopa, BorderLayout.CENTER);
+		pRopa.add(bAñadir, BorderLayout.SOUTH);
 		pCarrito.add(new JLabel("Carrito:"), BorderLayout.NORTH);
 		pCarrito.add(scrollCarrito, BorderLayout.CENTER);
+		pCarrito.add(bBorrar, BorderLayout.SOUTH);
 		getContentPane().add(sp, BorderLayout.WEST);
 		
 //		JSplitPane spOeste = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
@@ -86,6 +92,27 @@ public class VentanaPrincipal extends JFrame {
 		lRopa.repaint();
 		
 		// Eventos
+		bAñadir.setToolTipText("Añade la prenda seleccionada");
+		bAñadir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Ropa seleccionado = lRopa.getSelectedValue();
+				if (seleccionado != null) {
+					mCarrito.addElement(seleccionado);
+				}
+			}
+		});
+		
+		bBorrar.setToolTipText("Borra la prenda seleccionada");
+		bBorrar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Ropa seleccionado = lCarrito.getSelectedValue();
+				if (seleccionado != null) {
+					mCarrito.removeElement(seleccionado);
+				}
+			}
+		});
 		
 		
 		
