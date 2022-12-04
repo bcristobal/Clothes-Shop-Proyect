@@ -1,54 +1,87 @@
 package clothes.shop.ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JSplitPane;
 
 import clothes.shop.clases.BaseDatos;
 import clothes.shop.clases.Ropa;
 
 public class VentanaPrincipal extends JFrame {
 	
-//	private DefaultTableModel mRopa = new DefaultTableModel(
-//			new Object[] {"Id", "Foto", "Nombre", "Talla", "Precio"}, 0);
-//	private JTable tRopa = new JTable(mRopa);
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
-	private DefaultListModel<Ropa> mlRopa = new DefaultListModel<>();
-	private JList<Ropa> lRopa = new JList<>(mlRopa);
+	private DefaultListModel<Ropa> mRopa = new DefaultListModel<>();
+	private JList<Ropa> lRopa = new JList<>(mRopa);
+	private JScrollPane scrollRopa = new JScrollPane(lRopa);
+	private JPanel pRopa = new JPanel( new BorderLayout() );
+	
+	private DefaultListModel<Ropa> mCarrito = new DefaultListModel<>();
+	private JList<Ropa> lCarrito = new JList<>(mCarrito);
+	private JScrollPane scrollCarrito = new JScrollPane(lCarrito);
+	private JPanel pCarrito = new JPanel( new BorderLayout() );
+	
+	private JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pRopa, pCarrito);
+	
+	 
 	
 	
 	
 	public VentanaPrincipal () {
 		
-		BaseDatos.abrirConexion("prueba.bd", false);
+		
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000, 800);
+		setLocation(
+				(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2), 
+				(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2)
+		);
 		setTitle("Ventana de compra de productos");
 		setVisible(true);
-		// Cambiar el icono
+		// Cambiar icono
 		
 		// Aqui va como se van a organizar todos los elementos por la mentana
-		JPanel pPrincipal = new JPanel( new BorderLayout() ); // Panel central (tabla)
-		pPrincipal.add( new JLabel( "Ropa:" ), BorderLayout.NORTH );
-//		pPrincipal.add( new JScrollPane(tRopa), BorderLayout.CENTER );
+		pRopa.add(new JLabel("Ropa:"), BorderLayout.NORTH);
+		pRopa.add(scrollRopa, BorderLayout.CENTER);
+		pCarrito.add(new JLabel("Carrito:"), BorderLayout.NORTH);
+		pCarrito.add(scrollCarrito, BorderLayout.CENTER);
+		getContentPane().add(sp, BorderLayout.WEST);
 		
-		getContentPane().add( pPrincipal, BorderLayout.CENTER );
+//		JSplitPane spOeste = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+//		
+//		JPanel pRopa = new JPanel( new BorderLayout() ); 
+//		pRopa.add(new JLabel("Ropa:"), BorderLayout.NORTH);
+//		pRopa.add(scrollRopa, BorderLayout.CENTER);
+//		spOeste.setTopComponent(pRopa);
+//		
+//		JPanel pCarrito = new JPanel( new BorderLayout() );
+//		pCarrito.add(new JLabel("Carrito:"), BorderLayout.NORTH);
+//		pCarrito.add(scrollCarrito, BorderLayout.CENTER);
+//		spOeste.setBottomComponent(pCarrito);
+//		
+//		getContentPane().add(spOeste);
+		
 		
 		// Añadir la ropa a la tabla
 		List<Ropa> listaRopa = BaseDatos.getRopas();
 		System.out.println(listaRopa);
 		for (Ropa r : listaRopa) {
-//			mRopa.addRow( new Object[] { r.getId(), r.getFotoUrl(), r.getNombre(), r.getTalla(), r.getPrecio()} );
-			mlRopa.addElement(r);
+			mRopa.addElement(r);
 		}
 		lRopa.repaint();
 		
