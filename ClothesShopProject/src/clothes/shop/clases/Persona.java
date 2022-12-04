@@ -48,5 +48,7 @@ public abstract class Persona {
 	public String toString() {
 		return String.format("(%s)" +  " %s %s", id, nombre, apellido);
 	}
+	
+	
 
 }

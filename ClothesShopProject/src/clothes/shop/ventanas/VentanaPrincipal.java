@@ -1,6 +1,8 @@
 package clothes.shop.ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -32,6 +34,10 @@ public class VentanaPrincipal extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000, 800);
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - getHeight()) / 2);
+	    setLocation(x, y);
 		setTitle("Ventana de compra de productos");
 		setVisible(true);
 		// Cambiar el icono
