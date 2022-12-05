@@ -11,8 +11,8 @@ public class Cliente extends Persona {
 	private int edad;
 	private List<Ropa> listaRopa;
 
-	public Cliente(int id, String nombre, String apellido, Boolean esSocio, int edad, List<Ropa> listaRopa) {
-		super(id, nombre, apellido);
+	public Cliente(int id, String nombre, String apellido, String fotoPerfil, Boolean esSocio, int edad, List<Ropa> listaRopa) {
+		super(id, nombre, apellido, fotoPerfil);
 		this.esSocio = false;
 		setEdad(edad);
 		this.listaRopa = listaRopa;

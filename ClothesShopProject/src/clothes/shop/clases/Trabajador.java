@@ -6,8 +6,8 @@ public class Trabajador extends Persona {
 	private Puesto puesto;
 	private String contraseña;
 	
-	public Trabajador(int id, String nombre, String apellido, int sueldo, Puesto puesto, String contraseña) {
-		super(id, nombre, apellido);
+	public Trabajador(int id, String nombre, String apellido, String fotoPerfil, int sueldo, Puesto puesto, String contraseña) {
+		super(id, nombre, apellido, fotoPerfil);
 		setSueldo(sueldo);
 		setPuesto(puesto);
 		setContraseña(contraseña);
