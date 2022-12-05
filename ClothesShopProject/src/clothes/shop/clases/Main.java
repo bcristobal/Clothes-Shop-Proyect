@@ -9,7 +9,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		/** Base de datos con logger BIEN HECHA*/
-		BaseDatos.abrirConexion("prueba.bd", false);
+		BaseDatos.abrirConexion("prueba2.bd", true);
 		
 		
 		
@@ -38,6 +38,7 @@ public class Main {
 		
 //		VentanaPrincipal v = new VentanaPrincipal();
 		VentanaLogin l = new VentanaLogin();
+		VentanaPrincipal v = new VentanaPrincipal();
 		
 		try {
 			BaseDatos.borrarCliente(cliente1);
