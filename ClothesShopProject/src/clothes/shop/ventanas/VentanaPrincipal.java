@@ -1,6 +1,7 @@
 package clothes.shop.ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -25,6 +27,8 @@ public class VentanaPrincipal extends JFrame {
 	 */ 
 	private static final long serialVersionUID = 1L; 
 	
+	private JPanel pRopaNorte = new JPanel( new GridLayout(1, 2) );
+	
 	private DefaultListModel<Ropa> mRopa = new DefaultListModel<>(); 
 	private JList<Ropa> lRopa = new JList<>(mRopa); 
 	private JScrollPane scrollRopa = new JScrollPane(lRopa); 
@@ -38,7 +42,11 @@ public class VentanaPrincipal extends JFrame {
 	private JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pRopa, pCarrito);
 	
 	private JButton bAñadir = new JButton("Añadir"); 
-	 private JButton bBorrar = new JButton("Borrar"); 
+	private JButton bBorrar = new JButton("Borrar"); 
+	 
+	private String[] filtro = {"Orden alfabetico", "Precio descendente", "Precio ascendente"};
+	private JComboBox<String> comboRopa = new JComboBox<>(filtro); 
+	
 	
 	public VentanaPrincipal () {
 		
@@ -54,8 +62,11 @@ public class VentanaPrincipal extends JFrame {
 		setVisible(true);
 		// Cambiar el icono
 		
-		// Aqui va como se van a organizar todos los elementos por la mentana
-		pRopa.add(new JLabel("Ropa:"), BorderLayout.NORTH); 
+		// Aqui va como se van a organizar todos los elementos por la mentan
+
+		pRopaNorte.add(new JLabel("Ropa:"));
+		pRopaNorte.add(comboRopa);
+		pRopa.add(pRopaNorte, BorderLayout.NORTH);
 		pRopa.add(scrollRopa, BorderLayout.CENTER); 
 		pRopa.add(bAñadir, BorderLayout.SOUTH); 
 		pCarrito.add(new JLabel("Carrito:"), BorderLayout.NORTH); 
@@ -95,6 +106,15 @@ public class VentanaPrincipal extends JFrame {
 				} 
 			} 
 		}); 
+		
+		comboRopa.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		
 		
