@@ -22,6 +22,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 
@@ -60,6 +61,11 @@ public class VentanaPrincipal extends JFrame {
 	
 	private JLabel labelFoto = new JLabel();
 	
+	private JPanel pCompra = new JPanel( new BorderLayout() );
+	private JPanel pStock = new JPanel( new BorderLayout() );
+	
+	private JTabbedPane pestanas = new JTabbedPane();
+	
 	
 	public VentanaPrincipal () {
 		
@@ -83,8 +89,12 @@ public class VentanaPrincipal extends JFrame {
 		pCarrito.add(new JLabel("Carrito:"), BorderLayout.NORTH); 
 		pCarrito.add(scrollCarrito, BorderLayout.CENTER); 
 		pCarrito.add(bBorrar, BorderLayout.SOUTH); 
-		getContentPane().add(sp, BorderLayout.WEST);	
-		getContentPane().add(labelFoto, BorderLayout.CENTER);
+		pCompra.add(sp, BorderLayout.WEST);	
+		pCompra.add(labelFoto, BorderLayout.CENTER);
+		
+		pestanas.add("Compra", pCompra);
+		pestanas.add("Stock", pStock);
+		getContentPane().add(pestanas);
 		
 		// Formatear componentes
 		//sp.setPreferredSize(new Dimension(400, 400));
@@ -115,6 +125,8 @@ public class VentanaPrincipal extends JFrame {
 			mRopaPrecioDescendente.addElement(r);
 		}
 		
+		//Selecciona la opción por defencto del comboBox
+		lRopa.setModel(mRopaId);
 		lRopa.repaint();
 		
 		// Eventos
