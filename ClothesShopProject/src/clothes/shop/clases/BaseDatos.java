@@ -43,7 +43,7 @@ public class BaseDatos {
 		                   + " APELLIDO_CLIENTE TEXT NOT NULL,\n"
 		                   + " ES_SOCIO BOOLEAN NOT NULL CHECK (ES_SOCIO IN (0,1)),\n"
 		                   + " EDAD INTEGER NOT NULL,\n"
-		                   + " URL_FOTO_P TEXT"
+		                   + " URL_FOTO_P TEXT NOT NULL"
 		                   + ");";
 				logger.log( Level.INFO, "Statement: " + sent );
 				statement.executeUpdate( sent );
@@ -58,7 +58,7 @@ public class BaseDatos {
 		                   + " SUELDO INTEGER NOT NULL, \n"
 		                   + " PUESTO TEXT  NOT NULL, \n"
 		                   + " PASSWORD TEXT NOT NULL,\n" // El enum de Puesto lo he puesto como texto
-		                   + " URL_FOTO_P TEXT"
+		                   + " URL_FOTO_P TEXT NOT NULL"
 		                   + ");";
 				logger.log( Level.INFO, "Statement: " + sent );
 				statement.executeUpdate( sent );
@@ -96,7 +96,7 @@ public class BaseDatos {
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "," );
-						sent = "INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, FOTO_URL, ES_SOCIO, EDAD) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "','" + datos[3] + "'," + datos[4] + "," + datos[5] + ");";
+						sent = "INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, URL_FOTO_P, ES_SOCIO, EDAD) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "','" + datos[3] + "'," + datos[4] + "," + datos[5] + ");";
 						logger.log( Level.INFO, "Statement: " + sent );
 						statement.executeUpdate( sent );
 					}
@@ -116,7 +116,7 @@ public class BaseDatos {
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "," );
-						sent = "INSERT INTO TRABAJADOR (ID_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR, FOTO_URL, SUELDO, PUESTO, PASSWORD) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "','" + datos[3] + "'," + datos[4] + ",'" + datos[5] + "','" + datos[6] + "');";
+						sent = "INSERT INTO TRABAJADOR (ID_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR, URL_FOTO_P, SUELDO, PUESTO, PASSWORD) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "','" + datos[3] + "'," + datos[4] + ",'" + datos[5] + "','" + datos[6] + "');";
 						logger.log( Level.INFO, "Statement: " + sent );
 						statement.executeUpdate( sent );
 					}

@@ -50,8 +50,6 @@ public class VentanaPrincipal extends JFrame {
 	
 	public VentanaPrincipal () {
 		
-		BaseDatos.abrirConexion("prueba.bd", false);
-		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000, 800);
 		setLocation( 

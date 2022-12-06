@@ -29,7 +29,7 @@ public class ClienteTest {
 
 	@Before
 	public void setUp() throws Exception {
-		cliente = new Cliente(id, nombre, apellido, esSocio, edad, listaRopa);
+		cliente = new Cliente(id, nombre, apellido,esSocio, edad, listaRopa);
 	}
 
 	@After
