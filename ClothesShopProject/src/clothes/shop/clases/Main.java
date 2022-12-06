@@ -32,7 +32,6 @@ public class Main {
 		BaseDatos.actualizarPassword(trabajador2, "HOLA");
 		System.out.println(BaseDatos.getTrabajadores());
 		
-		
 		VentanaLogin l = new VentanaLogin();
 		VentanaPrincipal v = new VentanaPrincipal();
 		
