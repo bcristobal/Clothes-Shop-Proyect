@@ -7,6 +7,11 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -16,6 +21,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import clothes.shop.clases.BaseDatos;
+import clothes.shop.clases.Cliente;
+import clothes.shop.clases.Ropa;
+import clothes.shop.clases.Trabajador;
 
 public class VentanaLogin extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -28,11 +38,13 @@ public VentanaLogin () {
 			Principal.add( new JLabel("") );
 			Principal.add( new JLabel("") );
 			Principal.add( new JLabel("Usuario") );
-			Principal.add( new JTextField() );
+			JTextField Usuario = new JTextField();
+			Principal.add(Usuario);
 			Principal.add( new JLabel("") );
 			Principal.add( new JLabel("") );
 			Principal.add( new JLabel("contraseña") );
-			Principal.add( new JPasswordField() );
+			JPasswordField Contrasenya = new JPasswordField();
+			Principal.add(Contrasenya);
 			Principal.add( new JLabel("") );
 			Principal.add( new JLabel("") );
 			Principal.add( new JLabel("") );
@@ -73,14 +85,48 @@ public VentanaLogin () {
 		iBoton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO: Funcionalidad Boton Iniciar Sesión
+				
+				
+				String CredencialUsuario = Usuario.getText();
+				System.out.println(CredencialUsuario);
+				char[] CredencialContrasenya = Contrasenya.getPassword();
+				System.out.println(CredencialContrasenya);
+				//TODO: Abrir base de datos y comprobar Usuario
+				BaseDatos.abrirConexion("prueba.bd", false);
+				for (int i = 0; i < BaseDatos.getTrabajadores().size(); i++) {
+					Boolean InicioCorrecto = false;
+					Boolean ContraCorrecta = false;
+					if ((BaseDatos.getClientes().get(i).getNombre() + BaseDatos.getClientes().get(i).getApellido() + "@opendeusto.es").equals(CredencialUsuario)) {
+						InicioCorrecto = true;
+					}
+					
+					//TODO: Contraseña en cliente BD
+//					if ((InicioCorrecto == true) && (BaseDatos.getClientes().get(i).getContraseña().equals(CredencialContrasenya))){
+//						ContraCorrecta = true;
+//					}
+					//TODO: Comprobar ambos resultados
+				}
+				for (int i = 0; i < BaseDatos.getTrabajadores().size(); i++) {
+					Boolean InicioCorrecto = false;
+					Boolean ContraCorrecta = false;
+					if ((BaseDatos.getTrabajadores().get(i).getNombre() + BaseDatos.getTrabajadores().get(i).getApellido() + "@opendeusto.es").equals(CredencialUsuario)) {
+						InicioCorrecto = true;
+					}
+					if ((InicioCorrecto == true) && (BaseDatos.getTrabajadores().get(i).getContraseña().equals(CredencialContrasenya.toString()))){
+						ContraCorrecta = true;
+					}
+					//TODO: Comprobar ambos resultados
+				}
+				
+				BaseDatos.cerrarConexion();
 			}
 		});
 		
 		rBoton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO: Funcionalidad Boton Registrarse
+				
+				
 			}
 		});
 		
