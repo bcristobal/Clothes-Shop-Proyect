@@ -9,7 +9,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		/** Base de datos con logger BIEN HECHA*/
-		BaseDatos.abrirConexion("prueba.bd", true);
+		BaseDatos.abrirConexion("prueba.bd", false);
 		
 		Cliente cliente1 = new Cliente(11, "Paco", "Chocholatero", "foto/fotoPerfilPredeterminada.jpg", false, 30, null); //TODO mirar lo de la tabla
 		Cliente cliente2 = new Cliente(12, "Jordi", "Armellini", "foto/fotoPerfilPredeterminada.jpg", true, 60, null); //TODO mirar lo de la tabla

@@ -1,5 +1,9 @@
 package clothes.shop.clases;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 public class Ropa {
 	
 	private int id;
@@ -87,6 +91,50 @@ public class Ropa {
 	
 	private float getPrecioEuros() {
 		return getPrecio() / 100;
+	}
+	
+	/**
+	 * Ordena una lista de prendas por valor de id creciente
+	 * @param List<Ropa> con la lista de prendas
+	 */
+	public static void idCreciente (List<Ropa> lista) {
+		Comparator<Ropa> comp = (r1, r2) -> {
+			return Integer.compare(r1.getId(),r2.getId());
+		};
+		Collections.sort(lista, comp);
+	}
+	
+	/**
+	 * Ordena una lista de prendas alfabéticamente por nombre de ropa
+	 * @param List<Ropa> con la lista de prendas
+	 */
+	public static void alfabeticamente (List<Ropa> lista) {
+		Comparator<Ropa> comp =(r1, r2) -> {
+			return r1.getNombre().compareTo(r2.getNombre());
+		};
+		Collections.sort(lista, comp);
+	}
+	
+	/**
+	 * Ordena una lista de prendas por precio de ropa creciente
+	 * @param List<Ropa> con la lista de prendas
+	 */
+	public static void precioCreciente (List<Ropa> lista) {
+		Comparator<Ropa> comp =(r1, r2) -> {
+			return Double.compare(r1.getPrecio(), r2.getPrecio());
+		};
+		Collections.sort(lista, comp);
+	}
+	
+	/**
+	 * Ordena una lista de prendas por precio de ropa descendiente
+	 * @param List<Ropa> con la lista de prendas
+	 */
+	public static void precioDescendiente (List<Ropa> lista) {
+		Comparator<Ropa> comp =(r1, r2) -> {
+			return Double.compare(r1.getPrecio(), r2.getPrecio());
+		};
+		Collections.sort(lista, comp.reversed());
 	}
 	
 }

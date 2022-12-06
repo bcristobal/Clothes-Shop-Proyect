@@ -1,13 +1,19 @@
 package clothes.shop.ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -16,6 +22,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
 import clothes.shop.clases.BaseDatos;
 import clothes.shop.clases.Ropa;
@@ -29,8 +37,14 @@ public class VentanaPrincipal extends JFrame {
 	
 	private JPanel pRopaNorte = new JPanel( new GridLayout(1, 2) );
 	
-	private DefaultListModel<Ropa> mRopa = new DefaultListModel<>(); 
-	private JList<Ropa> lRopa = new JList<>(mRopa); 
+	private String[] filtro = {"Id creciente", "Orden alfabetico", "Precio descendente", "Precio creciente"};
+	private JComboBox<String> comboRopa = new JComboBox<>(filtro);
+	
+	private DefaultListModel<Ropa> mRopaId = new DefaultListModel<>(); 
+	private DefaultListModel<Ropa> mRopaAlabeticamente = new DefaultListModel<>();
+	private DefaultListModel<Ropa> mRopaPrecioDescendente = new DefaultListModel<>();
+	private DefaultListModel<Ropa> mRopaPrecioAscendente = new DefaultListModel<>();
+	private JList<Ropa> lRopa = new JList<>(mRopaId); 
 	private JScrollPane scrollRopa = new JScrollPane(lRopa); 
 	private JPanel pRopa = new JPanel( new BorderLayout() ); 
 	 
@@ -42,10 +56,9 @@ public class VentanaPrincipal extends JFrame {
 	private JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pRopa, pCarrito);
 	
 	private JButton bAñadir = new JButton("Añadir"); 
-	private JButton bBorrar = new JButton("Borrar"); 
-	 
-	private String[] filtro = {"Orden alfabetico", "Precio descendente", "Precio ascendente"};
-	private JComboBox<String> comboRopa = new JComboBox<>(filtro); 
+	private JButton bBorrar = new JButton("Borrar");  
+	
+	private JLabel labelFoto = new JLabel();
 	
 	
 	public VentanaPrincipal () {
@@ -70,16 +83,38 @@ public class VentanaPrincipal extends JFrame {
 		pCarrito.add(new JLabel("Carrito:"), BorderLayout.NORTH); 
 		pCarrito.add(scrollCarrito, BorderLayout.CENTER); 
 		pCarrito.add(bBorrar, BorderLayout.SOUTH); 
-		getContentPane().add(sp, BorderLayout.WEST);		
+		getContentPane().add(sp, BorderLayout.WEST);	
+		getContentPane().add(labelFoto, BorderLayout.CENTER);
+		
+		// Formatear componentes
+		//sp.setPreferredSize(new Dimension(400, 400));
+		labelFoto.setPreferredSize(new Dimension(400, 400));
 		
 		
-		// Añadir la ropa a la tabla
+		// Añadir la ropa a los modelos de lista
 		List<Ropa> listaRopa = BaseDatos.getRopas();
+		
+		Ropa.idCreciente(listaRopa) ;
 		System.out.println(listaRopa);
 		for (Ropa r : listaRopa) {
-//			mRopa.addRow( new Object[] { r.getId(), r.getFotoUrl(), r.getNombre(), r.getTalla(), r.getPrecio()} );
-			mRopa.addElement(r);
+			mRopaId.addElement(r);
 		}
+		Ropa.alfabeticamente(listaRopa) ;
+		System.out.println(listaRopa);
+		for (Ropa r : listaRopa) {
+			mRopaAlabeticamente.addElement(r);
+		}
+		Ropa.precioCreciente(listaRopa) ;
+		System.out.println(listaRopa);
+		for (Ropa r : listaRopa) {
+			mRopaPrecioAscendente.addElement(r);
+		}
+		Ropa.precioDescendiente(listaRopa) ;
+		System.out.println(listaRopa);
+		for (Ropa r : listaRopa) {
+			mRopaPrecioDescendente.addElement(r);
+		}
+		
 		lRopa.repaint();
 		
 		// Eventos
@@ -105,17 +140,47 @@ public class VentanaPrincipal extends JFrame {
 			} 
 		}); 
 		
-		comboRopa.addActionListener(new ActionListener() {
+		
+		comboRopa.addItemListener(new ItemListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+			public void itemStateChanged(ItemEvent e) {
+				String seleccionado = (String) comboRopa.getSelectedItem();
+				if (seleccionado.equals(filtro[0])) {
+					lRopa.setModel(mRopaId);
+				} else if (seleccionado.equals(filtro[1])) {
+					lRopa.setModel(mRopaAlabeticamente);
+				} else if (seleccionado.equals(filtro[2])) {
+					lRopa.setModel(mRopaPrecioDescendente);
+				} else {
+					lRopa.setModel(mRopaPrecioAscendente);
+				}
 			}
 		});
 		
 		
 		
+		
 	}
+	
+	private void refrescarFoto (Ropa ropa) {
+		if (ropa.getFotoUrl() != null) {
+			ImageIcon imagen = new ImageIcon(ropa.getFotoUrl());
+			labelFoto.setIcon(imagen);
+			labelFoto.repaint();
+		} else {
+			labelFoto.setIcon(null);
+			labelFoto.repaint();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
