@@ -14,10 +14,11 @@ public class PersonaTest {
 	private int id = 0;
 	private String nombre = "Nombre";
 	private String apellido = "Apellido";
+	private String fotoPerfil = "../foto/fotoPerfilPredeterminada.jpg";
 
 	@Before
 	public void setUp() throws Exception {
-		persona = new Persona(id, nombre, apellido) {
+		persona = new Persona(id, nombre, apellido, fotoPerfil) {
 		};
 	}
 	
@@ -32,6 +33,7 @@ public class PersonaTest {
 		assertEquals(id, persona.getId());
 		assertEquals(nombre, persona.getNombre());
 		assertEquals(apellido, persona.getApellido());
+		assertEquals(fotoPerfil, persona.getFotoPerfil());
 	}
 
 	@Test
@@ -41,6 +43,7 @@ public class PersonaTest {
 		assertEquals(personaVacia.getId(), 0);
 		assertEquals(personaVacia.getNombre(), null);
 		assertEquals(personaVacia.getApellido(), null);
+		assertEquals(personaVacia.getFotoPerfil(), "../foto/fotoPerfilPredeterminada.jpg");
 		
 	}
 
@@ -83,6 +86,18 @@ public class PersonaTest {
 		assertEquals(newSurname, persona.getApellido());
 	}
 
+	@Test
+	public void testGetFotoPerfil() {
+		assertEquals(persona.getFotoPerfil(), fotoPerfil);
+	}
+
+	@Test
+	public void testSetFotoPerfil() {
+		String fotoPerfilNueva = "New fotoPerfil";
+		persona.setFotoPerfil(fotoPerfilNueva);
+		assertEquals(fotoPerfilNueva, persona.getFotoPerfil());
+	}
+	
 	@Test
 	public void testToString() {
 		String toString = String.format("(%s)" + " %s %s", id, nombre, apellido);

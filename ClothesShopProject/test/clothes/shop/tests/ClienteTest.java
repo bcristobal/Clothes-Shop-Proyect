@@ -18,18 +18,18 @@ import clothes.shop.clases.Tipo;
 
 public class ClienteTest {
 	private Cliente cliente;
-	int id = 0;
-	String nombre = "Iker";
-	String apellido = "Cristobal";
-	int edad = 19;
-	boolean esSocio = false;
-	List<Ropa> listaRopa = new ArrayList<Ropa>();
-	Tipo tipo;
+	private int id = 0;
+	private String nombre = "Iker";
+	private String apellido = "Cristobal";
+	private String fotoPerfil = "../foto/fotoPerfilPredeterminada.jpg";
+	private int edad = 19;
+	private boolean esSocio = false;
+	private List<Ropa> listaRopa = new ArrayList<Ropa>();
 	
 
 	@Before
 	public void setUp() throws Exception {
-		cliente = new Cliente(id, nombre, apellido,esSocio, edad, listaRopa);
+		cliente = new Cliente(id, nombre, apellido, fotoPerfil, esSocio, edad, listaRopa);
 	}
 
 	@After
@@ -49,6 +49,7 @@ public class ClienteTest {
 		assertEquals(cliente.getId(), id);
 		assertEquals(cliente.getNombre(), nombre);
 		assertEquals(cliente.getApellido(), apellido);
+		assertEquals(cliente.getFotoPerfil(), fotoPerfil);
 		assertEquals(cliente.getEsSocio(), esSocio);
 		assertEquals(cliente.getEdad(), edad);
 		assertEquals(cliente.getListaRopa(), listaRopa);
@@ -61,11 +62,24 @@ public class ClienteTest {
 		assertEquals(clienteVacio.getId(), 0);
 		assertEquals(clienteVacio.getNombre(), null);
 		assertEquals(clienteVacio.getApellido(), null);
+		assertEquals(clienteVacio.getFotoPerfil(), "../foto/fotoPerfilPredeterminada.jpg");
 		assertEquals(clienteVacio.getEsSocio(), false);
 		assertEquals(clienteVacio.getEdad(), 18);
 		assertEquals(clienteVacio.getListaRopa(), new ArrayList<Ropa>());
 	}
 
+	@Test
+	public void testGetFotoPerfil() {
+		assertEquals(cliente.getFotoPerfil(), fotoPerfil);
+	}
+
+	@Test
+	public void testSetFotoPerfil() {
+		String fotoPerfilNueva = "New fotoPerfil";
+		cliente.setFotoPerfil(fotoPerfilNueva);
+		assertEquals(fotoPerfilNueva, cliente.getFotoPerfil());
+	}
+	
 	@Test
 	public void testGetEsSocio() {
 		assertEquals(cliente.getEsSocio(), esSocio);

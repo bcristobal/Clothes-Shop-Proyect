@@ -3,6 +3,8 @@ package clothes.shop.ventanas;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.ItemSelectable;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +27,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import clothes.shop.clases.BaseDatos;
 import clothes.shop.clases.Ropa;
@@ -70,7 +74,7 @@ public class VentanaPrincipal extends JFrame {
 	public VentanaPrincipal () {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(1000, 800);
+		setSize(800, 600);
 		setLocation( 
 				(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 				(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2) 
@@ -153,8 +157,7 @@ public class VentanaPrincipal extends JFrame {
 		}); 
 		
 		
-		comboRopa.addItemListener(new ItemListener() {
-			
+		comboRopa.addItemListener(new ItemListener() {	
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				String seleccionado = (String) comboRopa.getSelectedItem();
@@ -167,6 +170,21 @@ public class VentanaPrincipal extends JFrame {
 				} else {
 					lRopa.setModel(mRopaPrecioAscendente);
 				}
+			}
+		});
+		
+//		((ItemSelectable) lRopa).addItemListener(new ItemListener() { public void itemStateChanged( ItemEvent evt ) {
+//			Ropa seleccionado = lRopa.getSelectedValue();
+//			ImageIcon icon = new ImageIcon(seleccionado.getFotoUrl());
+//			Image img = icon.getImage();
+//			labelFoto.setIcon(icon);
+//		} } );
+		lRopa.addListSelectionListener(new ListSelectionListener() {	
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				Ropa seleccionado = lRopa.getSelectedValue();
+				ImageIcon icon = new ImageIcon(seleccionado.getFotoUrl());
+				labelFoto.setIcon(icon);
 			}
 		});
 		
