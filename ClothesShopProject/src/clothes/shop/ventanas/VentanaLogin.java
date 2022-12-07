@@ -16,6 +16,9 @@ import java.util.logging.Level;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,9 +37,7 @@ public VentanaLogin () {
 		
 		// VISUAL
 		JPanel Principal = new JPanel();
-			Principal.setLayout(new GridLayout(7,1));
-			Principal.add( new JLabel("") );
-			Principal.add( new JLabel("") );
+			Principal.setLayout(new GridLayout(6,2));
 			Principal.add( new JLabel("Usuario") );
 			JTextField Usuario = new JTextField();
 			Principal.add(Usuario);
@@ -49,27 +50,30 @@ public VentanaLogin () {
 			Principal.add( new JLabel("") );
 			Principal.add( new JLabel("") );
 			Principal.add( new JLabel("") );
-		JPanel Botones = new JPanel();
 			JButton iBoton = new JButton("Iniciar Sesión");
-			Botones.add(iBoton);
-			Botones.add( new JLabel("") );
-			Botones.add( new JLabel("") );
+			Principal.add(iBoton);
 			JButton rBoton = new JButton("Registrarse");
-			Botones.add(rBoton);
+			Principal.add(rBoton);
 		JPanel FotoPerfil = new JPanel();
 			JLabel imagen = new JLabel();
 			imagen.setIcon(new ImageIcon("../foto/fotoPerfilPredeterminada.jpg"));
 			imagen.setPreferredSize(new Dimension( 200, 200 ));
 			FotoPerfil.add( imagen );
+		JPanel Tipo = new JPanel();
+			JComboBox<String> TipoPersona = new JComboBox<>();
+			TipoPersona.addItem("Cliente");
+			TipoPersona.addItem("Trabajador");
+			Tipo.add(TipoPersona);
+			
 		
 		Principal.setBorder(BorderFactory.createEmptyBorder(20,50,20,50));
-		Botones.setBorder(BorderFactory.createEmptyBorder(20,100,20,100));
 		FotoPerfil.setBorder(BorderFactory.createEmptyBorder(50,0,0,0));
+		Tipo.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 
 		Container contentPane = getContentPane();
-			contentPane.add(FotoPerfil, BorderLayout.NORTH);
-			contentPane.add(Principal, BorderLayout.CENTER);
-			contentPane.add(Botones, BorderLayout.AFTER_LAST_LINE);
+			contentPane.add(FotoPerfil, BorderLayout.CENTER);
+			contentPane.add(Principal, BorderLayout.SOUTH);
+			contentPane.add(Tipo, BorderLayout.NORTH);
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500, 600);
@@ -87,35 +91,61 @@ public VentanaLogin () {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				String CredencialUsuario = Usuario.getText();
-				System.out.println(CredencialUsuario);
-				char[] CredencialContrasenya = Contrasenya.getPassword();
-				System.out.println(CredencialContrasenya);
 				//TODO: Abrir base de datos y comprobar Usuario
-				BaseDatos.abrirConexion("prueba.bd", false);
-				for (int i = 0; i < BaseDatos.getTrabajadores().size(); i++) {
-					Boolean InicioCorrecto = false;
-					Boolean ContraCorrecta = false;
-					if ((BaseDatos.getClientes().get(i).getNombre() + BaseDatos.getClientes().get(i).getApellido() + "@opendeusto.es").equals(CredencialUsuario)) {
-						InicioCorrecto = true;
-					}
+				BaseDatos.abrirConexion("prueba.bd", true);
+				
+				
+				if (TipoPersona.getSelectedIndex() == 0) {
+					String CredencialUsuario = Usuario.getText();
+					System.out.println(CredencialUsuario);
+					char[] CredencialContrasenya = Contrasenya.getPassword();
+					System.out.println(CredencialContrasenya);
+					Boolean CredencialesClienteCorrectas = false;
 					
-					//TODO: Contraseña en cliente BD
-//					if ((InicioCorrecto == true) && (BaseDatos.getClientes().get(i).getContraseña().equals(CredencialContrasenya))){
-//						ContraCorrecta = true;
-//					}
-					//TODO: Comprobar ambos resultados
-				}
-				for (int i = 0; i < BaseDatos.getTrabajadores().size(); i++) {
-					Boolean InicioCorrecto = false;
-					Boolean ContraCorrecta = false;
-					if ((BaseDatos.getTrabajadores().get(i).getNombre() + BaseDatos.getTrabajadores().get(i).getApellido() + "@opendeusto.es").equals(CredencialUsuario)) {
-						InicioCorrecto = true;
+					
+					for (int i = 0; i < BaseDatos.getTrabajadores().size(); i++) {
+						Boolean InicioCorrecto = false;
+						Boolean ContraCorrecta = false;
+						if ((BaseDatos.getClientes().get(i).getNombre() + BaseDatos.getClientes().get(i).getApellido() + "@opendeusto.es").equals(CredencialUsuario)) {
+							InicioCorrecto = true;
+						}
+						//TODO: Contraseña en cliente BD
+//						if ((InicioCorrecto == true) && (BaseDatos.getClientes().get(i).getContraseña().equals(CredencialContrasenya))){
+//							ContraCorrecta = true;
+//						}
+						
+						if (InicioCorrecto && ContraCorrecta) {
+							CredencialesClienteCorrectas = true;
+							//TODO: Mirar los permisos del cliente
+						}
+						
 					}
-					if ((InicioCorrecto == true) && (BaseDatos.getTrabajadores().get(i).getContraseña().equals(CredencialContrasenya.toString()))){
-						ContraCorrecta = true;
+				
+				
+				} else if (TipoPersona.getSelectedIndex() == 1) {
+					String CredencialUsuario = Usuario.getText();
+					System.out.println(CredencialUsuario);
+					char[] CredencialContrasenya = Contrasenya.getPassword();
+					System.out.println(CredencialContrasenya);
+					Boolean CredencialesTrabajadorCorrectas = false;
+					
+					
+					for (int i = 0; i < BaseDatos.getTrabajadores().size(); i++) {
+						Boolean InicioCorrecto = false;
+						Boolean ContraCorrecta = false;
+							if ((BaseDatos.getTrabajadores().get(i).getNombre() + BaseDatos.getTrabajadores().get(i).getApellido() + "@opendeusto.es").equals(CredencialUsuario)) {
+								InicioCorrecto = true;
+							}
+							if ((InicioCorrecto == true) && (BaseDatos.getTrabajadores().get(i).getContraseña().equals(CredencialContrasenya.toString()))){
+								ContraCorrecta = true;
+							}
+							
+							if (InicioCorrecto && ContraCorrecta) {
+								CredencialesTrabajadorCorrectas = true;
+								//TODO: Mirar los permisos del trabajador
+							}
 					}
-					//TODO: Comprobar ambos resultados
+						
 				}
 				
 				BaseDatos.cerrarConexion();
