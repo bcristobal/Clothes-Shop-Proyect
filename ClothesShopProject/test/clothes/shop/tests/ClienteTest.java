@@ -18,14 +18,13 @@ import clothes.shop.clases.Tipo;
 
 public class ClienteTest {
 	private Cliente cliente;
-	int id = 0;
-	String nombre = "Iker";
-	String apellido = "Cristobal";
-	int edad = 19;
-	boolean esSocio = false;
-	List<Ropa> listaRopa = new ArrayList<Ropa>();
-	Tipo tipo;
-	String fotoPerfil = "foto/fotoPerfilPredeterminada.jpg";
+	private int id = 0;
+	private String nombre = "Iker";
+	private String apellido = "Cristobal";
+	private String fotoPerfil = "foto/fotoPerfilPredeterminada.jpg";
+	private int edad = 19;
+	private boolean esSocio = false;
+	private List<Ropa> listaRopa = new ArrayList<Ropa>();
 	
 
 	@Before
