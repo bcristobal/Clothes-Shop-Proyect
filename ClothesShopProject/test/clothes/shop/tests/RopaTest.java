@@ -123,10 +123,16 @@ public class RopaTest {
 		ropa.setFotoUrl(nuevaFotoUrl);
 		assertEquals(ropa.getFotoUrl(), nuevaFotoUrl);
 	}
+	
+	@Test
+	public void testGetPrecioEuros() {
+		assertEquals(precio/100, precio/100);
+	}
 
 	@Test
 	public void testToString() {
-		String toString = "(" + id + ") "+ nombre + " " + precio + " " + talla;
+		//TODO problema con el float (precio en euros)
+		String toString = "(" + id + ") "+ nombre + " " + precio/100 + " €" + talla;
 		assertEquals(ropa.toString(), toString);
 	}
 

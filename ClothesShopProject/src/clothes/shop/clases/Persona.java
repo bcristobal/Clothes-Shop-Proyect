@@ -20,7 +20,7 @@ public abstract class Persona {
 		this.id = 0;
 		this.nombre = null;
 		this.apellido = null;
-		this.fotoPerfil = "foto/fotoPerfilPredeterminada.jpg";
+		this.fotoPerfil = "../foto/fotoPerfilPredeterminada.jpg";
 	}
 	
 	public int getId() {

@@ -62,7 +62,7 @@ public class ClienteTest {
 		assertEquals(clienteVacio.getId(), 0);
 		assertEquals(clienteVacio.getNombre(), null);
 		assertEquals(clienteVacio.getApellido(), null);
-		assertEquals(clienteVacio.getFotoPerfil(), "foto/fotoPerfilPredeterminada.jpg");
+		assertEquals(clienteVacio.getFotoPerfil(), "../foto/fotoPerfilPredeterminada.jpg");
 		assertEquals(clienteVacio.getEsSocio(), false);
 		assertEquals(clienteVacio.getEdad(), 18);
 		assertEquals(clienteVacio.getListaRopa(), new ArrayList<Ropa>());
