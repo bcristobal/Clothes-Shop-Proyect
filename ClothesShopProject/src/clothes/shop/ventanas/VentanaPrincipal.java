@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -25,10 +26,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 import clothes.shop.clases.BaseDatos;
 import clothes.shop.clases.Ropa;
@@ -55,6 +58,7 @@ public class VentanaPrincipal extends JFrame {
 	 
 	private DefaultListModel<Ropa> mCarrito = new DefaultListModel<>(); 
 	private JList<Ropa> lCarrito = new JList<>(mCarrito); 
+	private List<Ropa> carrito = new ArrayList<>();
 	private JScrollPane scrollCarrito = new JScrollPane(lCarrito); 
 	private JPanel pCarrito = new JPanel( new BorderLayout() ); 
 	 
@@ -64,9 +68,18 @@ public class VentanaPrincipal extends JFrame {
 	private JButton bBorrar = new JButton("Borrar");  
 	
 	private JLabel labelFoto = new JLabel();
+	private JButton bTerminarCompra = new JButton("Terminar compra");
+	private JPanel pCentroCompra = new JPanel( new BorderLayout() );
 	
 	private JPanel pCompra = new JPanel( new BorderLayout() );
+	
+	//---- TABLA DE STOCK ----
+	private DefaultTableModel mStock = new DefaultTableModel(
+			new Object[] {"Id", "Nombre", "Tipo", "Precio", "Talla", "Num de stock"}, 0
+	);
+	private JTable tStock = new JTable(mStock);
 	private JPanel pStock = new JPanel( new BorderLayout() );
+	// -----------------------
 	
 	private JTabbedPane pestanas = new JTabbedPane();
 	
@@ -94,7 +107,9 @@ public class VentanaPrincipal extends JFrame {
 		pCarrito.add(scrollCarrito, BorderLayout.CENTER); 
 		pCarrito.add(bBorrar, BorderLayout.SOUTH); 
 		pCompra.add(sp, BorderLayout.WEST);	
-		pCompra.add(labelFoto, BorderLayout.CENTER);
+		pCentroCompra.add(bTerminarCompra, BorderLayout.SOUTH);
+		pCentroCompra.add(labelFoto, BorderLayout.CENTER);
+		pCompra.add(pCentroCompra, BorderLayout.CENTER);
 		
 		pestanas.add("Compra", pCompra);
 		pestanas.add("Stock", pStock);
@@ -141,6 +156,7 @@ public class VentanaPrincipal extends JFrame {
 				Ropa seleccionado = lRopa.getSelectedValue(); 
 				if (seleccionado != null) { 
 					mCarrito.addElement(seleccionado); 
+					carrito.add(seleccionado);
 				} 
 			} 
 		}); 
@@ -152,10 +168,19 @@ public class VentanaPrincipal extends JFrame {
 				Ropa seleccionado = lCarrito.getSelectedValue(); 
 				if (seleccionado != null) { 
 					mCarrito.removeElement(seleccionado); 
+					carrito.remove(seleccionado);
 				} 
 			} 
 		}); 
 		
+		// FALTA BUSCARLE UNA UTILIDAD A LAS COMPRAS
+		bTerminarCompra.addActionListener(new ActionListener() {		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		comboRopa.addItemListener(new ItemListener() {	
 			@Override
