@@ -21,7 +21,7 @@ public class ClienteTest {
 	private int id = 0;
 	private String nombre = "Iker";
 	private String apellido = "Cristobal";
-	private String fotoPerfil = "foto/fotoPerfilPredeterminada.jpg";
+	private String fotoPerfil = "../foto/fotoPerfilPredeterminada.jpg";
 	private int edad = 19;
 	private boolean esSocio = false;
 	private List<Ropa> listaRopa = new ArrayList<Ropa>();
