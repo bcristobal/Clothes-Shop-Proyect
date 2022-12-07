@@ -17,13 +17,14 @@ public class TrabajadorTest {
 	private int id = 0;
 	private String nombre = "Nombre";
 	private String apellido = "Apellido";
+	private String fotoPerfil = "foto/fotoPerfilPredeterminada.jpg";
 	private int sueldo = 1000;
 	private Puesto puesto = Puesto.EMPLEADO;
 	private String contraseña = "P@ssw0rd123!";
 
 	@Before
 	public void setUp() throws Exception {
-		trabajador = new Trabajador(id, nombre, apellido, sueldo, puesto, contraseña);
+		trabajador = new Trabajador(id, nombre, apellido, fotoPerfil, sueldo, puesto, contraseña);
 		
 	}
 
@@ -34,7 +35,7 @@ public class TrabajadorTest {
 
 	@Test
 	public void testToString() {
-		String toString = nombre + " " + apellido + ", " + sueldo + " €, " + puesto;
+		String toString = nombre + " " + apellido + ", " + sueldo + " €, " + puesto + ", " + contraseña;
 		assertEquals(trabajador.toString(), toString);
 	}
 
@@ -44,6 +45,7 @@ public class TrabajadorTest {
 		assertEquals(trabajador.getId(), id);
 		assertEquals(trabajador.getNombre(), nombre);
 		assertEquals(trabajador.getApellido(), apellido);
+		assertEquals(trabajador.getFotoPerfil(), fotoPerfil);
 		assertEquals(trabajador.getSueldo(), sueldo);
 		assertEquals(trabajador.getPuesto(), puesto);
 		assertEquals(trabajador.getContraseña(), contraseña);
@@ -56,11 +58,24 @@ public class TrabajadorTest {
 		assertEquals(trabajadorVacio.getId(), 0);
 		assertEquals(trabajadorVacio.getNombre(), null);
 		assertEquals(trabajadorVacio.getApellido(), null);
+		assertEquals(trabajadorVacio.getFotoPerfil(), "foto/fotoPerfilPredeterminada.jpg");
 		assertEquals(trabajadorVacio.getSueldo(), 1000);
 		assertEquals(trabajadorVacio.getPuesto(), Puesto.EMPLEADO);
 		assertEquals(trabajadorVacio.getContraseña(), null);
 	}
 
+	@Test
+	public void testGetFotoPerfil() {
+		assertEquals(trabajador.getFotoPerfil(), fotoPerfil);
+	}
+
+	@Test
+	public void testSetFotoPerfil() {
+		String fotoPerfilNueva = "New fotoPerfil";
+		trabajador.setFotoPerfil(fotoPerfilNueva);
+		assertEquals(fotoPerfilNueva, trabajador.getFotoPerfil());
+	}
+	
 	@Test
 	public void testGetSueldo() {
 		assertEquals(trabajador.getSueldo(), sueldo);
