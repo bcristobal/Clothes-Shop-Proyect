@@ -26,12 +26,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 
 import clothes.shop.clases.BaseDatos;
 import clothes.shop.clases.Ropa;
@@ -73,13 +71,9 @@ public class VentanaPrincipal extends JFrame {
 	
 	private JPanel pCompra = new JPanel( new BorderLayout() );
 	
-	//---- TABLA DE STOCK ----
-	private DefaultTableModel mStock = new DefaultTableModel(
-			new Object[] {"Id", "Nombre", "Tipo", "Precio", "Talla", "Num de stock"}, 0
-	);
-	private JTable tStock = new JTable(mStock);
+	
+	
 	private JPanel pStock = new JPanel( new BorderLayout() );
-	// -----------------------
 	
 	private JTabbedPane pestanas = new JTabbedPane();
 	
