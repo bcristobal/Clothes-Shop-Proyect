@@ -37,6 +37,7 @@ public class BaseDatos {
 				String sent = "DROP TABLE IF EXISTS CLIENTE";
 				logger.log( Level.INFO, "Statement: " + sent );
 				statement.executeUpdate( sent );
+				//TODO: Añadir contraseña a cliente
 				sent = "CREATE TABLE IF NOT EXISTS CLIENTE (\n"
 		                   + " ID_CLIENTE INTEGER PRIMARY KEY AUTOINCREMENT,\n"
 		                   + " NOMBRE_CLIENTE TEXT NOT NULL,\n"
@@ -56,8 +57,8 @@ public class BaseDatos {
 		                   + " NOMBRE_TRABAJADOR TEXT NOT NULL,\n"
 		                   + " APELLIDO_TRABAJADOR TEXT NOT NULL,\n"
 		                   + " SUELDO INTEGER NOT NULL, \n"
-		                   + " PUESTO TEXT  NOT NULL, \n"
-		                   + " PASSWORD TEXT NOT NULL,\n" // El enum de Puesto lo he puesto como texto
+		                   + " PUESTO TEXT  NOT NULL, \n"// El enum de Puesto lo he puesto como texto
+		                   + " PASSWORD TEXT NOT NULL,\n"
 		                   + " URL_FOTO_P TEXT NOT NULL"
 		                   + ");";
 				logger.log( Level.INFO, "Statement: " + sent );
