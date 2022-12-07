@@ -70,7 +70,7 @@ public class VentanaPrincipal extends JFrame {
 	public VentanaPrincipal () {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(1000, 800);
+		setSize(800, 600);
 		setLocation( 
 				(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 				(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2) 
