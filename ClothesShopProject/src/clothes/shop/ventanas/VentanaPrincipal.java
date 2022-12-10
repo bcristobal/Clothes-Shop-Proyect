@@ -192,19 +192,15 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		
-//		((ItemSelectable) lRopa).addItemListener(new ItemListener() { public void itemStateChanged( ItemEvent evt ) {
-//			Ropa seleccionado = lRopa.getSelectedValue();
-//			ImageIcon icon = new ImageIcon(seleccionado.getFotoUrl());
-//			Image img = icon.getImage();
-//			labelFoto.setIcon(icon);
-//		} } );
 		lRopa.addListSelectionListener(new ListSelectionListener() {	
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				Ropa seleccionado = lRopa.getSelectedValue();
 				if (seleccionado != null) {
-					ImageIcon icon = new ImageIcon(seleccionado.getFotoUrl());
-					labelFoto.setIcon(icon);
+					refrescarFoto(seleccionado);
+				} else {
+					labelFoto.setIcon(null);
+					labelFoto.repaint();
 				}
 			}
 		});
