@@ -24,19 +24,13 @@ public class TrabajadorTest {
 
 	@Before
 	public void setUp() throws Exception {
-		trabajador = new Trabajador(id, nombre, apellido, fotoPerfil, sueldo, puesto, contraseña);
+		trabajador = new Trabajador(id, nombre, apellido, fotoPerfil, contraseña, sueldo, puesto);
 		
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		trabajador = null;
-	}
-
-	@Test
-	public void testToString() {
-		String toString = nombre + " " + apellido + ", " + sueldo + " €, " + puesto + ", " + contraseña;
-		assertEquals(trabajador.toString(), toString);
 	}
 
 	@Test
@@ -99,15 +93,9 @@ public class TrabajadorTest {
 	}
 	
 	@Test
-	public void testGetContraseña() {
-		assertEquals(trabajador.getContraseña(), contraseña);
-	}
-
-	@Test
-	public void testSetContraseña() {
-		String contraseñaNueva = "newP@ssw0rd123!";
-		trabajador.setContraseña(contraseñaNueva);
-		assertEquals(trabajador.getContraseña(), contraseñaNueva);
+	public void testToString() {
+		String toString = nombre + " " + apellido + ", " + sueldo + " €, " + puesto + ", " + contraseña;
+		assertEquals(trabajador.toString(), toString);
 	}
 
 }

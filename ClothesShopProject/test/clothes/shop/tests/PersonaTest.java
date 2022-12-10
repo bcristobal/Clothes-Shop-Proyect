@@ -15,10 +15,11 @@ public class PersonaTest {
 	private String nombre = "Nombre";
 	private String apellido = "Apellido";
 	private String fotoPerfil = "../foto/fotoPerfilPredeterminada.jpg";
+	private String contraseña = "contraseña";
 
 	@Before
 	public void setUp() throws Exception {
-		persona = new Persona(id, nombre, apellido, fotoPerfil) {
+		persona = new Persona(id, nombre, apellido, fotoPerfil, contraseña) {
 		};
 	}
 	
@@ -28,12 +29,13 @@ public class PersonaTest {
 	}
 
 	@Test
-	public void testPersonaIntStringString() {
+	public void testPersonaIntStringStringStringString() {
 		assertNotNull(persona);
 		assertEquals(id, persona.getId());
 		assertEquals(nombre, persona.getNombre());
 		assertEquals(apellido, persona.getApellido());
 		assertEquals(fotoPerfil, persona.getFotoPerfil());
+		assertEquals(contraseña, persona.getContraseña());
 	}
 
 	@Test
@@ -44,6 +46,7 @@ public class PersonaTest {
 		assertEquals(personaVacia.getNombre(), null);
 		assertEquals(personaVacia.getApellido(), null);
 		assertEquals(personaVacia.getFotoPerfil(), "../foto/fotoPerfilPredeterminada.jpg");
+		assertEquals(personaVacia.getContraseña(), null);
 		
 	}
 
@@ -96,6 +99,18 @@ public class PersonaTest {
 		String fotoPerfilNueva = "New fotoPerfil";
 		persona.setFotoPerfil(fotoPerfilNueva);
 		assertEquals(fotoPerfilNueva, persona.getFotoPerfil());
+	}
+	
+	@Test
+	public void testGetContraseña() {
+		assertEquals(persona.getContraseña(), contraseña);
+	}
+
+	@Test
+	public void testSetContraseña() {
+		String contraseñaNueva = "New contraseña";
+		persona.setContraseña(contraseñaNueva);
+		assertEquals(contraseñaNueva, persona.getContraseña());
 	}
 	
 	@Test

@@ -11,8 +11,8 @@ public class Cliente extends Persona {
 	private int edad;
 	private List<Ropa> listaRopa;
 
-	public Cliente(int id, String nombre, String apellido, String fotoPerfil, Boolean esSocio, int edad, List<Ropa> listaRopa) {
-		super(id, nombre, apellido, fotoPerfil);
+	public Cliente(int id, String nombre, String apellido, String fotoPerfil, String contraseña, Boolean esSocio, int edad, List<Ropa> listaRopa) {
+		super(id, nombre, apellido, fotoPerfil, contraseña);
 		this.esSocio = false;
 		setEdad(edad);
 		this.listaRopa = listaRopa;
@@ -56,8 +56,8 @@ public class Cliente extends Persona {
 	
 	@Override
 	public String toString() {
-		return String.format("%s %s %s" + " años," + " socio: %s, lista de la ropa: %s", 
-				String.valueOf(getNombre()), getApellido(), edad, esSocio, listaRopa);
+		return String.format("%s %s %s %d" + " años," + " socio: %s, lista de la ropa: %s", 
+				String.valueOf(getNombre()), getApellido(), getContraseña(), edad, esSocio, listaRopa);
 	}
 
 	public double calculaPrecio() {

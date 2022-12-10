@@ -4,10 +4,9 @@ public class Trabajador extends Persona {
 	
 	private int sueldo;
 	private Puesto puesto;
-	private String contraseña;
 	
-	public Trabajador(int id, String nombre, String apellido, String fotoPerfil, int sueldo, Puesto puesto, String contraseña) {
-		super(id, nombre, apellido, fotoPerfil);
+	public Trabajador(int id, String nombre, String apellido, String fotoPerfil, String contraseña, int sueldo, Puesto puesto) {
+		super(id, nombre, apellido, fotoPerfil, contraseña);
 		setSueldo(sueldo);
 		setPuesto(puesto);
 		setContraseña(contraseña);
@@ -39,19 +38,11 @@ public class Trabajador extends Persona {
 	public void setPuesto(Puesto puesto) {
 		this.puesto = puesto;
 	}
-	
-	public String getContraseña() {
-		return contraseña;
-	}
-
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
-	}
 
 	@Override
 	public String toString() {
-		return String.format("%s %s," +  " %s €," + " %s, %s", 
-				String.valueOf(getNombre()), getApellido(), sueldo, puesto, contraseña);
+		return String.format("%s %s," +  " %d €," + " %s, %s", 
+				String.valueOf(getNombre()), getApellido(), sueldo, puesto, getContraseña());
 	}
 	
 	

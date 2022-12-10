@@ -6,13 +6,15 @@ public abstract class Persona {
 	private String nombre;
 	private String apellido;
 	private String fotoPerfil;
+	private String contraseña;
 	
-	public Persona(int id, String nombre, String apellido, String fotoPerfil) {
+	public Persona(int id, String nombre, String apellido, String fotoPerfil, String contraseña) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fotoPerfil = fotoPerfil;
+		this.contraseña = contraseña;
 	}
 	
 	public Persona() {
@@ -21,6 +23,7 @@ public abstract class Persona {
 		this.nombre = null;
 		this.apellido = null;
 		this.fotoPerfil = "../foto/fotoPerfilPredeterminada.jpg";
+		this.contraseña = null;
 	}
 	
 	public int getId() {
@@ -53,6 +56,15 @@ public abstract class Persona {
 
 	public void setFotoPerfil(String fotoPerfil) {
 		this.fotoPerfil = fotoPerfil;
+	}
+	
+	
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
 	}
 
 	@Override
