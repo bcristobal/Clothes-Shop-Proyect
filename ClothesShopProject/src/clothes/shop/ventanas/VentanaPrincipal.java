@@ -202,8 +202,10 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				Ropa seleccionado = lRopa.getSelectedValue();
-				ImageIcon icon = new ImageIcon(seleccionado.getFotoUrl());
-				labelFoto.setIcon(icon);
+				if (seleccionado != null) {
+					ImageIcon icon = new ImageIcon(seleccionado.getFotoUrl());
+					labelFoto.setIcon(icon);
+				}
 			}
 		});
 		
