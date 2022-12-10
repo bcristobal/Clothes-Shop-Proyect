@@ -22,6 +22,7 @@ public class ClienteTest {
 	private String nombre = "Iker";
 	private String apellido = "Cristobal";
 	private String fotoPerfil = "../foto/fotoPerfilPredeterminada.jpg";
+	private String contraseña = "contraseña";
 	private int edad = 19;
 	private boolean esSocio = false;
 	private List<Ropa> listaRopa = new ArrayList<Ropa>();
@@ -29,27 +30,22 @@ public class ClienteTest {
 
 	@Before
 	public void setUp() throws Exception {
-		cliente = new Cliente(id, nombre, apellido, fotoPerfil, esSocio, edad, listaRopa);
+		cliente = new Cliente(id, nombre, apellido, fotoPerfil, contraseña, esSocio, edad, listaRopa);
 	}
-
+	
 	@After
 	public void tearDown() throws Exception {
 		cliente = null;
 	}
 
 	@Test
-	public void testToString() {
-		String toString = String.format("%s %s %s" + " años," + " socio: %s, lista de la ropa: %s",nombre, apellido, edad, esSocio, listaRopa);
-        assertEquals(toString, cliente.toString());
-	}
-
-	@Test
-	public void testClienteIntStringStringBooleanIntListOfRopa() {
+	public void testClienteIntStringStringStringStringBooleanIntListOfRopa() {
 		assertNotNull(cliente);
 		assertEquals(cliente.getId(), id);
 		assertEquals(cliente.getNombre(), nombre);
 		assertEquals(cliente.getApellido(), apellido);
 		assertEquals(cliente.getFotoPerfil(), fotoPerfil);
+		assertEquals(cliente.getContraseña(), contraseña);
 		assertEquals(cliente.getEsSocio(), esSocio);
 		assertEquals(cliente.getEdad(), edad);
 		assertEquals(cliente.getListaRopa(), listaRopa);
@@ -63,21 +59,10 @@ public class ClienteTest {
 		assertEquals(clienteVacio.getNombre(), null);
 		assertEquals(clienteVacio.getApellido(), null);
 		assertEquals(clienteVacio.getFotoPerfil(), "../foto/fotoPerfilPredeterminada.jpg");
+		assertEquals(clienteVacio.getContraseña(), null);
 		assertEquals(clienteVacio.getEsSocio(), false);
 		assertEquals(clienteVacio.getEdad(), 18);
 		assertEquals(clienteVacio.getListaRopa(), new ArrayList<Ropa>());
-	}
-
-	@Test
-	public void testGetFotoPerfil() {
-		assertEquals(cliente.getFotoPerfil(), fotoPerfil);
-	}
-
-	@Test
-	public void testSetFotoPerfil() {
-		String fotoPerfilNueva = "New fotoPerfil";
-		cliente.setFotoPerfil(fotoPerfilNueva);
-		assertEquals(fotoPerfilNueva, cliente.getFotoPerfil());
 	}
 	
 	@Test
@@ -119,6 +104,12 @@ public class ClienteTest {
 		listaRopa.add(new Ropa(0, "Prueba", Tipo.camiseta, 10, Talla.XL, null));
 		cliente.setEsSocio(true);			
 		assertEquals(cliente.calculaPrecio(), 8.5, 0);
+	}
+	
+	@Test
+	public void testToString() {
+		String toString = String.format("%s %s %s %s" + " años," + " socio: %s, lista de la ropa: %s",nombre, apellido, contraseña, edad, esSocio, listaRopa);
+        assertEquals(toString, cliente.toString());
 	}
 
 }

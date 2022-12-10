@@ -37,14 +37,14 @@ public class BaseDatos {
 				String sent = "DROP TABLE IF EXISTS CLIENTE";
 				logger.log( Level.INFO, "Statement: " + sent );
 				statement.executeUpdate( sent );
-				//TODO: Añadir contraseña a cliente
 				sent = "CREATE TABLE IF NOT EXISTS CLIENTE (\n"
 		                   + " ID_CLIENTE INTEGER PRIMARY KEY AUTOINCREMENT,\n"
 		                   + " NOMBRE_CLIENTE TEXT NOT NULL,\n"
 		                   + " APELLIDO_CLIENTE TEXT NOT NULL,\n"
 		                   + " ES_SOCIO BOOLEAN NOT NULL CHECK (ES_SOCIO IN (0,1)),\n"
 		                   + " EDAD INTEGER NOT NULL,\n"
-		                   + " URL_FOTO_P TEXT NOT NULL"
+		                   + " URL_FOTO_P TEXT NOT NULL,\n"
+		                   + " PASSWORD TEXT NOT NULL"
 		                   + ");";
 				logger.log( Level.INFO, "Statement: " + sent );
 				statement.executeUpdate( sent );
@@ -97,7 +97,7 @@ public class BaseDatos {
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "," );
-						sent = "INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, URL_FOTO_P, ES_SOCIO, EDAD) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "','" + datos[3] + "'," + datos[4] + "," + datos[5] + ");";
+						sent = "INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, URL_FOTO_P, ES_SOCIO, EDAD, PASSWORD) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "','" + datos[3] + "'," + datos[4] + "," + datos[5] + ",'" + datos[6] + "');";
 						logger.log( Level.INFO, "Statement: " + sent );
 						statement.executeUpdate( sent );
 					}
@@ -122,7 +122,6 @@ public class BaseDatos {
 						statement.executeUpdate( sent );
 					}
 					scanner.close();
-				//
 				} catch (Exception e) {
 					logger.log( Level.SEVERE, "Excepción", e );
 				}
@@ -161,10 +160,11 @@ public class BaseDatos {
 				String fotoPerfil = rs.getString("URL_FOTO_P");
 				Boolean esSocio = rs.getBoolean("ES_SOCIO");
 				int edad = rs.getInt("EDAD");
+				String contraseña = rs.getString("PASSWORD");
 				//TODO NO ESTA CREADO EN EL CREATE TABLE ESTA LISTA -> MIRAR PROBLEMA A LA HORA DE BORRAR EL CLIENTE SI SE BORRA SU LISTA ASOCIADA
 				//List<Ropa> listaRopa = (List<Ropa>) rs.getArray("listaRopa"); //Casteo de array a list
 				List<Ropa> listaRopa = new ArrayList<>();
-				ret.add( new Cliente(id, nombre, apellido, fotoPerfil, esSocio, edad, listaRopa) );
+				ret.add( new Cliente(id, nombre, apellido, fotoPerfil, contraseña, esSocio, edad, listaRopa) );
 			}
 			return ret;
 		} catch (Exception e) {
@@ -190,7 +190,7 @@ public class BaseDatos {
 				int sueldo = rs.getInt("SUELDO");
 				Puesto puesto = Puesto.valueOf(rs.getString("PUESTO"));
 				String contraseña = rs.getString("PASSWORD");
-				ret.add( new Trabajador(id, nombre, apellido, fotoPerfil, sueldo, puesto, contraseña) );
+				ret.add( new Trabajador(id, nombre, apellido, fotoPerfil, contraseña, sueldo, puesto) );
 			}
 			return ret;
 		} catch (Exception e) {
@@ -231,7 +231,7 @@ public class BaseDatos {
 	 */
 	public static boolean insertarCliente( Cliente cliente ) {
 		try (Statement statement = conexion.createStatement()) {
-			String sent = "INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, URL_FOTO_P, ES_SOCIO, EDAD) VALUES (" + cliente.getId() + ",'" + cliente.getNombre() + "','" + cliente.getApellido() + "','" + cliente.getFotoPerfil() + "'," + cliente.getEsSocio() + "," + cliente.getEdad() + ");";
+			String sent = "INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, URL_FOTO_P, ES_SOCIO, EDAD, PASSWORD) VALUES (" + cliente.getId() + ",'" + cliente.getNombre() + "','" + cliente.getApellido() + "','" + cliente.getFotoPerfil() + "'," + cliente.getEsSocio() + "," + cliente.getEdad() +  ",'"  + cliente.getContraseña() + "');";
 			logger.log( Level.INFO, "Statement: " + sent );
 			int insertados = statement.executeUpdate( sent );
 			if (insertados!=1) return false;  // Error en inserción
