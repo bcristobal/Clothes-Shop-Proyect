@@ -3,17 +3,15 @@ package clothes.shop.ventanas;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.ItemSelectable;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -26,10 +24,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
+import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 import clothes.shop.clases.BaseDatos;
 import clothes.shop.clases.Ropa;
@@ -71,7 +69,9 @@ public class VentanaPrincipal extends JFrame {
 	
 	private JPanel pCompra = new JPanel( new BorderLayout() );
 	
-	
+	private DefaultTableModel mStock = new DefaultTableModel(new Object[] {"ID", "NOMBRE", "TIPO", "PRECIO", "TALLA"}, 0);
+	private JTable tStock = new JTable(mStock);
+	private JScrollPane scrollStock = new JScrollPane(tStock);
 	
 	private JPanel pStock = new JPanel( new BorderLayout() );
 	
@@ -90,6 +90,8 @@ public class VentanaPrincipal extends JFrame {
 		setVisible(true);
 		// Cambiar el icono
 		
+		initPanelStock();
+		
 		// Aqui va como se van a organizar todos los elementos por la mentan
 
 		pRopaNorte.add(new JLabel("Ropa:"));
@@ -105,6 +107,8 @@ public class VentanaPrincipal extends JFrame {
 		pCentroCompra.add(labelFoto, BorderLayout.CENTER);
 		pCompra.add(pCentroCompra, BorderLayout.CENTER);
 		
+		pStock.add(scrollStock, BorderLayout.CENTER);
+		
 		pestanas.add("Compra", pCompra);
 		pestanas.add("Stock", pStock);
 		getContentPane().add(pestanas);
@@ -115,27 +119,15 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 		// Añadir la ropa a los modelos de lista
-		List<Ropa> listaRopa = BaseDatos.getRopas();
+		cargarModelosCompra();
 		
-		Ropa.idCreciente(listaRopa) ;
-		System.out.println(listaRopa);
-		for (Ropa r : listaRopa) {
-			mRopaId.addElement(r);
+		List<Ropa> listaRopa = BaseDatos.getRopas();
+		while (mStock.getRowCount() > 0) {
+			mStock.removeRow( 0 );
 		}
-		Ropa.alfabeticamente(listaRopa) ;
-		System.out.println(listaRopa);
 		for (Ropa r : listaRopa) {
-			mRopaAlabeticamente.addElement(r);
-		}
-		Ropa.precioCreciente(listaRopa) ;
-		System.out.println(listaRopa);
-		for (Ropa r : listaRopa) {
-			mRopaPrecioAscendente.addElement(r);
-		}
-		Ropa.precioDescendiente(listaRopa) ;
-		System.out.println(listaRopa);
-		for (Ropa r : listaRopa) {
-			mRopaPrecioDescendente.addElement(r);
+			mStock.addRow(new Object[] {r.getId(), r.getNombre(), r.getTipo(), r.getPrecio(), r.getTalla()});
+			scrollStock.repaint();
 		}
 		
 		//Selecciona la opción por defencto del comboBox
@@ -218,6 +210,47 @@ public class VentanaPrincipal extends JFrame {
 		} else {
 			labelFoto.setIcon(null);
 			labelFoto.repaint();
+		}
+	}
+	
+	// FALTA LA CABECERA DE LOS PRODUCTOS EN EL ALMACEN
+	private void initPanelStock () {
+		Vector<String> cabeceraTabla = new Vector<String>(Arrays.asList("ID", "NOMBRE", "TIPO", "PRECIO", "TALLA"));
+		this.mStock = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraTabla);
+		this.tStock = new JTable(this.mStock);
+	}
+	
+	private void cargarModelosCompra () {
+		List<Ropa> listaRopa = BaseDatos.getRopas();
+		
+		Ropa.idCreciente(listaRopa) ;
+		System.out.println(listaRopa);
+		for (Ropa r : listaRopa) {
+			mRopaId.addElement(r);
+		}
+		Ropa.alfabeticamente(listaRopa) ;
+		System.out.println(listaRopa);
+		for (Ropa r : listaRopa) {
+			mRopaAlabeticamente.addElement(r);
+		}
+		Ropa.precioCreciente(listaRopa) ;
+		System.out.println(listaRopa);
+		for (Ropa r : listaRopa) {
+			mRopaPrecioAscendente.addElement(r);
+		}
+		Ropa.precioDescendiente(listaRopa) ;
+		System.out.println(listaRopa);
+		for (Ropa r : listaRopa) {
+			mRopaPrecioDescendente.addElement(r);
+		}
+	}
+	
+	private void cargarModeloStock () {
+		List<Ropa> listaRopa = BaseDatos.getRopas();
+		// mStock.setRowCount(0);
+		for (Ropa r : listaRopa) {
+			mStock.addRow(new Object[] {r.getId(), r.getNombre(), r.getTipo(), r.getPrecio(), r.getTalla()});
+			scrollStock.repaint();
 		}
 	}
 	
