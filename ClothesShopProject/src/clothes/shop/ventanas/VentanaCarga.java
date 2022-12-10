@@ -24,7 +24,7 @@ public class VentanaCarga extends JFrame {
 
 		JLabel label = new JLabel();
 		
-		label.setIcon(resizeIconImage());
+		label.setIcon(redimensionarIcono());
 		
 		container.add(label);
 		
@@ -33,7 +33,7 @@ public class VentanaCarga extends JFrame {
 		this.setVisible(true);
 	}
 
-	public ImageIcon resizeIconImage() {
+	public ImageIcon redimensionarIcono() {
 		ImageIcon imageIcon = new ImageIcon("foto/logo.png");
 		Image image = imageIcon.getImage();
 		Image newimg = image.getScaledInstance(400, 400,  java.awt.Image.SCALE_SMOOTH); // escalar la imagen
