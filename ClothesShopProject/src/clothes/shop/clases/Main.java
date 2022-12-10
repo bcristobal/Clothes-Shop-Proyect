@@ -2,6 +2,7 @@ package clothes.shop.clases;
 
 import java.sql.SQLException;
 
+import clothes.shop.ventanas.VentanaCarga;
 import clothes.shop.ventanas.VentanaLogin;
 import clothes.shop.ventanas.VentanaPrincipal;
 
@@ -32,6 +33,7 @@ public class Main {
 //		BaseDatos.actualizarPassword(trabajador2, "HOLA");
 //		System.out.println(BaseDatos.getTrabajadores());
 		
+		VentanaCarga c = new VentanaCarga();
 		VentanaLogin l = new VentanaLogin();
 		VentanaPrincipal v = new VentanaPrincipal();
 		
