@@ -49,7 +49,7 @@ public VentanaLogin () {
    	 
    	 JPanel FotoPerfil = new JPanel();
    		 JLabel imagen = new JLabel();
-   		 imagen.setIcon(new ImageIcon("../foto/fotoPerfilPredeterminada.jpg"));
+   		 imagen.setIcon(new ImageIcon("foto/fotoPerfilPredeterminada.jpg"));
    		 imagen.setPreferredSize(new Dimension( 200, 200 ));
    		 FotoPerfil.add( imagen );
    	 JPanel Tipo = new JPanel();
