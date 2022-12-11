@@ -3,11 +3,11 @@ package clothes.shop.ventanas;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,27 +25,31 @@ public class VentanaLogin extends JFrame{
 public VentanaLogin () {
    	 
    	 // VISUAL
-   	 JPanel Principal = new JPanel();
-   		 Principal.setLayout(new GridLayout(6,2));
-   		 Principal.add( new JLabel("Usuario") );
-   		 JTextField Usuario = new JTextField();
-   		 Principal.add(Usuario);
-   		 Principal.add( new JLabel("") );
-   		 Principal.add( new JLabel("") );
-   		 Principal.add( new JLabel("contraseña") );
-   		 JPasswordField Contrasenya = new JPasswordField();
-   		 Principal.add(Contrasenya);
-   		 Principal.add( new JLabel("") );
-   		 Principal.add( new JLabel("") );
-   		 Principal.add( new JLabel("") );
-   		 Principal.add( new JLabel("") );
-   		 JButton iBoton = new JButton("Iniciar Sesión");
-   		 Principal.add(iBoton);
-   		 JButton rBoton = new JButton("Registrarse");
-   		 Principal.add(rBoton);
+   	 JPanel Principal = new JPanel(new BorderLayout());
+//   	 Principal.setLayout(new BoxLayout(Principal, BoxLayout.Y_AXIS));
+   	 
+   	 JPanel Credenciales = new JPanel();
+   	 	    Credenciales.setLayout(new BoxLayout(Credenciales, BoxLayout.Y_AXIS));
+   	 	 	Credenciales.add( new JLabel("Usuario") );
+   	 	 	JTextField Usuario = new JTextField();
+   	 	 	Credenciales.add(Usuario);
+   	 	 	Credenciales.add( new JLabel("Contraseña") );
+   	 	 	JPasswordField Contrasenya = new JPasswordField();
+   	 	 	Credenciales.add(Contrasenya);
+   	 
+   	 JPanel Botones = new JPanel();
+   	 		Botones.setLayout(new BoxLayout(Botones, BoxLayout.X_AXIS));
+   	 	 	JButton iBoton = new JButton("Iniciar Sesión");
+   	 	 	Botones.add(iBoton);
+   	 	 	JButton rBoton = new JButton("Registrarse");
+   	 	 	Botones.add(rBoton);
+   	 
+   	 Principal.add(Credenciales, BorderLayout.NORTH);
+   	 Principal.add(Botones, BorderLayout.CENTER);
+   	 
    	 JPanel FotoPerfil = new JPanel();
    		 JLabel imagen = new JLabel();
-   		 imagen.setIcon(new ImageIcon("foto/fotoPerfilPredeterminada.jpg"));
+   		 imagen.setIcon(new ImageIcon("../foto/fotoPerfilPredeterminada.jpg"));
    		 imagen.setPreferredSize(new Dimension( 200, 200 ));
    		 FotoPerfil.add( imagen );
    	 JPanel Tipo = new JPanel();
@@ -54,15 +58,15 @@ public VentanaLogin () {
    		 TipoPersona.addItem("Trabajador");
    		 Tipo.add(TipoPersona);
    		 
-   	 
-   	 Principal.setBorder(BorderFactory.createEmptyBorder(20,50,20,50));
+   	 Botones.setBorder(BorderFactory.createEmptyBorder(0, 75, 0, 10));
+   	 Principal.setBorder(BorderFactory.createEmptyBorder(20,50,50,50));
    	 FotoPerfil.setBorder(BorderFactory.createEmptyBorder(50,0,0,0));
    	 Tipo.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 
    	 Container contentPane = getContentPane();
-   		 contentPane.add(FotoPerfil, BorderLayout.CENTER);
-   		 contentPane.add(Principal, BorderLayout.SOUTH);
-   		 contentPane.add(Tipo, BorderLayout.NORTH);
+   		 contentPane.add(FotoPerfil, BorderLayout.NORTH);
+   		 contentPane.add(Principal, BorderLayout.CENTER);
+   		 contentPane.add(Tipo, BorderLayout.SOUTH);
    	 
    	 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
    	 setSize(500, 600);
@@ -93,10 +97,9 @@ public VentanaLogin () {
    					 if ((BaseDatos.getClientes().get(i).getNombre() + BaseDatos.getClientes().get(i).getApellido() + "@opendeusto.es").equals(CredencialUsuario)) {
    						 InicioCorrecto = true;
    					 }
-   					 //TODO: Contraseña en cliente BD
-//   					 if ((InicioCorrecto == true) && (BaseDatos.getClientes().get(i).getContraseña().equals(CredencialContrasenya))){
-//   						 ContraCorrecta = true;
-//   					 }
+   					 if ((InicioCorrecto == true) && (BaseDatos.getClientes().get(i).getContraseña().equals(CredencialContrasenya))){
+   						 ContraCorrecta = true;
+   					 }
    					 
    					 if (InicioCorrecto && ContraCorrecta) {
    						 CredencialesClienteCorrectas = true;
