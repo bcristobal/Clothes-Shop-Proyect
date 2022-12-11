@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import clothes.shop.ventanas.VentanaCarga;
 import clothes.shop.ventanas.VentanaLogin;
+import clothes.shop.ventanas.VentanaPerfil;
 import clothes.shop.ventanas.VentanaPrincipal;
 
 public class Main {
@@ -33,9 +34,10 @@ public class Main {
 //		BaseDatos.actualizarPasswordCliente(cliente2, "HOLA");
 //		System.out.println(BaseDatos.getTrabajadores());
 		
-		VentanaCarga c = new VentanaCarga();
+//		VentanaCarga c = new VentanaCarga();
 		VentanaLogin l = new VentanaLogin();
-		VentanaPrincipal v = new VentanaPrincipal();
+//		VentanaPrincipal v = new VentanaPrincipal();
+//		VentanaPerfil p = new VentanaPerfil();
 		
 //		try {
 //			BaseDatos.borrarCliente(cliente1);
@@ -44,12 +46,12 @@ public class Main {
 //		} catch (SQLException e) {}
 	
 		//Mostrar
-		System.out.println(BaseDatos.getClientes()); 
-		System.out.println(BaseDatos.getTrabajadores());
-		System.out.println(BaseDatos.getRopas());
-		
-		BaseDatos.cerrarConexion();
-		
+//		System.out.println(BaseDatos.getClientes()); 
+//		System.out.println(BaseDatos.getTrabajadores());
+//		System.out.println(BaseDatos.getRopas());
+//		
+//		BaseDatos.cerrarConexion();
+//		
 
 	}
 
