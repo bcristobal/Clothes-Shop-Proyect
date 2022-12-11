@@ -1,7 +1,7 @@
 ID,NOMBRE,TIPO,PRECIO,TALLA,FOTOURL
-1,Primera equipacion Stadium FC Barcelona,camiseta,3000,XS,SinDefinir
-2,Nike Pro Dri-Fit,pantalon,2500,S,SinDefinir
-3,Nike Sportswear Tech Fleece,sudadera,3500,M,SinDefinir
+1,Primera equipacion Stadium FC Barcelona,camiseta,3000,XS,foto/camiseta1EquipacionBarcelona.jpg
+2,Nike Pro Dri-Fit,pantalon,2500,S,foto/pantalonNikeProDriFit.jpg
+3,Nike Sportswear Tech Fleece,sudadera,3500,M,foto/sudaderaNikeSportswearTechFleece.jpg
 4,Madrid socks,calcetines,1000,L,SinDefinir
 5,Airfox V2,zapatillas,6000,L_XL,SinDefinir
 6,Nike F.C.,camiseta,4000,XL,SinDefinir
