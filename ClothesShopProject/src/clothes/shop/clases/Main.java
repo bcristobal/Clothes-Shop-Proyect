@@ -10,7 +10,6 @@ import clothes.shop.ventanas.VentanaPrincipal;
 public class Main {
 
 	public static void main(String[] args) {
-		/** Base de datos con logger BIEN HECHA*/
 		BaseDatos.abrirConexion("prueba.bd");
 //		Cliente cliente1 = new Cliente(11, "Paco", "Chocholatero", "../foto/fotoPerfilPredeterminada.jpg", false, 30, null); //TODO mirar lo de la tabla
 //		Cliente cliente2 = new Cliente(12, "Jordi", "Armellini", "../foto/fotoPerfilPredeterminada.jpg", true, 60, null); //TODO mirar lo de la tabla
@@ -34,10 +33,10 @@ public class Main {
 //		BaseDatos.actualizarPasswordCliente(cliente2, "HOLA");
 //		System.out.println(BaseDatos.getTrabajadores());
 		
-//		VentanaCarga c = new VentanaCarga();
+		VentanaCarga c = new VentanaCarga();
 		VentanaLogin l = new VentanaLogin();
-//		VentanaPrincipal v = new VentanaPrincipal();
-//		VentanaPerfil p = new VentanaPerfil();
+		VentanaPrincipal v = new VentanaPrincipal();
+		VentanaPerfil p = new VentanaPerfil();
 		
 //		try {
 //			BaseDatos.borrarCliente(cliente1);
@@ -50,7 +49,7 @@ public class Main {
 //		System.out.println(BaseDatos.getTrabajadores());
 //		System.out.println(BaseDatos.getRopas());
 //		
-//		BaseDatos.cerrarConexion();
+		BaseDatos.cerrarConexion();
 //		
 
 	}
