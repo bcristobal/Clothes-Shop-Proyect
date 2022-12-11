@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class Ropa {
+public class Ropa implements Pagable{
 	
 	private int id;
 	private String nombre;
@@ -39,7 +39,8 @@ public class Ropa {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
+	@Override
 	public String getNombre() {
 		return nombre;
 	}
@@ -55,7 +56,8 @@ public class Ropa {
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
-
+	
+	@Override
 	public int getPrecio() {
 		return precio;
 	}
