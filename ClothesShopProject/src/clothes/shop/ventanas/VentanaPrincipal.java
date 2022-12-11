@@ -2,6 +2,7 @@ package clothes.shop.ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -22,9 +23,12 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -73,6 +77,16 @@ public class VentanaPrincipal extends JFrame {
 	private JTable tStock = new JTable(mStock);
 	private JScrollPane scrollStock = new JScrollPane(tStock);
 	
+	private JButton bPedirStock = new JButton("Pedir Stock");
+    private SpinnerModel mSpinner =
+            new SpinnerNumberModel(5, //initial value
+               1, //minimum value
+               100, //maximum value
+               5); //step
+    private JSpinner spinnerNumStock = new JSpinner(mSpinner); 
+
+    private JPanel pStockSur = new JPanel(new FlowLayout());
+	
 	private JPanel pStock = new JPanel( new BorderLayout() );
 	
 	private JTabbedPane pestanas = new JTabbedPane();
@@ -108,6 +122,11 @@ public class VentanaPrincipal extends JFrame {
 		pCompra.add(pCentroCompra, BorderLayout.CENTER);
 		
 		pStock.add(scrollStock, BorderLayout.CENTER);
+		
+		pStock.add(scrollStock, BorderLayout.CENTER);
+        pStockSur.add(bPedirStock);
+        pStockSur.add(spinnerNumStock);
+        pStock.add(pStockSur, BorderLayout.SOUTH);
 		
 		pestanas.add("Compra", pCompra);
 		pestanas.add("Stock", pStock);
