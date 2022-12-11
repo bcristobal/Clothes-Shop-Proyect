@@ -22,109 +22,106 @@ public class BaseDatos {
 	
 	/** Abre conexión con la base de datos
 	 * @param nombreBD	Nombre del fichero de base de datos
-	 * @param reiniciaBD	true si se quiere reiniciar la base de datos (se borran sus contenidos si los tuviera y se crean datos por defecto)
 	 * @return	true si la conexión ha sido correcta, false en caso contrario
 	 */
-	public static boolean abrirConexion( String nombreBD, boolean reiniciaBD ) {
+	public static boolean abrirConexion(String nombreBD) {
 		try {
 			logger.log( Level.INFO, "Carga de librería org.sqlite.JDBC" );
 			Class.forName("org.sqlite.JDBC");  // Carga la clase de BD para sqlite
 			logger.log( Level.INFO, "Abriendo conexión con " + nombreBD );
 			conexion = DriverManager.getConnection("jdbc:sqlite:data/" + nombreBD );
-			if (reiniciaBD){
-				Statement statement = conexion.createStatement();
-				// CLIENTE
-				String sent = "DROP TABLE IF EXISTS CLIENTE";
-				logger.log( Level.INFO, "Statement: " + sent );
-				statement.executeUpdate( sent );
-				sent = "CREATE TABLE IF NOT EXISTS CLIENTE (\n"
-		                   + " ID_CLIENTE INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-		                   + " NOMBRE_CLIENTE TEXT NOT NULL,\n"
-		                   + " APELLIDO_CLIENTE TEXT NOT NULL,\n"
-		                   + " ES_SOCIO BOOLEAN NOT NULL CHECK (ES_SOCIO IN (0,1)),\n"
-		                   + " EDAD INTEGER NOT NULL,\n"
-		                   + " URL_FOTO_P TEXT NOT NULL,\n"
-		                   + " PASSWORD TEXT NOT NULL"
-		                   + ");";
-				logger.log( Level.INFO, "Statement: " + sent );
-				statement.executeUpdate( sent );
-				// TRABAJADOR
-				sent = "DROP TABLE IF EXISTS TRABAJADOR";
-				logger.log( Level.INFO, "Statement: " + sent );
-				statement.executeUpdate( sent );
-				sent = "CREATE TABLE IF NOT EXISTS TRABAJADOR (\n"
-		                   + " ID_TRABAJADOR INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-		                   + " NOMBRE_TRABAJADOR TEXT NOT NULL,\n"
-		                   + " APELLIDO_TRABAJADOR TEXT NOT NULL,\n"
-		                   + " SUELDO INTEGER NOT NULL, \n"
-		                   + " PUESTO TEXT  NOT NULL, \n"// El enum de Puesto lo he puesto como texto
-		                   + " PASSWORD TEXT NOT NULL,\n"
-		                   + " URL_FOTO_P TEXT NOT NULL"
-		                   + ");";
-				logger.log( Level.INFO, "Statement: " + sent );
-				statement.executeUpdate( sent );
-				// ROPA
-				sent = "DROP TABLE IF EXISTS ROPA";
-				logger.log( Level.INFO, "Statement: " + sent );
-				statement.executeUpdate( sent );
-				sent = "CREATE TABLE IF NOT EXISTS ROPA (\n"
-		                   + " ID_ROPA INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-		                   + " NOMBRE_ROPA TEXT NOT NULL,\n"
-		                   + " TIPO TEXT NOT NULL,\n" // El enum esta puesto como texto
-		                   + " PRECIO INTEGER NOT NULL, \n" // El precio se guarda en centimos
-		                   + " TALLA TEXT NOT NULL,\n" // El enum esta puesto como texto
-		                   + " FOTO_URL TEXT NOT NULL" 
-		                   + ");";
-				logger.log( Level.INFO, "Statement: " + sent );
-				statement.executeUpdate( sent );
-				// CLIENTE_ROPA
-				sent = "DROP TABLE IF EXISTS CLIENTE_ROPA";
-				logger.log( Level.INFO, "Statement: " + sent );
-				statement.executeUpdate( sent );
-				sent = "CREATE TABLE IF NOT EXISTS CLIENTE_ROPA (\n"
-		                   + " ID_CLIENTE_F INTEGER NOT NULL ,\n"
-		                   + " ID_ROPA_F INTEGER NOT NULL, \n"
-		                   + " PRIMARY KEY (ID_CLIENTE_F, ID_ROPA_F), \n"
-		                   + " FOREIGN KEY(ID_CLIENTE_F) REFERENCES CLIENTE(ID_CLIENTE), \n"
-		                   + " FOREIGN KEY(ID_ROPA_F) REFERENCES ROPA(ID_ROPA) \n"
-		                   + ");";
-				logger.log( Level.INFO, "Statement: " + sent );
-				statement.executeUpdate( sent );
-				try {
-					InputStream res = Main.class.getResourceAsStream("/clientes-inic.txt");
-					Scanner scanner = new Scanner( res );
-					scanner.nextLine(); //Saltar la cabecera
-					while (scanner.hasNextLine()) {
-						String linea = scanner.nextLine();
-						String[] datos = linea.split( "," );
-						sent = "INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, URL_FOTO_P, ES_SOCIO, EDAD, PASSWORD) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "','" + datos[3] + "'," + datos[4] + "," + datos[5] + ",'" + datos[6] + "');";
-						logger.log( Level.INFO, "Statement: " + sent );
-						statement.executeUpdate( sent );
-					}
-					scanner.close();
-					scanner = new Scanner( Main.class.getResourceAsStream("/ropas-inic.txt") );
-					scanner.nextLine(); //Saltar la cabecera
-					while (scanner.hasNextLine()) {
-						String linea = scanner.nextLine();
-						String[] datos = linea.split( "," );
-						sent = "INSERT INTO ROPA (ID_ROPA, NOMBRE_ROPA, TIPO, PRECIO, TALLA, FOTO_URL) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "'," + datos[3] + ",'" + datos[4] + "','" + datos[5] + "');";
-						logger.log( Level.INFO, "Statement: " + sent );
-						statement.executeUpdate( sent );
-					}
-					scanner.close();
-					scanner = new Scanner( Main.class.getResourceAsStream("/trabajadores-inic.txt") );
-					scanner.nextLine(); //Saltar la cabecera
-					while (scanner.hasNextLine()) {
-						String linea = scanner.nextLine();
-						String[] datos = linea.split( "," );
-						sent = "INSERT INTO TRABAJADOR (ID_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR, URL_FOTO_P, SUELDO, PUESTO, PASSWORD) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "','" + datos[3] + "'," + datos[4] + ",'" + datos[5] + "','" + datos[6] + "');";
-						logger.log( Level.INFO, "Statement: " + sent );
-						statement.executeUpdate( sent );
-					}
-					scanner.close();
-				} catch (Exception e) {
-					logger.log( Level.SEVERE, "Excepción", e );
+			Statement statement = conexion.createStatement();
+			// CLIENTE
+			String sent = "DROP TABLE IF EXISTS CLIENTE";
+			logger.log( Level.INFO, "Statement: " + sent );
+			statement.executeUpdate( sent );
+			sent = "CREATE TABLE IF NOT EXISTS CLIENTE (\n"
+					+ " ID_CLIENTE INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+					+ " NOMBRE_CLIENTE TEXT NOT NULL,\n"
+					+ " APELLIDO_CLIENTE TEXT NOT NULL,\n"
+					+ " ES_SOCIO BOOLEAN NOT NULL CHECK (ES_SOCIO IN (0,1)),\n"
+					+ " EDAD INTEGER NOT NULL,\n"
+					+ " URL_FOTO_P TEXT NOT NULL,\n"
+					+ " PASSWORD TEXT NOT NULL"
+					+ ");";
+			logger.log( Level.INFO, "Statement: " + sent );
+			statement.executeUpdate( sent );
+			// TRABAJADOR
+			sent = "DROP TABLE IF EXISTS TRABAJADOR";
+			logger.log( Level.INFO, "Statement: " + sent );
+			statement.executeUpdate( sent );
+			sent = "CREATE TABLE IF NOT EXISTS TRABAJADOR (\n"
+					+ " ID_TRABAJADOR INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+					+ " NOMBRE_TRABAJADOR TEXT NOT NULL,\n"
+					+ " APELLIDO_TRABAJADOR TEXT NOT NULL,\n"
+					+ " SUELDO INTEGER NOT NULL, \n"
+					+ " PUESTO TEXT  NOT NULL, \n"// El enum de Puesto lo he puesto como texto
+					+ " PASSWORD TEXT NOT NULL,\n"
+					+ " URL_FOTO_P TEXT NOT NULL"
+					+ ");";
+			logger.log( Level.INFO, "Statement: " + sent );
+			statement.executeUpdate( sent );
+			// ROPA
+			sent = "DROP TABLE IF EXISTS ROPA";
+			logger.log( Level.INFO, "Statement: " + sent );
+			statement.executeUpdate( sent );
+			sent = "CREATE TABLE IF NOT EXISTS ROPA (\n"
+					+ " ID_ROPA INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+					+ " NOMBRE_ROPA TEXT NOT NULL,\n"
+					+ " TIPO TEXT NOT NULL,\n" // El enum esta puesto como texto
+					+ " PRECIO INTEGER NOT NULL, \n" // El precio se guarda en centimos
+					+ " TALLA TEXT NOT NULL,\n" // El enum esta puesto como texto
+					+ " FOTO_URL TEXT NOT NULL" 
+					+ ");";
+			logger.log( Level.INFO, "Statement: " + sent );
+			statement.executeUpdate( sent );
+			// CLIENTE_ROPA
+			sent = "DROP TABLE IF EXISTS CLIENTE_ROPA";
+			logger.log( Level.INFO, "Statement: " + sent );
+			statement.executeUpdate( sent );
+			sent = "CREATE TABLE IF NOT EXISTS CLIENTE_ROPA (\n"
+					+ " ID_CLIENTE_F INTEGER NOT NULL ,\n"
+					+ " ID_ROPA_F INTEGER NOT NULL, \n"
+					+ " PRIMARY KEY (ID_CLIENTE_F, ID_ROPA_F), \n"
+					+ " FOREIGN KEY(ID_CLIENTE_F) REFERENCES CLIENTE(ID_CLIENTE), \n"
+					+ " FOREIGN KEY(ID_ROPA_F) REFERENCES ROPA(ID_ROPA) \n"
+					+ ");";
+			logger.log( Level.INFO, "Statement: " + sent );
+			statement.executeUpdate( sent );
+			try {
+				InputStream res = Main.class.getResourceAsStream("/clientes-inic.txt");
+				Scanner scanner = new Scanner( res );
+				scanner.nextLine(); //Saltar la cabecera
+				while (scanner.hasNextLine()) {
+					String linea = scanner.nextLine();
+					String[] datos = linea.split( "," );
+					sent = "INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, URL_FOTO_P, ES_SOCIO, EDAD, PASSWORD) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "','" + datos[3] + "'," + datos[4] + "," + datos[5] + ",'" + datos[6] + "');";
+					logger.log( Level.INFO, "Statement: " + sent );
+					statement.executeUpdate( sent );
 				}
+				scanner.close();
+				scanner = new Scanner( Main.class.getResourceAsStream("/ropas-inic.txt") );
+				scanner.nextLine(); //Saltar la cabecera
+				while (scanner.hasNextLine()) {
+					String linea = scanner.nextLine();
+					String[] datos = linea.split( "," );
+					sent = "INSERT INTO ROPA (ID_ROPA, NOMBRE_ROPA, TIPO, PRECIO, TALLA, FOTO_URL) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "'," + datos[3] + ",'" + datos[4] + "','" + datos[5] + "');";
+					logger.log( Level.INFO, "Statement: " + sent );
+					statement.executeUpdate( sent );
+				}
+				scanner.close();
+				scanner = new Scanner( Main.class.getResourceAsStream("/trabajadores-inic.txt") );
+				scanner.nextLine(); //Saltar la cabecera
+				while (scanner.hasNextLine()) {
+					String linea = scanner.nextLine();
+					String[] datos = linea.split( "," );
+					sent = "INSERT INTO TRABAJADOR (ID_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR, URL_FOTO_P, SUELDO, PUESTO, PASSWORD) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "','" + datos[3] + "'," + datos[4] + ",'" + datos[5] + "','" + datos[6] + "');";
+					logger.log( Level.INFO, "Statement: " + sent );
+					statement.executeUpdate( sent );
+				}
+				scanner.close();
+			} catch (Exception e) {
+				logger.log( Level.SEVERE, "Excepción", e );
 			}
 			return true;
 		} catch (Exception e) {
@@ -341,9 +338,26 @@ public class BaseDatos {
 	 * @param trabajador	Trabajador a modificar
 	 * @return	true si la actualizacion es correcta, false en caso contrario
 	 */
-	public static boolean actualizarPassword(Trabajador trabajador, String newPassword) {
+	public static boolean actualizarPasswordTrabajador(Trabajador trabajador, String newPassword) {
 		try (Statement statement = conexion.createStatement()) {
 			String sent = "UPDATE TRABAJADOR SET PASSWORD='" + newPassword + "' WHERE ID_TRABAJADOR=" + trabajador.getId() + ";";
+			logger.log( Level.INFO, "Statement: " + sent );
+			statement.executeUpdate(sent); //Actualiza la contraseña
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	/** Inserta una contraseña en la base de datos abierta (debe abrirse previamente con {@link #abrirConexion(String, boolean)}
+	 * Actualiza la contraseña del cliente seleccionado
+	 * @param cliente	Cliente a modificar
+	 * @return	true si la actualizacion es correcta, false en caso contrario
+	 */
+	public static boolean actualizarPasswordCliente(Cliente cliente, String newPassword) {
+		try (Statement statement = conexion.createStatement()) {
+			String sent = "UPDATE CLIENTE SET PASSWORD='" + newPassword + "' WHERE ID_CLIENTE=" + cliente.getId() + ";";
 			logger.log( Level.INFO, "Statement: " + sent );
 			statement.executeUpdate(sent); //Actualiza la contraseña
 			return true;
@@ -358,7 +372,7 @@ public class BaseDatos {
 	 * @param precioFin	    Precio final de la ropa
 	 * @return Lista de la ropa entre dicho intervalo, null si hay algún error
 	 */
-	public ArrayList<Ropa> getRopasEntrePrecio(int precioInicio, int precioFin) {
+	public static ArrayList<Ropa> getRopasEntrePrecio(int precioInicio, int precioFin) {
 		try (Statement statement = conexion.createStatement()) {
 			ArrayList<Ropa> ret = new ArrayList<>();
 			String sent = "SELECT * FROM ROPA WHERE PRECIO >=" + precioInicio + " AND PRECIO <= " + precioFin + " ;";

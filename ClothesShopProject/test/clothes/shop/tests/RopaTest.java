@@ -125,15 +125,9 @@ public class RopaTest {
 	}
 	
 	@Test
-	public void testGetPrecioEuros() {
-		assertEquals(precio/100, precio/100);
-	}
-
-	@Test
 	public void testToString() {
-		//TODO problema con el float (precio en euros)
-		String toString = "(" + id + ") "+ nombre + " " + precio/100 + " €" + talla;
-		assertEquals(ropa.toString(), toString);
+		String expected = String.format("(%s)" +  " %s %.2f € %s", id, nombre, (float) precio/100, talla);
+		assertEquals(ropa.toString(), expected);
 	}
 
 }

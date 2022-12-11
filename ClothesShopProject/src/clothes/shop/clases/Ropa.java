@@ -86,11 +86,8 @@ public class Ropa {
 
 	@Override
 	public String toString() {
-		return String.format("(%s)" +  " %s %.2f € %s", id, nombre, getPrecioEuros(), talla);
-	}
-	
-	private float getPrecioEuros() {
-		return getPrecio() / 100;
+		return String.format("(%s)" +  " %s %.2f € %s", id, nombre, (float) getPrecio() / 100, talla);
+	//Precio está en euros
 	}
 	
 	/**
