@@ -6,8 +6,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,18 +20,28 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.border.EmptyBorder;
+
+import clothes.shop.clases.BaseDatos;
+import clothes.shop.clases.Cliente;
 
 public class VentanaLOGGINN extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel principal = new JPanel(new GridLayout(1, 2));
 	private JPanel logIn = new JPanel(new GridLayout(5, 1));
-	private JPanel register = new JPanel();
-	private JPanel credenciales = new JPanel();
+	private JPanel register = new JPanel(new GridLayout(3, 1));
+	private JPanel credencialesLogin = new JPanel();
+	private JPanel credencialesRegister = new JPanel();
 	
 	// Multiple lines in a label
-	private JLabel logInText = new JLabel("<html> Login To Your Account <br> <br> Login using social networks </html>");
-	private JLabel logInText1 = new JLabel("-------OR-------");
+	private JLabel logInText = new JLabel("<html> <center> <br> <h1> Login To Your Account </h1> <h2> Login using social networks </h2> </center> </html>");
+	private JLabel logInText1 = new JLabel("------- OR -------");
+	private JLabel usuarioLoginText = new JLabel("Usuario");
+	private JLabel contrasenaLoginText = new JLabel("Contraseña");
+	
+	private JTextField usuarioLoginTextField = new JTextField();
+	private JTextField usuarioRegisterTextField = new JTextField();
 	
 	private JToolBar toolbarRedesSociales = new JToolBar();
 	private ImageIcon facebookIcon = new ImageIcon("foto/iconos/facebookIcon.png");
@@ -37,25 +51,47 @@ public class VentanaLOGGINN extends JFrame {
 	private ImageIcon linkedinIcon = new ImageIcon("foto/iconos/linkedinIcon.png");
 	private JButton linkedinButton = new JButton(redimensionarIcono(linkedinIcon, 50, 50));
 	
-	private JToolBar toolbarContraseña = new JToolBar();
-	private JPasswordField contraseñaTexto = new JPasswordField();
-	private ImageIcon ojoIcon = new ImageIcon("foto/iconos/ojoIcon.png");
-	private JButton passwordButton = new JButton(redimensionarIcono(ojoIcon, 20, 20));
+	private JToolBar toolbarLoginContraseña = new JToolBar();
+	private JPasswordField contraseñaLoginTextField = new JPasswordField();
+	private ImageIcon ojoIconLogin = new ImageIcon("foto/iconos/ojoIcon.png");
+	private JButton passwordLoginButton = new JButton(redimensionarIcono(ojoIconLogin, 20, 20));
+	private ImageIcon ojoTachadoIconLogin = new ImageIcon("foto/iconos/ojoTachadoIcon.png");
 	
 	private ImageIcon loginIcon = new ImageIcon("foto/iconos/loginIcon.png");
-	private JButton loginButton = new JButton(redimensionarIcono(loginIcon, 200, 100));
+	private JButton loginButton = new JButton(redimensionarIcono(loginIcon, 120, 50));
+	
+	private JLabel registerText = new JLabel("<html> <center> <br> <h1> New here? </h1> "
+			+ "<h2> Sign up and discover a great amount of new opportunities! </h2> </center> </html>");
+	private JLabel usuarioRegisterText = new JLabel("Usuario");
+	private JLabel contrasenaRegisterText = new JLabel("Contraseña");
+	
+	private JToolBar toolbarRegisterContraseña = new JToolBar();
+	private JPasswordField contraseñaRegisterTextField = new JPasswordField();
+	private ImageIcon ojoIconRegister = new ImageIcon("foto/iconos/ojoIcon.png");
+	private JButton passwordRegisterButton = new JButton(redimensionarIcono(ojoIconRegister, 20, 20));
+	private ImageIcon ojoTachadoIconRegister = new ImageIcon("foto/iconos/ojoTachadoIcon.png");
+	
+	
+	private ImageIcon registerIcon = new ImageIcon("foto/iconos/registerIcon.png");
+	private JButton registerButton = new JButton(redimensionarIcono(registerIcon, 120, 50));
 	
 	public VentanaLOGGINN() {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
 		setSize(800, 600);
-		setTitle("Ventana Login");
+		setLocation(
+				(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
+				(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2) 
+		); //Muestra la ventana en el centro de la pantalla
+		setTitle("Welcome");
+		setIconImage(new ImageIcon("foto/logo.png").getImage());
 		setVisible(true);
 		
 		Container contentPane = getContentPane();
 		contentPane.add(principal);
 		
-		logIn.setBackground(new Color(153,170,181));
+		logIn.setBackground(Color.WHITE);
 		
 		logIn.add(logInText);
 		
@@ -63,34 +99,49 @@ public class VentanaLOGGINN extends JFrame {
 		ajustesDeBoton(googleButton);
 		ajustesDeBoton(linkedinButton);
 		toolbarRedesSociales.setBorder(null);
-		toolbarRedesSociales.setBackground(new Color(153,170,181));
-		añadirSeparador(toolbarRedesSociales, 59, 50);
+		toolbarRedesSociales.setBackground(Color.WHITE);
+		añadirSeparador(toolbarRedesSociales, 50, 50);
 		toolbarRedesSociales.add(facebookButton);
-		añadirSeparador(toolbarRedesSociales, 59, 50);
+		añadirSeparador(toolbarRedesSociales, 55, 50);
 		toolbarRedesSociales.add(googleButton);
-		añadirSeparador(toolbarRedesSociales, 59, 50);
+		añadirSeparador(toolbarRedesSociales, 55, 50);
 		toolbarRedesSociales.add(linkedinButton);
 		logIn.add(toolbarRedesSociales);
 		logIn.add(logInText1);
 		
-		credenciales.setLayout(new BoxLayout(credenciales, BoxLayout.Y_AXIS));
-		credenciales.setBackground(new Color(153,170,181));
-	 	credenciales.add( new JLabel("Usuario") );
-	 	JTextField Usuario = new JTextField();
-	 	credenciales.add(Usuario);
-	 	credenciales.add( new JLabel("Contraseña") );
-	 	passwordButton.setBorder(null);
-	 	toolbarContraseña.setBorder(null);
-	 	toolbarContraseña.add(contraseñaTexto);
-	 	toolbarContraseña.add(passwordButton);
-	 	credenciales.add(toolbarContraseña);
-	 	logIn.add(credenciales);
+		credencialesLogin.setLayout(new GridLayout(5, 1));
+		credencialesLogin.setBackground(Color.WHITE);
+	 	credencialesLogin.add(usuarioLoginText);
+	 	credencialesLogin.add(usuarioLoginTextField);
+	 	credencialesLogin.add(new JLabel()); //Espacio en blanco
+	 	credencialesLogin.add(contrasenaLoginText);
+	 	passwordLoginButton.setBorder(null);
+	 	toolbarLoginContraseña.setBorder(null);
+	 	toolbarLoginContraseña.add(contraseñaLoginTextField);
+	 	toolbarLoginContraseña.add(passwordLoginButton);
+	 	credencialesLogin.add(toolbarLoginContraseña);
+	 	logIn.add(credencialesLogin);
 		
 	 	loginButton.setBorder(null);
 	 	loginButton.setContentAreaFilled(false);
 	 	logIn.add(loginButton);
 	 	
-		register.setBackground(Color.PINK);
+		register.setBackground(new Color(133, 196, 65));
+		register.add(registerText);
+		register.add(credencialesRegister);
+		credencialesRegister.setLayout(new GridLayout(5, 1));
+		credencialesRegister.setBackground(new Color(133, 196, 65));
+		credencialesRegister.add(usuarioRegisterText);
+		credencialesRegister.add(usuarioRegisterTextField);
+		credencialesRegister.add(new JLabel()); //Espacio en blanco
+		credencialesRegister.add(contrasenaRegisterText);
+		credencialesRegister.add(toolbarRegisterContraseña);
+		passwordRegisterButton.setBorder(null);
+	 	toolbarRegisterContraseña.setBorder(null);
+		toolbarRegisterContraseña.add(contraseñaRegisterTextField);
+		toolbarRegisterContraseña.add(passwordRegisterButton);
+		ajustesDeBoton(registerButton);
+		register.add(registerButton);
 		
 		principal.add(logIn);
 		principal.add(register);
@@ -98,27 +149,80 @@ public class VentanaLOGGINN extends JFrame {
 		//Renderers (ajustes de texto)
 		logInText.setHorizontalAlignment(JLabel.CENTER);
 		logInText1.setHorizontalAlignment(JLabel.CENTER);
+		usuarioLoginText.setHorizontalAlignment(JLabel.LEFT);
+		contrasenaLoginText.setHorizontalAlignment(JLabel.LEFT);
+		
+		logIn.setBorder(new EmptyBorder(5, 20, 5, 20));
+		register.setBorder(new EmptyBorder(5, 20, 5, 20));
 		
 		logInText.setFont(new Font("Arial", Font.BOLD, 25));
-		logInText1.setFont(new Font("Arial", Font.BOLD, 25));
+		logInText1.setFont(new Font("Arial", Font.BOLD, 15));
 		
+		registerText.setFont(new Font("Arial", Font.BOLD, 25));
 		
 		//Eventos
-		passwordButton.setToolTipText("Mostrar contraseña"); 
 		
-		passwordButton.addActionListener(e -> {
-			char[] pf = contraseñaTexto.getPassword();
-			String value = new String(pf);
-			if(!value.isEmpty()) {
-				System.out.println("Contraseña: " + value);
-			} else {
-				System.out.println("ERROR: No se ha introducido ninguna contraseña");
+		//TODO hacer los init de login y register
+		//TODO que sea cliente o trabajador en el sign in
+		//TODO implementar que pase a la otra ventana al hacer sign in o sign up
+		
+		passwordLoginButton.setToolTipText("Mostrar contraseña"); 
+		passwordRegisterButton.setToolTipText("Mostrar contraseña"); 
+	
+		passwordLoginButton.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				char[] pf = contraseñaLoginTextField.getPassword();
+				String value = new String(pf);
+				if(!value.isEmpty()) {
+					passwordLoginButton.setIcon(redimensionarIcono(ojoTachadoIconLogin, 20, 20));
+					contraseñaLoginTextField.setEchoChar((char)0); //Muestra la contraseña
+				} else {
+					System.out.println("ERROR: No se ha introducido ninguna contraseña");
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				passwordLoginButton.setIcon(redimensionarIcono(ojoIconLogin, 20, 20));
+				contraseñaLoginTextField.setEchoChar('•');
+			}
+		});
+		
+		passwordRegisterButton.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				char[] pf = contraseñaRegisterTextField.getPassword();
+				String value = new String(pf);
+				if(!value.isEmpty()) {
+					passwordRegisterButton.setIcon(redimensionarIcono(ojoTachadoIconRegister, 20, 20));
+					contraseñaRegisterTextField.setEchoChar((char)0); //Muestra la contraseña
+				} else {
+					System.out.println("ERROR: No se ha introducido ninguna contraseña");
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				passwordRegisterButton.setIcon(redimensionarIcono(ojoIconRegister, 20, 20));
+				contraseñaRegisterTextField.setEchoChar('•');
 			}
 		});
 		
 		loginButton.addActionListener(e -> {
-			//TODO comprobar que esta en la bd
-			System.out.println("Se ha iniciado sesión correctamente");
+			List<Cliente> clientes = new ArrayList<>(BaseDatos.getClientes());
+			String nombreUsuario = usuarioLoginTextField.getText();
+			String contraseña = String.valueOf(contraseñaLoginTextField.getPassword());
+			
+			for (Cliente cliente : clientes) {
+				if(nombreUsuario.equals(cliente.getNombre()) && contraseña.equals(cliente.getContraseña())) {
+					System.out.println("Se ha iniciado sesión correctamente");
+				}
+			}
+		});
+		
+		registerButton.addActionListener(e -> {
+//			List<Cliente> clientes = new ArrayList<>(BaseDatos.getClientes());
+			String nombreUsuario = usuarioRegisterTextField.getText();
+			String contraseña = String.valueOf(contraseñaRegisterTextField.getPassword());
+			
+			//TODO mirar que el cliente no este en la bd
+			BaseDatos.insertarCliente(new Cliente(0, nombreUsuario, null, null, contraseña, false, 0, null));
+			System.out.println("Se ha registrado correctamente");
 		});
 		
 		

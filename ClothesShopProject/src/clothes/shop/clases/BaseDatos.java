@@ -228,7 +228,7 @@ public class BaseDatos {
 	 */
 	public static boolean insertarCliente( Cliente cliente ) {
 		try (Statement statement = conexion.createStatement()) {
-			String sent = "INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, URL_FOTO_P, ES_SOCIO, EDAD, PASSWORD) VALUES (" + cliente.getId() + ",'" + cliente.getNombre() + "','" + cliente.getApellido() + "','" + cliente.getFotoPerfil() + "'," + cliente.getEsSocio() + "," + cliente.getEdad() +  ",'"  + cliente.getContraseña() + "');";
+			String sent = "INSERT INTO CLIENTE (NOMBRE_CLIENTE, APELLIDO_CLIENTE, URL_FOTO_P, ES_SOCIO, EDAD, PASSWORD) VALUES ('" + cliente.getNombre() + "','" + cliente.getApellido() + "','" + cliente.getFotoPerfil() + "'," + cliente.getEsSocio() + "," + cliente.getEdad() +  ",'"  + cliente.getContraseña() + "');";
 			logger.log( Level.INFO, "Statement: " + sent );
 			int insertados = statement.executeUpdate( sent );
 			if (insertados!=1) return false;  // Error en inserción
@@ -238,6 +238,7 @@ public class BaseDatos {
 			rrss.next();  // Avanza a la única fila 
 			int pk = rrss.getInt( 1 );  // Coge la única columna (la primary key autogenerada)
 			cliente.setId( pk );
+			logger.log( Level.INFO, "Statement: id = " + pk );
 			return true;
 		} catch (Exception e) {
 			logger.log( Level.SEVERE, "Excepción", e );
@@ -252,7 +253,7 @@ public class BaseDatos {
 	 */
 	public static boolean insertarTrabajador( Trabajador trabajador ) {
 		try (Statement statement = conexion.createStatement()) {
-			String sent ="INSERT INTO TRABAJADOR (ID_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR, URL_FOTO_P, SUELDO, PUESTO, PASSWORD) VALUES (" + trabajador.getId() + ",'" + trabajador.getNombre() + "','" + trabajador.getApellido() + "','" + trabajador.getFotoPerfil() + "'," + trabajador.getSueldo() + ",'" + trabajador.getPuesto() + "','" + trabajador.getContraseña() + "');";
+			String sent ="INSERT INTO TRABAJADOR (NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR, URL_FOTO_P, SUELDO, PUESTO, PASSWORD) VALUES ('" + trabajador.getNombre() + "','" + trabajador.getApellido() + "','" + trabajador.getFotoPerfil() + "'," + trabajador.getSueldo() + ",'" + trabajador.getPuesto() + "','" + trabajador.getContraseña() + "');";
 			logger.log( Level.INFO, "Statement: " + sent );
 			int insertados = statement.executeUpdate( sent );
 			if (insertados!=1) return false;  // Error en inserción
@@ -262,6 +263,7 @@ public class BaseDatos {
 			rrss.next();  // Avanza a la única fila 
 			int pk = rrss.getInt( 1 );  // Coge la única columna (la primary key autogenerada)
 			trabajador.setId( pk );
+			logger.log( Level.INFO, "Statement: id = " + pk );
 			return true;
 		} catch (Exception e) {
 			logger.log( Level.SEVERE, "Excepción", e );
