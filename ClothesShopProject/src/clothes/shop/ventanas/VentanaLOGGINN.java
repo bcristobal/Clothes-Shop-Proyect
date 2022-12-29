@@ -91,57 +91,9 @@ public class VentanaLOGGINN extends JFrame {
 		Container contentPane = getContentPane();
 		contentPane.add(principal);
 		
-		logIn.setBackground(Color.WHITE);
-		
-		logIn.add(logInText);
-		
-		ajustesDeBoton(facebookButton);
-		ajustesDeBoton(googleButton);
-		ajustesDeBoton(linkedinButton);
-		toolbarRedesSociales.setBorder(null);
-		toolbarRedesSociales.setBackground(Color.WHITE);
-		añadirSeparador(toolbarRedesSociales, 50, 50);
-		toolbarRedesSociales.add(facebookButton);
-		añadirSeparador(toolbarRedesSociales, 55, 50);
-		toolbarRedesSociales.add(googleButton);
-		añadirSeparador(toolbarRedesSociales, 55, 50);
-		toolbarRedesSociales.add(linkedinButton);
-		logIn.add(toolbarRedesSociales);
-		logIn.add(logInText1);
-		
-		credencialesLogin.setLayout(new GridLayout(5, 1));
-		credencialesLogin.setBackground(Color.WHITE);
-	 	credencialesLogin.add(usuarioLoginText);
-	 	credencialesLogin.add(usuarioLoginTextField);
-	 	credencialesLogin.add(new JLabel()); //Espacio en blanco
-	 	credencialesLogin.add(contrasenaLoginText);
-	 	passwordLoginButton.setBorder(null);
-	 	toolbarLoginContraseña.setBorder(null);
-	 	toolbarLoginContraseña.add(contraseñaLoginTextField);
-	 	toolbarLoginContraseña.add(passwordLoginButton);
-	 	credencialesLogin.add(toolbarLoginContraseña);
-	 	logIn.add(credencialesLogin);
-		
-	 	loginButton.setBorder(null);
-	 	loginButton.setContentAreaFilled(false);
-	 	logIn.add(loginButton);
+		initLogin();
 	 	
-		register.setBackground(new Color(133, 196, 65));
-		register.add(registerText);
-		register.add(credencialesRegister);
-		credencialesRegister.setLayout(new GridLayout(5, 1));
-		credencialesRegister.setBackground(new Color(133, 196, 65));
-		credencialesRegister.add(usuarioRegisterText);
-		credencialesRegister.add(usuarioRegisterTextField);
-		credencialesRegister.add(new JLabel()); //Espacio en blanco
-		credencialesRegister.add(contrasenaRegisterText);
-		credencialesRegister.add(toolbarRegisterContraseña);
-		passwordRegisterButton.setBorder(null);
-	 	toolbarRegisterContraseña.setBorder(null);
-		toolbarRegisterContraseña.add(contraseñaRegisterTextField);
-		toolbarRegisterContraseña.add(passwordRegisterButton);
-		ajustesDeBoton(registerButton);
-		register.add(registerButton);
+		initRegister();
 		
 		principal.add(logIn);
 		principal.add(register);
@@ -162,7 +114,6 @@ public class VentanaLOGGINN extends JFrame {
 		
 		//Eventos
 		
-		//TODO hacer los init de login y register
 		//TODO que sea cliente o trabajador en el sign in
 		//TODO implementar que pase a la otra ventana al hacer sign in o sign up
 		
@@ -209,6 +160,7 @@ public class VentanaLOGGINN extends JFrame {
 			String contraseña = String.valueOf(contraseñaLoginTextField.getPassword());
 			
 			for (Cliente cliente : clientes) {
+				//TODO mostrar mensaje sino está en la BD
 				if(nombreUsuario.equals(cliente.getNombre()) && contraseña.equals(cliente.getContraseña())) {
 					System.out.println("Se ha iniciado sesión correctamente");
 				}
@@ -226,6 +178,74 @@ public class VentanaLOGGINN extends JFrame {
 		});
 		
 		
+	}
+	
+	/**  Inicializa el panel login
+	*/
+	public void initLogin() {
+		logIn.setBackground(Color.WHITE);
+		
+		credencialesLogin.setLayout(new GridLayout(5, 1));
+		credencialesLogin.setBackground(Color.WHITE);
+		
+		credencialesLogin.add(usuarioLoginText);
+	 	credencialesLogin.add(usuarioLoginTextField);
+	 	credencialesLogin.add(new JLabel()); //Espacio en blanco
+	 	credencialesLogin.add(contrasenaLoginText);
+	 	credencialesLogin.add(toolbarLoginContraseña);
+		
+		ajustesDeBoton(facebookButton);
+		ajustesDeBoton(googleButton);
+		ajustesDeBoton(linkedinButton);
+		ajustesDeBoton(loginButton);
+		passwordLoginButton.setBorder(null);
+		
+		toolbarRedesSociales.setBorder(null);
+		toolbarRedesSociales.setBackground(Color.WHITE);
+		toolbarLoginContraseña.setBorder(null);
+		
+		añadirSeparador(toolbarRedesSociales, 50, 50);
+		toolbarRedesSociales.add(facebookButton);
+		añadirSeparador(toolbarRedesSociales, 55, 50);
+		toolbarRedesSociales.add(googleButton);
+		añadirSeparador(toolbarRedesSociales, 55, 50);
+		toolbarRedesSociales.add(linkedinButton);
+	 	
+	 	toolbarLoginContraseña.add(contraseñaLoginTextField);
+	 	toolbarLoginContraseña.add(passwordLoginButton);
+	 	
+	 	logIn.add(logInText);
+		logIn.add(toolbarRedesSociales);
+		logIn.add(logInText1);
+		logIn.add(credencialesLogin);
+		logIn.add(loginButton);
+	}
+	
+	/**  Inicializa el panel register
+	*/
+	public void initRegister() {
+		register.setBackground(new Color(133, 196, 65));
+		
+		credencialesRegister.setLayout(new GridLayout(5, 1));
+		credencialesRegister.setBackground(new Color(133, 196, 65));
+		
+		passwordRegisterButton.setBorder(null);
+	 	toolbarRegisterContraseña.setBorder(null);
+	 	
+	 	ajustesDeBoton(registerButton);
+		
+		credencialesRegister.add(usuarioRegisterText);
+		credencialesRegister.add(usuarioRegisterTextField);
+		credencialesRegister.add(new JLabel()); //Espacio en blanco
+		credencialesRegister.add(contrasenaRegisterText);
+		credencialesRegister.add(toolbarRegisterContraseña);
+		
+		toolbarRegisterContraseña.add(contraseñaRegisterTextField);
+		toolbarRegisterContraseña.add(passwordRegisterButton);
+		
+		register.add(registerText);
+		register.add(credencialesRegister);
+		register.add(registerButton);
 	}
 	
 	/**  Redimensiona una imagen
