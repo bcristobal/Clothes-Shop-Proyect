@@ -14,10 +14,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.AbstractButton;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -32,6 +34,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import clothes.shop.clases.BaseDatos;
 import clothes.shop.clases.Ropa;
@@ -73,7 +76,7 @@ public class VentanaPrincipal extends JFrame {
 	
 	private JPanel pCompra = new JPanel( new BorderLayout() );
 	
-	private DefaultTableModel mStock = new DefaultTableModel(new Object[] {"ID", "NOMBRE", "TIPO", "PRECIO", "TALLA"}, 0);
+	private DefaultTableModel mStock = new DefaultTableModel(new Object[] {"ID", "FOTO", "NOMBRE", "TIPO", "PRECIO", "TALLA"}, 0);
 	private JTable tStock = new JTable(mStock);
 	private JScrollPane scrollStock = new JScrollPane(tStock);
 	
@@ -104,7 +107,6 @@ public class VentanaPrincipal extends JFrame {
 		setVisible(true);
 		// Cambiar el icono
 		
-		initPanelStock();
 		
 		// Aqui va como se van a organizar todos los elementos por la mentan
 
@@ -122,8 +124,6 @@ public class VentanaPrincipal extends JFrame {
 		pCompra.add(pCentroCompra, BorderLayout.CENTER);
 		
 		pStock.add(scrollStock, BorderLayout.CENTER);
-		
-		pStock.add(scrollStock, BorderLayout.CENTER);
         pStockSur.add(bPedirStock);
         pStockSur.add(spinnerNumStock);
         pStock.add(pStockSur, BorderLayout.SOUTH);
@@ -137,17 +137,40 @@ public class VentanaPrincipal extends JFrame {
 		labelFoto.setPreferredSize(new Dimension(400, 400));
 		
 		
-		// Añadir la ropa a los modelos de lista
+		// Añadir la ropa a los modelos de lista y selecciona la opción por defencto del comboBox
 		cargarModelosCompra();
+		lRopa.setModel(mRopaId);
+		lRopa.repaint();
 		
-		List<Ropa> listaRopa = BaseDatos.getRopas();
-		while (mStock.getRowCount() > 0) {
-			mStock.removeRow( 0 );
-		}
-		for (Ropa r : listaRopa) {
-			mStock.addRow(new Object[] {r.getId(), r.getNombre(), r.getTipo(), r.getPrecio(), r.getTalla()});
-			scrollStock.repaint();
-		}
+		// Añadir la ropa al modelo de tabla
+		cargarModeloStock();
+		
+		TableCellRenderer renderTabla = (table, value, isSelected, hasFocus, row, column) -> {
+			JComponent resultado;
+			
+			//Si la celda está seleccionada, se usan los colores por defecto
+			if (isSelected) {
+				resultado = new JLabel(value.toString());
+				resultado.setBackground(table.getSelectionBackground());
+				resultado.setForeground(table.getSelectionForeground());
+			}
+			
+			// Añade la la imagen a la columna de foto
+			if (column == 1) {
+				resultado = new JLabel();
+				ImageIcon imagen = new ImageIcon((String) value);
+				((JLabel) resultado).setIcon(imagen);
+				resultado.repaint();
+				((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
+			} else {
+				resultado = new JLabel(value.toString());
+				((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
+			}
+			
+			return resultado;
+		};
+		this.tStock.setRowHeight(60);
+		this.tStock.setDefaultRenderer(Object.class, renderTabla);
 		
 		//Selecciona la opción por defencto del comboBox
 		lRopa.setModel(mRopaId);
@@ -208,7 +231,7 @@ public class VentanaPrincipal extends JFrame {
 			public void valueChanged(ListSelectionEvent e) {
 				Ropa seleccionado = lRopa.getSelectedValue();
 				if (seleccionado != null) {
-					refrescarFoto(seleccionado);
+					refrescarFoto(seleccionado.getFotoUrl(), labelFoto);
 				} else {
 					labelFoto.setIcon(null);
 					labelFoto.repaint();
@@ -221,44 +244,41 @@ public class VentanaPrincipal extends JFrame {
 		
 	}
 	
-	private void refrescarFoto (Ropa ropa) {
-		if (ropa.getFotoUrl() != null) {
-			ImageIcon imagen = new ImageIcon(ropa.getFotoUrl());
-			labelFoto.setIcon(imagen);
-			labelFoto.repaint();
+	private void refrescarFoto (String fotoUrl, JLabel label) {
+		if (fotoUrl != null) {
+			ImageIcon imagen = new ImageIcon(fotoUrl);
+			label.setIcon(imagen);
+			label.repaint();
 		} else {
-			labelFoto.setIcon(null);
-			labelFoto.repaint();
+			label.setIcon(null);
+			label.repaint();
 		}
-	}
-	
-	// FALTA LA CABECERA DE LOS PRODUCTOS EN EL ALMACEN
-	private void initPanelStock () {
-		Vector<String> cabeceraTabla = new Vector<String>(Arrays.asList("ID", "NOMBRE", "TIPO", "PRECIO", "TALLA"));
-		this.mStock = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraTabla);
-		this.tStock = new JTable(this.mStock);
 	}
 	
 	private void cargarModelosCompra () {
 		List<Ropa> listaRopa = BaseDatos.getRopas();
 		
-		Ropa.idCreciente(listaRopa) ;
-		System.out.println(listaRopa);
+		mRopaId.clear();
+		Ropa.idCreciente(listaRopa);
+		// System.out.println(listaRopa);
 		for (Ropa r : listaRopa) {
 			mRopaId.addElement(r);
 		}
+		mRopaAlabeticamente.clear();
 		Ropa.alfabeticamente(listaRopa) ;
-		System.out.println(listaRopa);
+		// System.out.println(listaRopa);
 		for (Ropa r : listaRopa) {
 			mRopaAlabeticamente.addElement(r);
 		}
+		mRopaPrecioAscendente.clear();
 		Ropa.precioCreciente(listaRopa) ;
-		System.out.println(listaRopa);
+		// System.out.println(listaRopa);
 		for (Ropa r : listaRopa) {
 			mRopaPrecioAscendente.addElement(r);
 		}
+		mRopaPrecioDescendente.clear();
 		Ropa.precioDescendiente(listaRopa) ;
-		System.out.println(listaRopa);
+		// System.out.println(listaRopa);
 		for (Ropa r : listaRopa) {
 			mRopaPrecioDescendente.addElement(r);
 		}
@@ -266,9 +286,11 @@ public class VentanaPrincipal extends JFrame {
 	
 	private void cargarModeloStock () {
 		List<Ropa> listaRopa = BaseDatos.getRopas();
-		// mStock.setRowCount(0);
+		while (mStock.getRowCount() > 0) {
+			mStock.removeRow( 0 );
+		}
 		for (Ropa r : listaRopa) {
-			mStock.addRow(new Object[] {r.getId(), r.getNombre(), r.getTipo(), r.getPrecio(), r.getTalla()});
+			mStock.addRow(new Object[] {r.getId(), r.getFotoUrl(), r.getNombre(), r.getTipo(), r.getPrecio() / 100, r.getTalla()});
 			scrollStock.repaint();
 		}
 	}
