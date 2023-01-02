@@ -113,8 +113,7 @@ public class VentanaLOGGINN extends JFrame {
 		registerText.setFont(new Font("Arial", Font.BOLD, 25));
 		
 		//Eventos
-		
-		//TODO que sea cliente o trabajador en el sign in
+		//TODO Cliente o Trabajador
 		//TODO implementar que pase a la otra ventana al hacer sign in o sign up
 		
 		passwordLoginButton.setToolTipText("Mostrar contraseña"); 
@@ -159,8 +158,8 @@ public class VentanaLOGGINN extends JFrame {
 			String nombreUsuario = usuarioLoginTextField.getText();
 			String contraseña = String.valueOf(contraseñaLoginTextField.getPassword());
 			
+			//TODO Sino existe ese cliente
 			for (Cliente cliente : clientes) {
-				//TODO mostrar mensaje sino está en la BD
 				if(nombreUsuario.equals(cliente.getNombre()) && contraseña.equals(cliente.getContraseña())) {
 					System.out.println("Se ha iniciado sesión correctamente");
 				}
@@ -168,13 +167,16 @@ public class VentanaLOGGINN extends JFrame {
 		});
 		
 		registerButton.addActionListener(e -> {
-//			List<Cliente> clientes = new ArrayList<>(BaseDatos.getClientes());
 			String nombreUsuario = usuarioRegisterTextField.getText();
 			String contraseña = String.valueOf(contraseñaRegisterTextField.getPassword());
 			
-			//TODO mirar que el cliente no este en la bd
-			BaseDatos.insertarCliente(new Cliente(0, nombreUsuario, null, null, contraseña, false, 0, null));
-			System.out.println("Se ha registrado correctamente");
+			if( BaseDatos.existeCliente(nombreUsuario) ) {
+				System.out.println("ERROR: Usuario existente");
+			} else {
+				BaseDatos.insertarCliente(new Cliente(0, nombreUsuario, null, null, contraseña, false, 0, null));
+				System.out.println("Se ha registrado correctamente");
+			}
+			
 		});
 		
 		

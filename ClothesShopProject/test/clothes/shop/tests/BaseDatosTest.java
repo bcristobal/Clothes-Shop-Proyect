@@ -137,6 +137,18 @@ public class BaseDatosTest {
 	}
 	
 	@Test
+	public void testExisteCliente() {
+		String nombreCliente = "Joel";
+		assertTrue(BaseDatos.existeCliente(nombreCliente));
+	}
+	
+	@Test
+	public void testNoExisteCliente() {
+		String nombreCliente = "Cloe";
+		assertFalse(BaseDatos.existeCliente(nombreCliente));
+	}
+	
+	@Test
 	public void testCerrarConexion() {
 		BaseDatos.cerrarConexion();
 	}

@@ -402,4 +402,20 @@ public class BaseDatos {
 			return null;
 		}
 	}
+	
+	/** Definir consulta de la existencia de un cliente
+	 * @param nombreCliente	Nombre del cliente
+	 * @return true si existe, false si no existe
+	 */
+	public static boolean existeCliente(String nombreCliente) {
+		try (Statement statement = conexion.createStatement()) {
+			String sent = "SELECT DISTINCT NOMBRE_CLIENTE FROM CLIENTE WHERE NOMBRE_CLIENTE LIKE '" + nombreCliente + "'"; //Case insensitive
+			logger.log( Level.INFO, "Statement: " + sent );
+			ResultSet rs = statement.executeQuery( sent );
+			return rs.next();
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return true;
+		}
+	}
 }
