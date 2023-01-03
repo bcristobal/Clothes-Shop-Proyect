@@ -101,13 +101,7 @@ public class VentanaPrincipal extends JFrame {
 	private JScrollPane scrollStock = new JScrollPane(tStock);
 	
 	private JButton bPedirStock = new JButton("Pedir Stock");
-    private SpinnerModel mSpinner =
-            new SpinnerNumberModel(5, //initial value
-               1, //minimum value
-               100, //maximum value
-               5); //step
-    private JSpinner spinnerNumStock = new JSpinner(mSpinner); 
-
+	
     private JPanel pStockSur = new JPanel(new FlowLayout());
 	
 	private JPanel pStock = new JPanel( new BorderLayout() );
@@ -145,7 +139,6 @@ public class VentanaPrincipal extends JFrame {
 		
 		pStock.add(scrollStock, BorderLayout.CENTER);
         pStockSur.add(bPedirStock);
-        pStockSur.add(spinnerNumStock);
         pStock.add(pStockSur, BorderLayout.SOUTH);
 		
 		pestanas.add("Compra", pCompra);
@@ -196,12 +189,6 @@ public class VentanaPrincipal extends JFrame {
 				((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
 			}
 			
-			//Si la celda está seleccionada, se usan los colores por defecto
-			if (isSelected) {	
-				resultado.setBackground(table.getSelectionBackground());
-				resultado.setForeground(table.getSelectionForeground());
-			}
-			
 			return resultado;
 		};
 		
@@ -212,6 +199,16 @@ public class VentanaPrincipal extends JFrame {
       //set the editor
         col.setCellEditor(new MySpinnerEditor());
 		
+      //Se cambia la anchura de las columnas
+      	this.tStock.getColumnModel().getColumn(0).setPreferredWidth(25);
+      	this.tStock.getColumnModel().getColumn(1).setPreferredWidth(50);
+      	this.tStock.getColumnModel().getColumn(2).setPreferredWidth(200);
+      	this.tStock.getColumnModel().getColumn(3).setPreferredWidth(30);
+      	this.tStock.getColumnModel().getColumn(4).setPreferredWidth(30);
+      	this.tStock.getColumnModel().getColumn(5).setPreferredWidth(30);
+      	this.tStock.getColumnModel().getColumn(6).setPreferredWidth(30);
+      	this.tStock.getColumnModel().getColumn(7).setPreferredWidth(30);
+      	
 		this.tStock.setRowHeight(60);
 		this.tStock.setDefaultRenderer(Object.class, renderTabla);
 		
@@ -282,8 +279,14 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		
-		
-		
+		// FALTA
+		bPedirStock.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				// primero añadira los pedidos al almacen y luego volvera a cargar la tabla para que se vea el almacen actualizado
+			}
+		});
 		
 	}
 	
