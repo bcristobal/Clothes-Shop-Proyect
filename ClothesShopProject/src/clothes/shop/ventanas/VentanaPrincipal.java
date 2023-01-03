@@ -1,6 +1,8 @@
 package clothes.shop.ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.AbstractButton;
+import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,17 +29,25 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import clothes.shop.clases.BaseDatos;
+import clothes.shop.clases.MySpinnerEditor;
 import clothes.shop.clases.Ropa;
 
 public class VentanaPrincipal extends JFrame {
@@ -68,7 +79,7 @@ public class VentanaPrincipal extends JFrame {
 	private JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pRopa, pCarrito);
 	
 	private JButton bAñadir = new JButton("Añadir"); 
-	private JButton bBorrar = new JButton("Borrar");  
+	private JButton bBorrar = new JButton("Borrar"); 
 	
 	private JLabel labelFoto = new JLabel();
 	private JButton bTerminarCompra = new JButton("Terminar compra");
@@ -76,7 +87,16 @@ public class VentanaPrincipal extends JFrame {
 	
 	private JPanel pCompra = new JPanel( new BorderLayout() );
 	
-	private DefaultTableModel mStock = new DefaultTableModel(new Object[] {"ID", "FOTO", "NOMBRE", "TIPO", "PRECIO", "TALLA"}, 0);
+	private DefaultTableModel mStock = new DefaultTableModel(new Object[] {"ID", "FOTO", "NOMBRE", "TIPO", "PRECIO", "TALLA", "ALMACEN", "PEDIDO"}, 0) {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public boolean isCellEditable(int rowIndex, int columnIndex){
+			return columnIndex == 7; //Or whatever column index you want to be editable
+			}
+	};
 	private JTable tStock = new JTable(mStock);
 	private JScrollPane scrollStock = new JScrollPane(tStock);
 	
@@ -143,17 +163,12 @@ public class VentanaPrincipal extends JFrame {
 		lRopa.repaint();
 		
 		// Añadir la ropa al modelo de tabla
+		tStock.setDefaultEditor(Object.class, null);
+
 		cargarModeloStock();
 		
 		TableCellRenderer renderTabla = (table, value, isSelected, hasFocus, row, column) -> {
 			JComponent resultado;
-			
-			//Si la celda está seleccionada, se usan los colores por defecto
-			if (isSelected) {
-				resultado = new JLabel(value.toString());
-				resultado.setBackground(table.getSelectionBackground());
-				resultado.setForeground(table.getSelectionForeground());
-			}
 			
 			// Añade la la imagen a la columna de foto
 			if (column == 1) {
@@ -162,13 +177,41 @@ public class VentanaPrincipal extends JFrame {
 				((JLabel) resultado).setIcon(imagen);
 				resultado.repaint();
 				((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
-			} else {
+				
+			} else if (column == 6 && (Integer) value < 10) {
+				resultado = new JLabel(value.toString());
+				resultado.setBackground(Color.RED);
+				((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
+			      
+			} /*else if (column == 7) {
+				SpinnerModel modeloSpinner =
+			            new SpinnerNumberModel(
+			            	0, //initial value
+			            	0, //minimum value
+			            	100, //maximum value
+			            	5); //step
+			      resultado = new JSpinner(modeloSpinner);
+			}*/ else {
 				resultado = new JLabel(value.toString());
 				((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
 			}
 			
+			//Si la celda está seleccionada, se usan los colores por defecto
+			if (isSelected) {	
+				resultado.setBackground(table.getSelectionBackground());
+				resultado.setForeground(table.getSelectionForeground());
+			}
+			
 			return resultado;
 		};
+		
+		//get the column model from JTable
+        TableColumnModel model = tStock.getColumnModel();
+        //get the 8nd column
+        TableColumn col = model.getColumn(7);
+      //set the editor
+        col.setCellEditor(new MySpinnerEditor());
+		
 		this.tStock.setRowHeight(60);
 		this.tStock.setDefaultRenderer(Object.class, renderTabla);
 		
@@ -290,7 +333,7 @@ public class VentanaPrincipal extends JFrame {
 			mStock.removeRow( 0 );
 		}
 		for (Ropa r : listaRopa) {
-			mStock.addRow(new Object[] {r.getId(), r.getFotoUrl(), r.getNombre(), r.getTipo(), r.getPrecio() / 100, r.getTalla()});
+			mStock.addRow(new Object[] {r.getId(), r.getFotoUrl(), r.getNombre(), r.getTipo(), r.getPrecio() / 100, r.getTalla(), 0, 0});
 			scrollStock.repaint();
 		}
 	}
