@@ -1,13 +1,18 @@
 package clothes.shop.clases;
 
 import java.sql.SQLException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import clothes.shop.ventanas.VentanaCarga;
+import clothes.shop.ventanas.VentanaLOGGINN;
 import clothes.shop.ventanas.VentanaLogin;
 import clothes.shop.ventanas.VentanaPerfil;
 import clothes.shop.ventanas.VentanaPrincipal;
 
 public class Main {
+	
+	static int contador = 0;
 
 	public static void main(String[] args) {
 		BaseDatos.abrirConexion("prueba.bd");
@@ -33,10 +38,29 @@ public class Main {
 //		BaseDatos.actualizarPasswordCliente(cliente2, "HOLA");
 //		System.out.println(BaseDatos.getTrabajadores());
 		
+		Timer tiempo = new Timer("ContadorVentanaCarga");
+		
 		VentanaCarga c = new VentanaCarga();
-		VentanaLogin l = new VentanaLogin();
-		VentanaPrincipal v = new VentanaPrincipal();
-		VentanaPerfil p = new VentanaPerfil();
+		
+		TimerTask actividadTiempo = new TimerTask() {
+			@Override
+			public void run() {
+				contador++;
+				if (contador > 2) {
+					c.dispose();
+					//VentanaLogin l = new VentanaLogin();
+					VentanaLOGGINN ll = new VentanaLOGGINN();
+					tiempo.cancel();
+				}
+			}
+		};
+		
+		tiempo.scheduleAtFixedRate(actividadTiempo, 30, 1000);
+		
+		//TODO: Guardar sesion de usuario del login
+		
+		//VentanaPrincipal v = new VentanaPrincipal();
+		//VentanaPerfil p = new VentanaPerfil();
 		
 //		try {
 //			BaseDatos.borrarCliente(cliente1);
