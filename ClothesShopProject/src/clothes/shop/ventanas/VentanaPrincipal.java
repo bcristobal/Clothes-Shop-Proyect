@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -166,10 +167,18 @@ public class VentanaPrincipal extends JFrame {
 			// Añade la la imagen a la columna de foto
 			if (column == 1) {
 				resultado = new JLabel();
-				ImageIcon imagen = new ImageIcon((String) value);
-				((JLabel) resultado).setIcon(imagen);
-				resultado.repaint();
-				((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
+
+				if (value != null) {
+					ImageIcon imagenIcon = new ImageIcon((String) value);
+					Image image = imagenIcon.getImage();
+					Image nueva = image.getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH);
+					
+					resultado = new JLabel("",new ImageIcon(nueva), JLabel.CENTER);
+					resultado.repaint();
+				} else {
+					((JLabel) resultado).setIcon(null);
+					resultado.repaint();
+				}
 				
 			} else if (column == 6 && (Integer) value < 10) {
 				resultado = new JLabel(value.toString());
@@ -200,9 +209,9 @@ public class VentanaPrincipal extends JFrame {
         col.setCellEditor(new MySpinnerEditor());
 		
       //Se cambia la anchura de las columnas
-      	this.tStock.getColumnModel().getColumn(0).setPreferredWidth(25);
+      	this.tStock.getColumnModel().getColumn(0).setPreferredWidth(20);
       	this.tStock.getColumnModel().getColumn(1).setPreferredWidth(50);
-      	this.tStock.getColumnModel().getColumn(2).setPreferredWidth(200);
+      	this.tStock.getColumnModel().getColumn(2).setPreferredWidth(220);
       	this.tStock.getColumnModel().getColumn(3).setPreferredWidth(30);
       	this.tStock.getColumnModel().getColumn(4).setPreferredWidth(30);
       	this.tStock.getColumnModel().getColumn(5).setPreferredWidth(30);
@@ -276,7 +285,7 @@ public class VentanaPrincipal extends JFrame {
 					labelFoto.setIcon(null);
 					labelFoto.repaint();
 				}
-			}
+			} 
 		});
 		
 		// FALTA
@@ -292,8 +301,11 @@ public class VentanaPrincipal extends JFrame {
 	
 	private void refrescarFoto (String fotoUrl, JLabel label) {
 		if (fotoUrl != null) {
-			ImageIcon imagen = new ImageIcon(fotoUrl);
-			label.setIcon(imagen);
+			ImageIcon imagenIcon = new ImageIcon(fotoUrl);
+			Image image = imagenIcon.getImage();
+			Image nueva = image.getScaledInstance(label.getWidth(), label.getHeight(), java.awt.Image.SCALE_SMOOTH);
+			
+			label.setIcon(new ImageIcon(nueva));
 			label.repaint();
 		} else {
 			label.setIcon(null);
