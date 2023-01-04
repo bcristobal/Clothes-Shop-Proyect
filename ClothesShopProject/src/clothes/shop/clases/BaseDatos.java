@@ -418,4 +418,16 @@ public class BaseDatos {
 			return true;
 		}
 	}
+	
+	public static boolean existeTrabajador(String nombreTrabajador) {
+		try (Statement statement = conexion.createStatement()) {
+			String sent = "SELECT DISTINCT NOMBRE_TRABAJADOR FROM TRABAJADOR WHERE NOMBRE_TRABAJADOR LIKE '" + nombreTrabajador + "'"; //Case insensitive
+			logger.log( Level.INFO, "Statement: " + sent );
+			ResultSet rs = statement.executeQuery( sent );
+			return rs.next();
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return true;
+		}
+	}
 }

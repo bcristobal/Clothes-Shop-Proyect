@@ -26,6 +26,9 @@ import clothes.shop.clases.BaseDatos;
 import clothes.shop.clases.Cliente;
 
 public class VentanaLOGGINN extends JFrame {
+	//TODO:Cuando el usuario finalmente ,y con todas las comprobaciones hechas, inicie sesión se guardará aquí su credencial de usuario
+	protected static String cookieUsuario;
+	
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel principal = new JPanel(new GridLayout(1, 2));
