@@ -14,7 +14,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.AbstractButton;
@@ -50,6 +52,7 @@ import javax.swing.table.TableColumnModel;
 import clothes.shop.clases.BaseDatos;
 import clothes.shop.clases.MySpinnerEditor;
 import clothes.shop.clases.Ropa;
+import clothes.shop.clases.Talla;
 
 public class VentanaPrincipal extends JFrame {
 	
@@ -185,15 +188,7 @@ public class VentanaPrincipal extends JFrame {
 				resultado.setBackground(Color.RED);
 				((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
 			      
-			} /*else if (column == 7) {
-				SpinnerModel modeloSpinner =
-			            new SpinnerNumberModel(
-			            	0, //initial value
-			            	0, //minimum value
-			            	100, //maximum value
-			            	5); //step
-			      resultado = new JSpinner(modeloSpinner);
-			}*/ else {
+			} else {
 				resultado = new JLabel(value.toString());
 				((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
 			}
@@ -361,7 +356,25 @@ public class VentanaPrincipal extends JFrame {
 		}
 	}
 	
+	private Map<String, List<Ropa>> getMapaRopaPorTallas() {
+		Map<String, List<Ropa>> map = new HashMap<>();
+		List<Ropa> list = BaseDatos.getRopas();
+		
+		for (Ropa r : list) {
+			map.putIfAbsent(r.getNombre(), new ArrayList<>());
+			map.get(r.getNombre()).add(r);
+		}
+		
+		return map;
+	}
 	
+	private List<Talla> getTallas (List<Ropa> ropas) {
+		List<Talla> resultado = new ArrayList<>();
+		for (Ropa r : ropas) {
+			resultado.add(r.getTalla());
+		}
+		return resultado;
+	}
 	
 	
 	
