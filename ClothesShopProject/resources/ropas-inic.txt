@@ -1,11 +1,11 @@
 ID,NOMBRE,TIPO,PRECIO,TALLA,FOTOURL
-1,Primera equipacion Stadium FC Barcelona,camiseta,3000,XS,foto/camiseta1EquipacionBarcelona.jpg
-2,Nike Pro Dri-Fit,pantalon,2500,S,foto/pantalonNikeProDriFit.jpg
-3,Nike Sportswear Tech Fleece,sudadera,3500,M,foto/sudaderaNikeSportswearTechFleece.jpg
-4,Madrid socks,calcetines,1000,L,SinDefinir
-5,Airfox V2,zapatillas,6000,L_XL,SinDefinir
-6,Nike F.C.,camiseta,4000,XL,SinDefinir
-7,Nike Dri-Fit Academy,pantalon,1800,XL_XXL,SinDefinir
-8,Nike Therma,sudadera,3600,XXL,SinDefinir
-9,Alaves socks,calcetines,4550,M,SinDefinir
-10,Airfox V3,zapatillas,8000,S,SinDefinir
+1,Nike 1ª equipacion Barcelona 2023,camiseta,6999,XS,foto/ropa/camiseta1EquipacionBarcelona.jpg
+2,Nike Pro Dri-Fit,pantalon,2500,S,foto/ropa/pantalonNikeProDriFit.jpg
+3,Nike Sportswear Tech Fleece,sudadera,3500,M,foto/ropa/sudaderaNikeSportswearTechFleece.jpg
+4,Adidas 1ª equipacion Madrid 2023,calcetines,1000,L,foto/ropa/Adidas1EquipacionMadridCalcetines.jpg
+5,Nike Airfox V2,zapatillas,6000,L_XL,foto/ropa/NikeAirfoxV2Zapatillas.jpg
+6,Nike F.C.,camiseta,4000,XL,foto/ropa/NikeFCCamiseta.jpg
+7,Nike Dri-Fit Academy,pantalon,1800,XL_XXL,foto/ropa/NikeDriFitAcademyPantalon.jpg
+8,Nike Therma,sudadera,3600,XXL,foto/ropa/NikeThermaSudadera.jpg
+9,Puma Alaves 2023,calcetines,995,M,foto/ropa/PumaAlavesCalcetines.jpg
+10,Nike Airfox V3,zapatillas,8000,S,foto/ropa/NikeAirfoxV3Zapatillas.jpg

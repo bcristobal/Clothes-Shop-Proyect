@@ -348,7 +348,15 @@ public class VentanaPrincipal extends JFrame {
 			mStock.removeRow( 0 );
 		}
 		for (Ropa r : listaRopa) {
-			mStock.addRow(new Object[] {r.getId(), r.getFotoUrl(), r.getNombre(), r.getTipo(), r.getPrecio() / 100, r.getTalla(), 0, 0});
+			mStock.addRow(new Object[] {
+					r.getId(), 
+					r.getFotoUrl(), 
+					r.getNombre(), 
+					r.getTipo(), 
+					(r.getPrecio() / 100) + "," + (r.getPrecio() - (r.getPrecio() / 100) * 100) + "€", r.getTalla(), 
+					0, 
+					0
+					});
 			scrollStock.repaint();
 		}
 	}
