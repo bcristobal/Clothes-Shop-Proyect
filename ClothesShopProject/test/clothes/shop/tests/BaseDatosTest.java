@@ -82,8 +82,7 @@ public class BaseDatosTest {
 
 	@Test
 	public void testInsertarRopa() {
-		Ropa nuevaRopa = new Ropa(11, "Air fox new", Tipo.zapatillas, 10, 
-				Talla.L, "SinDefinir");
+		Ropa nuevaRopa = new Ropa(11, "Air fox new", Tipo.zapatillas, 10, Talla.L, "SinDefinir", 10);
 		
 		if(nuevaRopa != null) {
 			BaseDatos.insertarRopa(nuevaRopa);
