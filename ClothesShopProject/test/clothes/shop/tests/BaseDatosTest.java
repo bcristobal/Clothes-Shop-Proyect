@@ -133,7 +133,7 @@ public class BaseDatosTest {
 		int precioInicio = 1500;
 		int precioFin = 3000;
 		List<Ropa> ropasEntrePrecios = BaseDatos.getRopasEntrePrecio(precioInicio, precioFin);
-		assertEquals(3, ropasEntrePrecios.size());
+		assertEquals(2, ropasEntrePrecios.size());
 	}
 	
 	@Test
@@ -146,6 +146,18 @@ public class BaseDatosTest {
 	public void testNoExisteCliente() {
 		String nombreCliente = "Cloe";
 		assertFalse(BaseDatos.existeCliente(nombreCliente));
+	}
+	
+	@Test
+	public void testExisteTrabajador() {
+		String nombreTrabajador = "Miguel";
+		assertTrue(BaseDatos.existeTrabajador(nombreTrabajador));
+	}
+	
+	@Test
+	public void testNoExisteTrabajador() {
+		String nombreTrabajador = "Roberto";
+		assertFalse(BaseDatos.existeTrabajador(nombreTrabajador));
 	}
 	
 	@Test

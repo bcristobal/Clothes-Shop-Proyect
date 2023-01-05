@@ -17,7 +17,7 @@ public class TrabajadorTest {
 	private int id = 0;
 	private String nombre = "Nombre";
 	private String apellido = "Apellido";
-	private String fotoPerfil = "foto/fotoPerfilPredeterminada.jpg";
+	private String fotoPerfil = "../foto/fotoPerfilPredeterminada.jpg";
 	private int sueldo = 1000;
 	private Puesto puesto = Puesto.EMPLEADO;
 	private String contraseña = "P@ssw0rd123!";
@@ -52,7 +52,7 @@ public class TrabajadorTest {
 		assertEquals(trabajadorVacio.getId(), 0);
 		assertEquals(trabajadorVacio.getNombre(), null);
 		assertEquals(trabajadorVacio.getApellido(), null);
-		assertEquals(trabajadorVacio.getFotoPerfil(), "foto/fotoPerfilPredeterminada.jpg");
+		assertEquals(trabajadorVacio.getFotoPerfil(), "../foto/fotoPerfilPredeterminada.jpg");
 		assertEquals(trabajadorVacio.getSueldo(), 1000);
 		assertEquals(trabajadorVacio.getPuesto(), Puesto.EMPLEADO);
 		assertEquals(trabajadorVacio.getContraseña(), null);
