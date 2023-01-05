@@ -168,7 +168,7 @@ public class VentanaLOGGINN extends JFrame {
 					//Seguimiento de cookie
 					cookieUsuario = usuarioLoginTextField.getText();
 					//Cerrar esta ventana y abrir la siguiente ventana
-					this.dispose();
+					VentanaLOGGINN.this.dispose();
 					VentanaPrincipal p = new VentanaPrincipal();
 				}
 			}

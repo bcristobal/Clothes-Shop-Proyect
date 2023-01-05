@@ -14,7 +14,7 @@ public class PersonaTest {
 	private int id = 0;
 	private String nombre = "Nombre";
 	private String apellido = "Apellido";
-	private String fotoPerfil = "../foto/fotoPerfilPredeterminada.jpg";
+	private String fotoPerfil = "foto/fotoPerfilPredeterminada.jpg";
 	private String contraseña = "contraseña";
 
 	@Before
@@ -45,7 +45,7 @@ public class PersonaTest {
 		assertEquals(personaVacia.getId(), 0);
 		assertEquals(personaVacia.getNombre(), null);
 		assertEquals(personaVacia.getApellido(), null);
-		assertEquals(personaVacia.getFotoPerfil(), "../foto/fotoPerfilPredeterminada.jpg");
+		assertEquals(personaVacia.getFotoPerfil(), "foto/fotoPerfilPredeterminada.jpg");
 		assertEquals(personaVacia.getContraseña(), null);
 		
 	}

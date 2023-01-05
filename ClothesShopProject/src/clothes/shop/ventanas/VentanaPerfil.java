@@ -1,6 +1,7 @@
 package clothes.shop.ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -14,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class VentanaPerfil extends JFrame{
 
@@ -22,17 +22,25 @@ public class VentanaPerfil extends JFrame{
     public VentanaPerfil() {
    	 //VISUAL
    	 JPanel Datos = new JPanel();
-   		 //TODO:Rellenar datos
    		 //TODO:Seguir la sesión (Quien es el usuario al venir a esta ventana) (comunicación entre ventanas) mediante pseudo-cookies
    		 Datos.setLayout(new BoxLayout(Datos, BoxLayout.Y_AXIS));
    		 Datos.add(new JLabel("Nombre:"));
-   		 JTextField Nombre = new JTextField();
+   		 //TODO:Rellenar datos con la base de datos (if...)
+   		 String nombreBaseDatos = "Nombre no figura en la base de datos";
+   		 JLabel Nombre = new JLabel(nombreBaseDatos);
+   		 Nombre.setForeground(Color.RED);
    		 Datos.add(Nombre);
    		 Datos.add(new JLabel("DNI/ID:"));
-   		 JTextField ID = new JTextField();
+   		 //TODO:Rellenar datos con la base de datos (if...)
+   		 String IDBaseDatos = "ID no figura en la base de datos";
+   		 JLabel ID = new JLabel(IDBaseDatos);
+   		 ID.setForeground(Color.RED);
    		 Datos.add(ID);
    		 Datos.add(new JLabel("Correo:"));
-   		 JTextField Correo = new JTextField();
+   		 //TODO:Rellenar datos con la base de datos (if...)
+   		 String correoBaseDatos = "Correo no figura en la base de datos";
+   		 JLabel Correo = new JLabel(correoBaseDatos);
+   		 Correo.setForeground(Color.RED);
    		 Datos.add(Correo);
    	 
    	 JPanel FotoUsuario = new JPanel();
