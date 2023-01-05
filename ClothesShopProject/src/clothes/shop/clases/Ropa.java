@@ -12,8 +12,9 @@ public class Ropa implements Pagable{
 	private int precio; // Esta en centimos
 	private Talla talla;
 	private String fotoUrl;
+	private int cantidad;
 	
-	public Ropa(int id, String nombre, Tipo tipo, int precio, Talla talla, String fotoUrl) {
+	public Ropa(int id, String nombre, Tipo tipo, int precio, Talla talla, String fotoUrl, int cantidad) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -21,6 +22,7 @@ public class Ropa implements Pagable{
 		setPrecio(precio);
 		this.talla = talla;
 		this.fotoUrl = fotoUrl;
+		setCantidad(cantidad);
 	}
 	
 	public Ropa() {
@@ -30,6 +32,7 @@ public class Ropa implements Pagable{
 		setPrecio(0);
 		this.talla = null;
 		this.fotoUrl = null;
+		setCantidad(0);
 	}
 
 	public int getId() {
@@ -84,6 +87,18 @@ public class Ropa implements Pagable{
 	
 	public void setFotoUrl(String fotoUrl) {
 		this.fotoUrl = fotoUrl;
+	}
+	
+	public int getCantidad() {
+		return cantidad;
+	}
+	
+	public void setCantidad (int cantidad) {
+		if (cantidad < 0) {
+			throw new IllegalArgumentException("ERROR: cantidad invalida"); // No se aceptan cantidades negativas
+		} else {
+			this.cantidad = cantidad;
+		}
 	}
 
 	@Override

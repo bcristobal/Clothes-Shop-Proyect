@@ -71,7 +71,8 @@ public class BaseDatos {
 					+ " TIPO TEXT NOT NULL,\n" // El enum esta puesto como texto
 					+ " PRECIO INTEGER NOT NULL, \n" // El precio se guarda en centimos
 					+ " TALLA TEXT NOT NULL,\n" // El enum esta puesto como texto
-					+ " FOTO_URL TEXT NOT NULL" 
+					+ " FOTO_URL TEXT NOT NULL,\n"
+					+ " CANTIDAD INTEGER NOT NULL" 
 					+ ");";
 			logger.log( Level.INFO, "Statement: " + sent );
 			statement.executeUpdate( sent );
@@ -105,7 +106,7 @@ public class BaseDatos {
 				while (scanner.hasNextLine()) {
 					String linea = scanner.nextLine();
 					String[] datos = linea.split( "," );
-					sent = "INSERT INTO ROPA (ID_ROPA, NOMBRE_ROPA, TIPO, PRECIO, TALLA, FOTO_URL) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "'," + datos[3] + ",'" + datos[4] + "','" + datos[5] + "');";
+					sent = "INSERT INTO ROPA (ID_ROPA, NOMBRE_ROPA, TIPO, PRECIO, TALLA, FOTO_URL, CANTIDAD) VALUES (" + datos[0] + ",'" + datos[1] + "','" + datos[2] + "'," + datos[3] + ",'" + datos[4] + "','" + datos[5] + "'," + datos[6] + ");";
 					logger.log( Level.INFO, "Statement: " + sent );
 					statement.executeUpdate( sent );
 				}
@@ -212,7 +213,8 @@ public class BaseDatos {
 				int precio = rs.getInt("PRECIO");
 				Talla talla = Talla.valueOf(rs.getString("TALLA"));
 				String fotoUrl = rs.getString("FOTO_URL");
-				ret.add( new Ropa(id, nombre, tipo, precio, talla, fotoUrl) );
+				int cantidad = rs.getInt("CANTIDAD");
+				ret.add( new Ropa(id, nombre, tipo, precio, talla, fotoUrl, cantidad) );
 			}
 			return ret;
 		} catch (Exception e) {
@@ -278,7 +280,7 @@ public class BaseDatos {
 	 */
 	public static boolean insertarRopa( Ropa ropa ) {
 		try (Statement statement = conexion.createStatement()) {
-			String sent ="INSERT INTO ROPA (ID_ROPA, NOMBRE_ROPA, TIPO, PRECIO, TALLA, FOTO_URL) VALUES (" + ropa.getId() + ",'" + ropa.getNombre() + "','" + ropa.getTipo() + "'," + ropa.getPrecio() + ",'" + ropa.getTalla() + "','" + ropa.getFotoUrl() + "');";
+			String sent ="INSERT INTO ROPA (ID_ROPA, NOMBRE_ROPA, TIPO, PRECIO, TALLA, FOTO_URL, CANTIDAD) VALUES (" + ropa.getId() + ",'" + ropa.getNombre() + "','" + ropa.getTipo() + "'," + ropa.getPrecio() + ",'" + ropa.getTalla() + "','" + ropa.getFotoUrl() + "'," + ropa.getCantidad() + ");";
 			logger.log( Level.INFO, "Statement: " + sent );
 			int insertados = statement.executeUpdate( sent );
 			if (insertados!=1) return false;  // Error en inserción
@@ -388,10 +390,11 @@ public class BaseDatos {
 				int precio = rs.getInt("PRECIO");
 				Talla talla = Talla.valueOf(rs.getString("TALLA"));
 				String fotoUrl = rs.getString("FOTO_URL");
+				int cantidad = rs.getInt("CANTIDAD");
 				
 				for (Ropa r : ropas) {
 					if (r.getId() == rs.getInt("ID_ROPA")) {
-						ret.add( new Ropa(id, nombre, tipo, precio, talla, fotoUrl) );
+						ret.add( new Ropa(id, nombre, tipo, precio, talla, fotoUrl, cantidad) );
 						break;
 					}
 				}

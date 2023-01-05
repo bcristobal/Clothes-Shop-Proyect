@@ -169,32 +169,21 @@ public class VentanaPrincipal extends JFrame {
 		TableCellRenderer renderTabla = (table, value, isSelected, hasFocus, row, column) -> {
 			JComponent resultado;
 			
+			resultado = new JLabel();
+			
 			// Añade la la imagen a la columna de foto
 			if (column == 1) {
-				resultado = new JLabel();
-
-				if (value != null) {
-					ImageIcon imagenIcon = new ImageIcon((String) value);
-					Image image = imagenIcon.getImage();
-					Image nueva = image.getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH);
-					
-					resultado = new JLabel("",new ImageIcon(nueva), JLabel.CENTER);
-					resultado.repaint();
-				} else {
-					((JLabel) resultado).setIcon(null);
-					resultado.repaint();
-				}
+				refrescarFoto((String) value, (JLabel) resultado, 60, 60);
 				
-			} else if (column == 6 && (Integer) value < 10) {
+			}/* else if (column == 6 && (Integer) value < 10) {
 				resultado = new JLabel(value.toString());
 				resultado.setBackground(Color.RED);
-				((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
-			      
-			} else {
+				  
+			}*/ else {
 				resultado = new JLabel(value.toString());
-				((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
 			}
 			
+			((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
 			return resultado;
 		};
 		
@@ -277,7 +266,7 @@ public class VentanaPrincipal extends JFrame {
 			public void valueChanged(ListSelectionEvent e) {
 				Ropa seleccionado = lRopa.getSelectedValue();
 				if (seleccionado != null) {
-					refrescarFoto(seleccionado.getFotoUrl(), labelFoto);
+					refrescarFoto(seleccionado.getFotoUrl(), labelFoto, labelFoto.getWidth(), labelFoto.getHeight());
 				} else {
 					labelFoto.setIcon(null);
 					labelFoto.repaint();
@@ -296,11 +285,18 @@ public class VentanaPrincipal extends JFrame {
 		
 	}
 	
-	private void refrescarFoto (String fotoUrl, JLabel label) {
+	/**
+	 * Carga una imagen utilizando su dirección y la muestra en un JLabel
+	 * @param fotoUrl URL de la foto
+	 * @param label lugar donde se carga la foto
+	 * @param width ancho de la imagen
+	 * @param height largo de la imagen
+	 */
+	private void refrescarFoto (String fotoUrl, JLabel label, int width, int height) {
 		if (fotoUrl != null) {
 			ImageIcon imagenIcon = new ImageIcon(fotoUrl);
 			Image image = imagenIcon.getImage();
-			Image nueva = image.getScaledInstance(label.getWidth(), label.getHeight(), java.awt.Image.SCALE_SMOOTH);
+			Image nueva = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
 			
 			label.setIcon(new ImageIcon(nueva));
 			label.repaint();
@@ -351,7 +347,7 @@ public class VentanaPrincipal extends JFrame {
 					r.getNombre(), 
 					r.getTipo(), 
 					(r.getPrecio() / 100) + "," + (r.getPrecio() - (r.getPrecio() / 100) * 100) + "€", r.getTalla(), 
-					0, 
+					r.getCantidad(), 
 					0
 					});
 			scrollStock.repaint();

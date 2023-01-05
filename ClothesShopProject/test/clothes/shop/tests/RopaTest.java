@@ -21,10 +21,11 @@ public class RopaTest {
 	private int precio = 1095;
 	private Talla talla = Talla.L;
 	private String fotoUrl = "fotoUrl";
+	private int cantidad = 20;
 
 	@Before
 	public void setUp() throws Exception {
-		ropa = new Ropa(id, nombre, tipo, precio, talla, fotoUrl);
+		ropa = new Ropa(id, nombre, tipo, precio, talla, fotoUrl, cantidad);
 	}
 
 	@After
@@ -33,14 +34,15 @@ public class RopaTest {
 	}
 
 	@Test
-	public void testRopaIntStringTipoFloatTalla() {
+	public void testRopaIntStringTipoFloatTallaStringInt() {
 		assertNotNull(ropa);
 		assertEquals(ropa.getId(), id);
 		assertEquals(ropa.getNombre(), nombre);
 		assertEquals(ropa.getTipo(), tipo);
 		assertEquals(ropa.getPrecio(), precio);
 		assertEquals(ropa.getTalla(), talla);
-		
+		assertEquals(ropa.getFotoUrl(), fotoUrl);
+		assertEquals(ropa.getCantidad(), cantidad);
 	}
 
 	@Test
@@ -52,6 +54,8 @@ public class RopaTest {
 		assertEquals(ropaVacio.getTipo(), null);
 		assertEquals(ropaVacio.getPrecio(), 0);
 		assertEquals(ropaVacio.getTalla(), null);
+		assertEquals(ropaVacio.getFotoUrl(), null);
+		assertEquals(ropaVacio.getCantidad(), 0);
 	}
 
 	@Test
@@ -122,6 +126,16 @@ public class RopaTest {
 		String nuevaFotoUrl = "nuevaFotoUrl";
 		ropa.setFotoUrl(nuevaFotoUrl);
 		assertEquals(ropa.getFotoUrl(), nuevaFotoUrl);
+	}
+	
+	@Test
+	public void testGetCantidad() {
+		assertEquals(ropa.getCantidad(), cantidad);
+	}
+
+	@Test
+	public void testSetCantidad() {
+		assertThrows(IllegalArgumentException.class, () -> {ropa.setCantidad(-1);});
 	}
 	
 	@Test
