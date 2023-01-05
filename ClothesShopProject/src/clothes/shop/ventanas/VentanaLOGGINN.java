@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -117,8 +118,10 @@ public class VentanaLOGGINN extends JFrame {
 		
 		//Eventos
 		//TODO Cliente o Trabajador
-		//TODO implementar que pase a la otra ventana al hacer sign in o sign up
 		
+		facebookButton.setToolTipText("Coming soon...");
+		googleButton.setToolTipText("Coming soon...");
+		linkedinButton.setToolTipText("Coming soon...");
 		passwordLoginButton.setToolTipText("Mostrar contraseña"); 
 		passwordRegisterButton.setToolTipText("Mostrar contraseña"); 
 	
@@ -130,7 +133,7 @@ public class VentanaLOGGINN extends JFrame {
 					passwordLoginButton.setIcon(redimensionarIcono(ojoTachadoIconLogin, 20, 20));
 					contraseñaLoginTextField.setEchoChar((char)0); //Muestra la contraseña
 				} else {
-					System.out.println("ERROR: No se ha introducido ninguna contraseña");
+					 JOptionPane.showMessageDialog(null, "No se ha introducido ninguna contraseña", "Aviso",JOptionPane.WARNING_MESSAGE);
 				}
 			}
 			public void mouseReleased(MouseEvent e) {
@@ -147,7 +150,7 @@ public class VentanaLOGGINN extends JFrame {
 					passwordRegisterButton.setIcon(redimensionarIcono(ojoTachadoIconRegister, 20, 20));
 					contraseñaRegisterTextField.setEchoChar((char)0); //Muestra la contraseña
 				} else {
-					System.out.println("ERROR: No se ha introducido ninguna contraseña");
+					JOptionPane.showMessageDialog(null, "No se ha introducido ninguna contraseña", "Aviso",JOptionPane.WARNING_MESSAGE);
 				}
 			}
 			public void mouseReleased(MouseEvent e) {
@@ -161,15 +164,21 @@ public class VentanaLOGGINN extends JFrame {
 			String nombreUsuario = usuarioLoginTextField.getText();
 			String contraseña = String.valueOf(contraseñaLoginTextField.getPassword());
 			
+			if( nombreUsuario.isEmpty() || contraseña.isEmpty() ){
+				loginButton.setEnabled(false); //Bloquea el botón
+				JOptionPane.showMessageDialog(null, "Falta de datos al iniciar sesión", "Aviso",JOptionPane.WARNING_MESSAGE);
+				loginButton.setEnabled(true);
+			}
+			
 			//TODO Sino existe ese cliente
 			for (Cliente cliente : clientes) {
 				if(nombreUsuario.equals(cliente.getNombre()) && contraseña.equals(cliente.getContraseña())) {
-					System.out.println("Se ha iniciado sesión correctamente");
+					JOptionPane.showMessageDialog(null, "Se ha iniciado sesión correctamente");
 					//Seguimiento de cookie
 					cookieUsuario = usuarioLoginTextField.getText();
 					//Cerrar esta ventana y abrir la siguiente ventana
 					VentanaLOGGINN.this.dispose();
-					VentanaPrincipal p = new VentanaPrincipal();
+					VentanaPrincipal p = new VentanaPrincipal(); //TODO no debe ser new, tiene que ser la creada
 				}
 			}
 		});
@@ -179,10 +188,23 @@ public class VentanaLOGGINN extends JFrame {
 			String contraseña = String.valueOf(contraseñaRegisterTextField.getPassword());
 			
 			if( BaseDatos.existeCliente(nombreUsuario) ) {
-				System.out.println("ERROR: Usuario existente");
+				JOptionPane.showMessageDialog(null, "Usuario Existente", "Aviso",JOptionPane.WARNING_MESSAGE);
 			} else {
-				BaseDatos.insertarCliente(new Cliente(0, nombreUsuario, null, null, contraseña, false, 0, null));
-				System.out.println("Se ha registrado correctamente");
+				 if ( !nombreUsuario.isEmpty() && !contraseña.isEmpty() ) {
+					 BaseDatos.insertarCliente(new Cliente(0, nombreUsuario, null, null, contraseña, false, 0, null));
+					JOptionPane.showMessageDialog(null, "Se ha registrado correctamente"); 
+					//Seguimiento de cookie
+					cookieUsuario = usuarioRegisterTextField.getText();
+					//Cerrar esta ventana y abrir la siguiente ventana
+					VentanaLOGGINN.this.dispose();
+					VentanaPrincipal p = new VentanaPrincipal(); //TODO no debe ser new, tiene que ser la creada
+				 }
+			}
+			
+			if( nombreUsuario.isEmpty() || contraseña.isEmpty() ){
+				registerButton.setEnabled(false); //Bloquea el botón
+				JOptionPane.showMessageDialog(null, "Falta de datos al registrarse", "Aviso",JOptionPane.WARNING_MESSAGE);
+				registerButton.setEnabled(true);
 			}
 			
 		});
