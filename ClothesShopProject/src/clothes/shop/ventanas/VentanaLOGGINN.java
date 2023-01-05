@@ -165,6 +165,11 @@ public class VentanaLOGGINN extends JFrame {
 			for (Cliente cliente : clientes) {
 				if(nombreUsuario.equals(cliente.getNombre()) && contraseña.equals(cliente.getContraseña())) {
 					System.out.println("Se ha iniciado sesión correctamente");
+					//Seguimiento de cookie
+					cookieUsuario = usuarioLoginTextField.getText();
+					//Cerrar esta ventana y abrir la siguiente ventana
+					this.dispose();
+					VentanaPrincipal p = new VentanaPrincipal();
 				}
 			}
 		});
@@ -284,4 +289,14 @@ public class VentanaLOGGINN extends JFrame {
 	public void añadirSeparador(JToolBar toolbar, int width, int height) {
 		toolbar.addSeparator(new Dimension(width, height));
 	}
+
+	public static String getCookieUsuario() {
+		return cookieUsuario;
+	}
+
+	public static void setCookieUsuario(String cookieUsuario) {
+		VentanaLOGGINN.cookieUsuario = cookieUsuario;
+	}
+	
+	
 }

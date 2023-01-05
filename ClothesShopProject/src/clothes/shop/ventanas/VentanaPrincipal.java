@@ -59,7 +59,9 @@ public class VentanaPrincipal extends JFrame {
 	/** 
 	 *  
 	 */ 
-	private static final long serialVersionUID = 1L; 
+	private static final long serialVersionUID = 1L;
+	//TODO: Dependiendo de que usuario sea, se modificará la ventana
+	String cookieUsuario = VentanaLOGGINN.getCookieUsuario();
 	
 	private JPanel pRopaNorte = new JPanel( new GridLayout(1, 2) );
 	
