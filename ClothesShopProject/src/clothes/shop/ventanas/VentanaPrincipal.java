@@ -280,6 +280,14 @@ public class VentanaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				// primero añadira los pedidos al almacen y luego volvera a cargar la tabla para que se vea el almacen actualizado
+				for (int i = 0; i < tStock.getRowCount(); i++) {
+					int pedido = (int) tStock.getValueAt(i, 7);
+					if (pedido != 0) {
+						int cant = (int) tStock.getValueAt(i, 6);
+						tStock.setValueAt(cant + pedido, i, 6);
+						tStock.setValueAt(0, i, 7);
+					}
+				}
 			}
 		});
 		
