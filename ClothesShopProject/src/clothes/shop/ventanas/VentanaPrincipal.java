@@ -123,10 +123,9 @@ public class VentanaPrincipal extends JFrame {
 				(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 				(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2) 
 		);
-		setTitle("Ventana de compra de productos");
+		setTitle("Ventana principal");
+		setIconImage(new ImageIcon("foto/logo.png").getImage());
 		setVisible(true);
-		// Cambiar el icono
-		
 		
 		// Aqui va como se van a organizar todos los elementos por la mentan
 
@@ -171,19 +170,30 @@ public class VentanaPrincipal extends JFrame {
 			
 			resultado = new JLabel();
 			
-			// Añade la la imagen a la columna de foto
+			
+			// FOTO -> Añade la imagen de la url de value
 			if (column == 1) {
 				refrescarFoto((String) value, (JLabel) resultado, 60, 60);
-				
-			}/* else if (column == 6 && (Integer) value < 10) {
-				resultado = new JLabel(value.toString());
-				resultado.setBackground(Color.RED);
-				  
-			}*/ else {
+			}
+			
+			// ID, NOMBRE, TIPO, PRECIO, TALLA, ALMACEN y PEDIDO -> Añade el value
+			if (column == 0 || column == 2 || column == 3 || column == 4 || column == 5 || column == 6 || column == 7) {
 				resultado = new JLabel(value.toString());
 			}
 			
+			// Pinta la fila de un color dependiendo del stock
+			if (column == 6) {
+				if ((int) value < 15) {
+					resultado.setBackground(Color.RED);
+				} else if ((int) value < 25) {
+					resultado.setBackground(Color.ORANGE);
+				} else {
+					resultado.setBackground(Color.WHITE);
+				}
+			}
+			
 			((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
+			resultado.setOpaque(true);
 			return resultado;
 		};
 		
