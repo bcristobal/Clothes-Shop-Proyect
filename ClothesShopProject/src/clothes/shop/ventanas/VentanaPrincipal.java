@@ -182,15 +182,16 @@ public class VentanaPrincipal extends JFrame {
 			}
 			
 			// Pinta la fila de un color dependiendo del stock
-			if (column == 6) {
-				if ((int) value < 15) {
-					resultado.setBackground(Color.RED);
-				} else if ((int) value < 25) {
-					resultado.setBackground(Color.ORANGE);
-				} else {
-					resultado.setBackground(Color.WHITE);
-				}
+			int almacen = (int) table.getModel().getValueAt(row, 6);
+			if (almacen < 15) {
+				resultado.setBackground(Color.RED);
+				resultado.setForeground(Color.WHITE);
+			} else if (almacen < 25) {
+				resultado.setBackground(Color.ORANGE);
+			} else {
+				resultado.setBackground(Color.WHITE);
 			}
+			table.repaint();
 			
 			((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
 			resultado.setOpaque(true);
