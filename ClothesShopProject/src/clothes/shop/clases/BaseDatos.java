@@ -3,6 +3,7 @@ package clothes.shop.clases;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -433,4 +434,21 @@ public class BaseDatos {
 			return true;
 		}
 	}
+	
+	/**
+	 * Actualiza la cantidad de una ropa en concreto
+	 * @param id Identificador de la ropa a modificar
+	 * @param cantidad La nueva cantidad que tendrá la ropa concreta
+	 * @return Devuelve true si todo funciona correctamente y false si ha habido algún error
+	 */
+	public static boolean actualizarCantidadRopa( int id, int cantidad )  {
+		try (Statement stmt = conexion.createStatement()) {
+			stmt.executeUpdate(String.format("UPDATE ROPA SET CANTIDAD = %d WHERE ID_ROPA = %d", cantidad, id));
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
 }

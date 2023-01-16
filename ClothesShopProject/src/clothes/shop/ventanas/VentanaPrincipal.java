@@ -191,10 +191,10 @@ public class VentanaPrincipal extends JFrame {
 			} else {
 				resultado.setBackground(Color.WHITE);
 			}
-			table.repaint();
 			
 			((JLabel) resultado).setHorizontalAlignment(JLabel.CENTER);
 			resultado.setOpaque(true);
+			table.repaint();
 			return resultado;
 		};
 		
@@ -289,16 +289,18 @@ public class VentanaPrincipal extends JFrame {
 		bPedirStock.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				// primero añadira los pedidos al almacen y luego volvera a cargar la tabla para que se vea el almacen actualizado
+				// FALTA ABRIR CONEXION
 				for (int i = 0; i < tStock.getRowCount(); i++) {
 					int pedido = (int) tStock.getValueAt(i, 7);
 					if (pedido != 0) {
 						int cant = (int) tStock.getValueAt(i, 6);
+						BaseDatos.actualizarCantidadRopa( (int)tStock.getValueAt(i, 0) , cant + pedido);
 						tStock.setValueAt(cant + pedido, i, 6);
 						tStock.setValueAt(0, i, 7);
 					}
 				}
+				// FALTA CERRAR CONEXION
 			}
 		});
 		
