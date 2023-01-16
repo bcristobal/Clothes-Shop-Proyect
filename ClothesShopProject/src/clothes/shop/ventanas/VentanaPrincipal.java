@@ -12,6 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -29,6 +32,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
@@ -184,10 +188,12 @@ public class VentanaPrincipal extends JFrame {
 			// Pinta la fila de un color dependiendo del stock
 			int almacen = (int) table.getModel().getValueAt(row, 6);
 			if (almacen < 15) {
-				resultado.setBackground(Color.RED);
-				resultado.setForeground(Color.WHITE);
+				resultado.setBackground(new Color(236, 112, 99));
+				//resultado.setForeground(Color.WHITE);
 			} else if (almacen < 25) {
-				resultado.setBackground(Color.ORANGE);
+				resultado.setBackground(new Color(245, 176, 65));
+			} else if (almacen < 35) {
+				resultado.setBackground(new Color(247, 220, 111));
 			} else {
 				resultado.setBackground(Color.WHITE);
 			}
@@ -223,15 +229,24 @@ public class VentanaPrincipal extends JFrame {
 		lRopa.repaint();
 		
 		// Eventos
+		Map<Integer, List<Ropa>> mapAux = new HashMap<>();
+		
 		bAñadir.setToolTipText("Añade la prenda seleccionada"); 
 		bAñadir.addActionListener(new ActionListener() { 
+			@SuppressWarnings("deprecation")
 			@Override 
 			public void actionPerformed(ActionEvent e) { 
 				Ropa seleccionado = lRopa.getSelectedValue(); 
-				if (seleccionado != null) { 
-					mCarrito.addElement(seleccionado); 
-					carrito.add(seleccionado);
-				} 
+				if (seleccionado != null) {
+					mapAux.putIfAbsent(seleccionado.getId(), new ArrayList<>());
+					if (mapAux.get(seleccionado.getId()).size() < seleccionado.getCantidad()) {
+						mapAux.get(seleccionado.getId()).add(seleccionado);
+						mCarrito.addElement(seleccionado); 
+						carrito.add(seleccionado);
+					} else {
+						JOptionPane.showMessageDialog(null, "No queda más stock de " + seleccionado.getNombre() + "(" + seleccionado.getTalla().toString() +  ") en el almacen");
+					}	
+				}
 			} 
 		}); 
 		 
@@ -240,7 +255,8 @@ public class VentanaPrincipal extends JFrame {
 			@Override 
 			public void actionPerformed(ActionEvent e) { 
 				Ropa seleccionado = lCarrito.getSelectedValue(); 
-				if (seleccionado != null) { 
+				if (seleccionado != null) {
+					mapAux.get(seleccionado.getId()).remove(0);
 					mCarrito.removeElement(seleccionado); 
 					carrito.remove(seleccionado);
 				} 
@@ -252,7 +268,16 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+					for (Integer id : mapAux.keySet()) {
+						// SE AÑADE A LA BASE DE DATOS EL NUEVO STOCK
+						BaseDatos.actualizarCantidadRopa(id, mapAux.get(id).get(0).getCantidad() - mapAux.get(id).size());
+					}
+					mapAux.clear();
+					carrito.clear();
+					mCarrito.clear();
+				// Carga el modelo de Stock
+					cargarModeloStock();
+					cargarModelosCompra();
 			}
 		});
 		
@@ -285,6 +310,14 @@ public class VentanaPrincipal extends JFrame {
 			} 
 		});
 		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				BaseDatos.cerrarConexion();
+				
+			}
+		});
+		
 		// FALTA
 		bPedirStock.addActionListener(new ActionListener() {	
 			@Override
@@ -301,6 +334,8 @@ public class VentanaPrincipal extends JFrame {
 					}
 				}
 				// FALTA CERRAR CONEXION
+				cargarModelosCompra();
+				
 			}
 		});
 		
@@ -334,25 +369,33 @@ public class VentanaPrincipal extends JFrame {
 		Ropa.idCreciente(listaRopa);
 		// System.out.println(listaRopa);
 		for (Ropa r : listaRopa) {
-			mRopaId.addElement(r);
+			if (r.getCantidad() > 0) {
+				mRopaId.addElement(r);
+			}
 		}
 		mRopaAlabeticamente.clear();
 		Ropa.alfabeticamente(listaRopa) ;
 		// System.out.println(listaRopa);
 		for (Ropa r : listaRopa) {
-			mRopaAlabeticamente.addElement(r);
+			if (r.getCantidad() > 0) {
+				mRopaAlabeticamente.addElement(r);
+			}
 		}
 		mRopaPrecioAscendente.clear();
 		Ropa.precioCreciente(listaRopa) ;
 		// System.out.println(listaRopa);
 		for (Ropa r : listaRopa) {
-			mRopaPrecioAscendente.addElement(r);
+			if (r.getCantidad() > 0) {
+				mRopaPrecioAscendente.addElement(r);
+			}
 		}
 		mRopaPrecioDescendente.clear();
 		Ropa.precioDescendiente(listaRopa) ;
 		// System.out.println(listaRopa);
 		for (Ropa r : listaRopa) {
-			mRopaPrecioDescendente.addElement(r);
+			if (r.getCantidad() > 0) {
+				mRopaPrecioDescendente.addElement(r);
+			}
 		}
 	}
 	

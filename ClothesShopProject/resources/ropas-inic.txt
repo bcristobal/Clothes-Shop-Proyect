@@ -1,5 +1,5 @@
 ID,NOMBRE,TIPO,PRECIO,TALLA,FOTOURL,CANTIDAD
-1,Nike 1ª equipacion Barcelona 2023,camiseta,6999,XS,foto/ropa/camiseta1EquipacionBarcelona.jpg,11
+1,Nike 1ª equipacion Barcelona 2023,camiseta,6999,XS,foto/ropa/camiseta1EquipacionBarcelona.jpg,0
 2,Nike Pro Dri-Fit,pantalon,2500,S,foto/ropa/pantalonNikeProDriFit.jpg,22
 3,Nike Sportswear Tech Fleece,sudadera,3500,M,foto/ropa/sudaderaNikeSportswearTechFleece.jpg,33
 4,Adidas 1ª equipacion Madrid 2023,calcetines,1000,L,foto/ropa/Adidas1EquipacionMadridCalcetines.jpg,44
