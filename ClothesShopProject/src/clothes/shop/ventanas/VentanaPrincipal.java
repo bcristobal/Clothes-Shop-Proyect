@@ -2,7 +2,6 @@ package clothes.shop.ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -14,16 +13,11 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
-import javax.swing.AbstractButton;
-import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,20 +29,12 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
-import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -187,12 +173,12 @@ public class VentanaPrincipal extends JFrame {
 			
 			// Pinta la fila de un color dependiendo del stock
 			int almacen = (int) table.getModel().getValueAt(row, 6);
-			if (almacen < 15) {
+			if (almacen < 5) {
 				resultado.setBackground(new Color(236, 112, 99));
 				//resultado.setForeground(Color.WHITE);
-			} else if (almacen < 25) {
+			} else if (almacen < 10) {
 				resultado.setBackground(new Color(245, 176, 65));
-			} else if (almacen < 35) {
+			} else if (almacen < 20) {
 				resultado.setBackground(new Color(247, 220, 111));
 			} else {
 				resultado.setBackground(Color.WHITE);
@@ -233,7 +219,6 @@ public class VentanaPrincipal extends JFrame {
 		
 		bAñadir.setToolTipText("Añade la prenda seleccionada"); 
 		bAñadir.addActionListener(new ActionListener() { 
-			@SuppressWarnings("deprecation")
 			@Override 
 			public void actionPerformed(ActionEvent e) { 
 				Ropa seleccionado = lRopa.getSelectedValue(); 
