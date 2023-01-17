@@ -71,6 +71,7 @@ public class VentanaPrincipal extends JFrame {
 	private List<Ropa> carrito = new ArrayList<>();
 	private JScrollPane scrollCarrito = new JScrollPane(lCarrito); 
 	private JPanel pCarrito = new JPanel( new BorderLayout() ); 
+	private JLabel infoCarrito = new JLabel("Carrito: " + carrito.size() + " productos");
 	 
 	private JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pRopa, pCarrito);
 	
@@ -124,7 +125,7 @@ public class VentanaPrincipal extends JFrame {
 		pRopa.add(pRopaNorte, BorderLayout.NORTH);
 		pRopa.add(scrollRopa, BorderLayout.CENTER); 
 		pRopa.add(bAñadir, BorderLayout.SOUTH); 
-		pCarrito.add(new JLabel("Carrito:"), BorderLayout.NORTH); 
+		pCarrito.add(infoCarrito, BorderLayout.NORTH);
 		pCarrito.add(scrollCarrito, BorderLayout.CENTER); 
 		pCarrito.add(bBorrar, BorderLayout.SOUTH); 
 		pCompra.add(sp, BorderLayout.WEST);	
@@ -228,6 +229,7 @@ public class VentanaPrincipal extends JFrame {
 						mapAux.get(seleccionado.getId()).add(seleccionado);
 						mCarrito.addElement(seleccionado); 
 						carrito.add(seleccionado);
+						infoCarrito.setText("Carrito: " + carrito.size() + " productos");
 					} else {
 						JOptionPane.showMessageDialog(null, "No queda más stock de " + seleccionado.getNombre() + "(" + seleccionado.getTalla().toString() +  ") en el almacen");
 					}	
@@ -244,6 +246,7 @@ public class VentanaPrincipal extends JFrame {
 					mapAux.get(seleccionado.getId()).remove(0);
 					mCarrito.removeElement(seleccionado); 
 					carrito.remove(seleccionado);
+					infoCarrito.setText("Carrito: " + carrito.size() + " productos");
 				} 
 			} 
 		}); 
@@ -255,7 +258,9 @@ public class VentanaPrincipal extends JFrame {
 				// TODO Auto-generated method stub
 					for (Integer id : mapAux.keySet()) {
 						// SE AÑADE A LA BASE DE DATOS EL NUEVO STOCK
-						BaseDatos.actualizarCantidadRopa(id, mapAux.get(id).get(0).getCantidad() - mapAux.get(id).size());
+						if (mapAux.get(id).size() > 0) {
+							BaseDatos.actualizarCantidadRopa(id, mapAux.get(id).get(0).getCantidad() - mapAux.get(id).size());
+						}
 					}
 					mapAux.clear();
 					carrito.clear();
@@ -263,6 +268,7 @@ public class VentanaPrincipal extends JFrame {
 				// Carga el modelo de Stock
 					cargarModeloStock();
 					cargarModelosCompra();
+					infoCarrito.setText("Carrito: " + carrito.size() + " productos");
 			}
 		});
 		
@@ -319,6 +325,8 @@ public class VentanaPrincipal extends JFrame {
 					}
 				}
 				// FALTA CERRAR CONEXION
+				mapAux.clear();
+				carrito.clear();
 				cargarModelosCompra();
 				
 			}
@@ -349,7 +357,7 @@ public class VentanaPrincipal extends JFrame {
 	
 	private void cargarModelosCompra () {
 		List<Ropa> listaRopa = BaseDatos.getRopas();
-		
+		mCarrito.clear();
 		mRopaId.clear();
 		Ropa.idCreciente(listaRopa);
 		// System.out.println(listaRopa);
@@ -395,7 +403,8 @@ public class VentanaPrincipal extends JFrame {
 					r.getFotoUrl(), 
 					r.getNombre(), 
 					r.getTipo(), 
-					(r.getPrecio() / 100) + "," + (r.getPrecio() - (r.getPrecio() / 100) * 100) + "€", r.getTalla(), 
+					(r.getPrecio() / 100) + "," + (r.getPrecio() - (r.getPrecio() / 100) * 100) + "€",
+					r.getTalla(), 
 					r.getCantidad(), 
 					0
 					});
