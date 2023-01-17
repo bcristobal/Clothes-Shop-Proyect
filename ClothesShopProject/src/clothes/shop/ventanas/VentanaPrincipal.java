@@ -13,6 +13,10 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -445,6 +449,27 @@ public class VentanaPrincipal extends JFrame {
 			resultado.add(r.getTalla());
 		}
 		return resultado;
+	}
+	
+	private void recivoTXT (Map<Integer, List<Ropa>> map) {
+		try {
+			String home = System.getProperty("user.home");
+            String downloads = home + "/Downloads/team.csv";
+            FileWriter file = new FileWriter(downloads);
+            PrintWriter printer = new PrintWriter(file);
+
+			printer.println("TIENDA DEUSTO");
+			printer.println("producto:");
+			for (Integer id : map.keySet()) {
+				printer.println("- " + map.get(id).get(0).getNombre() + " " + map.get(id).size() + " x " + map.get(id).get(0).getPrecio());
+			}
+			printer.println("Total: " ); // 
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
