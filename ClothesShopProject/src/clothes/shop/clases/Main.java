@@ -1,5 +1,8 @@
 package clothes.shop.clases;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,11 +18,18 @@ public class Main {
 	static int contador = 0;
 
 	public static void main(String[] args) {
-		BaseDatos.abrirConexion("prueba.bd");
-//		Cliente cliente1 = new Cliente(11, "Paco", "Chocholatero", "../foto/fotoPerfilPredeterminada.jpg", false, 30, null); //TODO mirar lo de la tabla
-//		Cliente cliente2 = new Cliente(12, "Jordi", "Armellini", "../foto/fotoPerfilPredeterminada.jpg", true, 60, null); //TODO mirar lo de la tabla
-//		Trabajador trabajador1 = new Trabajador(11, "Pepe", "Palotes", "../foto/fotoPerfilPredeterminada.jpg", 1000, Puesto.EMPLEADO, "contraseña");
-//		Trabajador trabajador2 = new Trabajador(12, "Paco", "Paquete", "../foto/fotoPerfilPredeterminada.jpg", 1400, Puesto.ENCARGADO, "contraseña2");
+		Path path = Paths.get("data/prueba.bd");
+		if(Files.exists(path)) {
+			BaseDatos.abrirConexion("prueba.bd", false);
+		} else {
+			BaseDatos.abrirConexion("prueba.bd", true);
+		}
+		
+		
+//		Cliente cliente1 = new Cliente(11, "Paco", "Chocholatero", "fotofotoPerfilPredeterminada.jpg", false, 30, null); //TODO mirar lo de la tabla
+//		Cliente cliente2 = new Cliente(12, "Jordi", "Armellini", "fotofotoPerfilPredeterminada.jpg", true, 60, null); //TODO mirar lo de la tabla
+//		Trabajador trabajador1 = new Trabajador(11, "Pepe", "Palotes", "fotofotoPerfilPredeterminada.jpg", 1000, Puesto.EMPLEADO, "contraseña");
+//		Trabajador trabajador2 = new Trabajador(12, "Paco", "Paquete", "fotofotoPerfilPredeterminada.jpg", 1400, Puesto.ENCARGADO, "contraseña2");
 //		Ropa ropa1 = new Ropa(11, "god g", Tipo.calcetines, 3500, Talla.L, "foto/camisetaJurassicParkNegro.jpg");
 //		Ropa ropa2 = new Ropa(12, "gucci", Tipo.camiseta, 1500, Talla.M, "foto/camisetaJurassicParkAzulMarino.jpg");
 //		
@@ -54,11 +64,9 @@ public class Main {
 				}
 			}
 		};
-		
+
 		tiempo.scheduleAtFixedRate(actividadTiempo, 30, 1000);
-		
-		//TODO: Guardar sesion de usuario del login
-		
+
 		//VentanaPrincipal v = new VentanaPrincipal();
 		//VentanaPerfil p = new VentanaPerfil();
 		
@@ -73,7 +81,7 @@ public class Main {
 //		System.out.println(BaseDatos.getTrabajadores());
 //		System.out.println(BaseDatos.getRopas());
 //		
-		BaseDatos.cerrarConexion();
+//		BaseDatos.cerrarConexion();
 //		
 
 	}
