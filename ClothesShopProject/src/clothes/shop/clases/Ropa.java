@@ -1,5 +1,6 @@
 package clothes.shop.clases;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -151,4 +152,16 @@ public class Ropa implements Pagable{
 		Collections.sort(lista, comp.reversed());
 	}
 	
+	/**
+	 * 
+	 */
+	public static List<Ropa> getRopaPorTalla (List<Ropa> ropas, Talla talla) {
+		List<Ropa> resultado = new ArrayList<>();
+		for (Ropa r : ropas) {
+			if (r.getTalla().equals(talla)) {
+				resultado.add(r);
+			}
+		}
+		return resultado;
+	}
 }

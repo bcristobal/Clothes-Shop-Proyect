@@ -13,6 +13,10 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +45,7 @@ import javax.swing.table.TableColumnModel;
 
 import clothes.shop.clases.BaseDatos;
 import clothes.shop.clases.MySpinnerEditor;
+import clothes.shop.clases.Persona;
 import clothes.shop.clases.Ropa;
 import clothes.shop.clases.Talla;
 
@@ -53,10 +58,12 @@ public class VentanaPrincipal extends JFrame {
 	//TODO: Dependiendo de que usuario sea, se modificará la ventana. Para la ventana de perfil, que se accede desde esta ventana, pasará lo mismo.
 	String cookieUsuario = VentanaLOGGINN.getCookieUsuario();
 	
-	private JPanel pRopaNorte = new JPanel( new GridLayout(1, 2) );
+	private JPanel pRopaNorte = new JPanel( new FlowLayout() );
 	
 	private String[] filtro = {"Id creciente", "Orden alfabetico", "Precio descendente", "Precio creciente"};
 	private JComboBox<String> comboRopa = new JComboBox<>(filtro);
+	
+	private JComboBox<Talla> comboTallas = new JComboBox<>(Talla.values());
 	
 	private DefaultListModel<Ropa> mRopaId = new DefaultListModel<>(); 
 	private DefaultListModel<Ropa> mRopaAlabeticamente = new DefaultListModel<>();
@@ -122,6 +129,7 @@ public class VentanaPrincipal extends JFrame {
 
 		pRopaNorte.add(new JLabel("Ropa:"));
 		pRopaNorte.add(comboRopa);
+		pRopaNorte.add(comboTallas);
 		pRopa.add(pRopaNorte, BorderLayout.NORTH);
 		pRopa.add(scrollRopa, BorderLayout.CENTER); 
 		pRopa.add(bAñadir, BorderLayout.SOUTH); 
@@ -138,6 +146,7 @@ public class VentanaPrincipal extends JFrame {
         pStock.add(pStockSur, BorderLayout.SOUTH);
 		
 		pestanas.add("Compra", pCompra);
+		
 		pestanas.add("Stock", pStock);
 		getContentPane().add(pestanas);
 		
@@ -147,7 +156,8 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 		// Añadir la ropa a los modelos de lista y selecciona la opción por defencto del comboBox
-		cargarModelosCompra();
+		
+		cargarModelosCompra((Talla) comboTallas.getSelectedItem());
 		lRopa.setModel(mRopaId);
 		lRopa.repaint();
 		
@@ -267,7 +277,7 @@ public class VentanaPrincipal extends JFrame {
 					mCarrito.clear();
 				// Carga el modelo de Stock
 					cargarModeloStock();
-					cargarModelosCompra();
+					cargarModelosCompra((Talla) comboTallas.getSelectedItem());
 					infoCarrito.setText("Carrito: " + carrito.size() + " productos");
 			}
 		});
@@ -285,6 +295,14 @@ public class VentanaPrincipal extends JFrame {
 				} else {
 					lRopa.setModel(mRopaPrecioAscendente);
 				}
+			}
+		});
+		
+		comboTallas.addItemListener(new ItemListener() {			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				Talla seleccionado = (Talla) comboTallas.getSelectedItem();
+				cargarModelosCompra(seleccionado);
 			}
 		});
 		
@@ -327,7 +345,7 @@ public class VentanaPrincipal extends JFrame {
 				// FALTA CERRAR CONEXION
 				mapAux.clear();
 				carrito.clear();
-				cargarModelosCompra();
+				cargarModelosCompra((Talla) comboTallas.getSelectedItem());
 				
 			}
 		});
@@ -355,8 +373,9 @@ public class VentanaPrincipal extends JFrame {
 		}
 	}
 	
-	private void cargarModelosCompra () {
-		List<Ropa> listaRopa = BaseDatos.getRopas();
+	private void cargarModelosCompra (Talla talla) {
+		//List<Ropa> listaRopa = BaseDatos.getRopas();
+		List<Ropa> listaRopa = Ropa.getRopaPorTalla(BaseDatos.getRopas(), talla);
 		mCarrito.clear();
 		mRopaId.clear();
 		Ropa.idCreciente(listaRopa);
@@ -430,6 +449,27 @@ public class VentanaPrincipal extends JFrame {
 			resultado.add(r.getTalla());
 		}
 		return resultado;
+	}
+	
+	private void recivoTXT (Map<Integer, List<Ropa>> map) {
+		try {
+			String home = System.getProperty("user.home");
+            String downloads = home + "/Downloads/team.csv";
+            FileWriter file = new FileWriter(downloads);
+            PrintWriter printer = new PrintWriter(file);
+
+			printer.println("TIENDA DEUSTO");
+			printer.println("producto:");
+			for (Integer id : map.keySet()) {
+				printer.println("- " + map.get(id).get(0).getNombre() + " " + map.get(id).size() + " x " + map.get(id).get(0).getPrecio());
+			}
+			printer.println("Total: " ); // 
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
