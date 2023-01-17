@@ -25,7 +25,7 @@ public class BaseDatosTest {
 	@Before
 	public void setUp() throws ClassNotFoundException, SQLException {
 		baseDatos = new BaseDatos();
-		BaseDatos.abrirConexion("pruebaTest.bd");
+		BaseDatos.abrirConexion("pruebaTest.bd", false);
 	}
 
 	@After
