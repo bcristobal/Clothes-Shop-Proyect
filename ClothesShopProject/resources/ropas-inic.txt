@@ -15,7 +15,15 @@ ID,NOMBRE,TIPO,PRECIO,TALLA,FOTOURL,CANTIDAD
 14,AirJordan DIAMOND SHORT,pantalon,3000,XXL,foto/ropa/pantalonJordandiamond-shorts.jpg,20
 15,AirJordan AIR JORDAN 1 MID,zapatillas,14000,L_XL,foto/ropa/zapatillasAirjordan1Mid.jpg,60
 16,AirJordan AIR JORDAN 1 MID,zapatillas,14000,XS,foto/ropa/zapatillasAirjordan1Mid.jpg,20
-17,AirJordan Jumpman Crew 3ppk,calcetines,239900,M,foto/ropa/calcetinesJumpmanCrew3ppk.jpg,15
-18,AirJordan Jumpman Crew 3ppk,calcetines,239900,XL,foto/ropa/calcetinesJumpmanCrew3ppk.jpg,20
-19,AirJordan Jumpman sustainable,sudadera,269500,L_XL,foto/ropa/sudaderaAirJordanJumpmanSustainable.jpg,10
-20,AirJordan Jumpman sustainable,sudadera,269500,M_L,foto/ropa/sudaderaAirJordanJumpmanSustainable.jpg,10
+17,AirJordan Jumpman Crew 3ppk,calcetines,2399,M,foto/ropa/calcetinesJumpmanCrew3ppk.jpg,15
+18,AirJordan Jumpman Crew 3ppk,calcetines,2399,XL,foto/ropa/calcetinesJumpmanCrew3ppk.jpg,20
+19,AirJordan Jumpman sustainable,sudadera,2695,L_XL,foto/ropa/sudaderaAirJordanJumpmanSustainable.jpg,10
+20,AirJordan Jumpman sustainable,sudadera,2695,M_L,foto/ropa/sudaderaAirJordanJumpmanSustainable.jpg,10
+21,Puma Essentials Logo juvenil,camiseta,1300,S,foto/ropa/PumaEssentialsLogo.jpg,30
+22,Puma Essentials Logo juvenil,camiseta,1300,M_L,foto/ropa/PumaEssentialsLogo.jpg,40
+23,Puma Teamrise,pantalon,1799,M_L,foto/ropa/pantalonPumaTeamrise.jpg,50
+24,Puma Teamrise,pantalon,1799,M_L,foto/ropa/pantalonPumaTeamrise.jpg,50
+25,Puma Teamrise,pantalon,1799,XXL,foto/ropa/pantalonPumaTeamrise.jpg,50
+26,Puma Essentials Big,sudadera,4600,L,foto/ropa/sudaderaPumaEssentialsBig.jpg,20
+27,Puma Essentials Big,sudadera,4600,XL,foto/ropa/sudaderaPumaEssentialsBig.jpg,20
+28,Puma Essentials Big,sudadera,4600,XL_XXL,foto/ropa/sudaderaPumaEssentialsBig.jpg,20
