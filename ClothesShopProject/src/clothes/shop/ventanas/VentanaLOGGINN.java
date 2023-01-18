@@ -204,7 +204,7 @@ public class VentanaLOGGINN extends JFrame {
 			String nombreUsuario = usuarioRegisterTextField.getText();
 			String contraseña = String.valueOf(contraseñaRegisterTextField.getPassword());
 			
-			if( BaseDatos.existeCliente(nombreUsuario) ) {
+			if( BaseDatos.existeCliente(nombreUsuario) || BaseDatos.existeTrabajador(nombreUsuario)){
 				JOptionPane.showMessageDialog(null, "Usuario Existente", "Aviso",JOptionPane.WARNING_MESSAGE);
 			} else {
 				 if ( !nombreUsuario.isEmpty() && !contraseña.isEmpty() ) {
