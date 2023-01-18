@@ -104,7 +104,7 @@ public class VentanaPerfil extends JFrame{
     
     setIconImage(new ImageIcon("foto/logo.png").getImage());
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    setSize(450, 400);
+    setSize(500, 300);
     Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (int) ((dimension.getWidth() - getWidth()) / 2);
     int y = (int) ((dimension.getHeight() - getHeight()) / 2);

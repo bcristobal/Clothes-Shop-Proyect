@@ -73,6 +73,7 @@ public class VentanaPerfil extends JFrame{
     JLabel perfilHeader = new JLabel(String.format("<html> <center> <br> <h1> Welcome %s! </h1> <h3> Personal Information </h2> </center> </html>", cookieUsuario));
     Datos.add(perfilHeader);
     
+    
         
     if (tipo == true) {
     	String data[][]={{t.getId()+"", t.getNombre() + " " + t.getApellido(), t.getPuesto()+""}};
@@ -81,6 +82,7 @@ public class VentanaPerfil extends JFrame{
 		JScrollPane tablaSP = new JScrollPane(tabla);
 		tabla.setRowHeight(40);
 		tablaSP.setPreferredSize(new Dimension(300, 63));
+		tablaSP.setEnabled(false);
 		Datos.add(tablaSP);
 		refrescarFoto(t.getFotoPerfil(), foto, 100, 100);
 		Foto.add(foto);

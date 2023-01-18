@@ -82,7 +82,7 @@ public class VentanaPerfil extends JFrame{
 		tabla.setRowHeight(40);
 		tablaSP.setPreferredSize(new Dimension(300, 63));
 		Datos.add(tablaSP);
-		refrescarFoto(t.getFotoPerfil(), foto, 100, 100);
+		refrescarFoto(t.getFotoPerfil(), foto, 200, 200);
 		Foto.add(foto);
 	} else if (tipo == false) {
 		String data[][]={{c.getId()+"", c.getNombre() + " " + c.getApellido(), c.getEsSocio()+""}};
@@ -92,7 +92,7 @@ public class VentanaPerfil extends JFrame{
 		tabla.setRowHeight(40);
 		tablaSP.setPreferredSize(new Dimension(350, 63));
 		Datos.add(tablaSP);
-		refrescarFoto(c.getFotoPerfil(), foto, 100, 100);
+		refrescarFoto(c.getFotoPerfil(), foto, 200, 200);
 		Foto.add(foto);
 	}
     
@@ -102,9 +102,8 @@ public class VentanaPerfil extends JFrame{
     contentPane.add(Datos, BorderLayout.CENTER);
     contentPane.add(Foto, BorderLayout.NORTH);
     
-    setIconImage(new ImageIcon("foto/logo.png").getImage());
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    setSize(450, 400);
+    setSize(500, 800);
     Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (int) ((dimension.getWidth() - getWidth()) / 2);
     int y = (int) ((dimension.getHeight() - getHeight()) / 2);

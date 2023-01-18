@@ -9,8 +9,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -183,7 +181,7 @@ public class VentanaLOGGINN extends JFrame {
 						//Cerrar esta ventana y abrir la siguiente ventana
 						VentanaLOGGINN.this.dispose();
 						VentanaPrincipal p = new VentanaPrincipal(); //TODO no debe ser new, tiene que ser la creada
-						VentanaPerfil pp = new VentanaPerfil();
+//						VentanaPerfil pp = new VentanaPerfil();
 					}
 				}
 			} else if (BaseDatos.existeCliente(nombreUsuario)) {
@@ -195,7 +193,7 @@ public class VentanaLOGGINN extends JFrame {
 						//Cerrar esta ventana y abrir la siguiente ventana
 						VentanaLOGGINN.this.dispose();
 						VentanaPrincipal p = new VentanaPrincipal(); //TODO no debe ser new, tiene que ser la creada
-						VentanaPerfil pp = new VentanaPerfil();
+//						VentanaPerfil pp = new VentanaPerfil();
 					}
 				}
 			}
