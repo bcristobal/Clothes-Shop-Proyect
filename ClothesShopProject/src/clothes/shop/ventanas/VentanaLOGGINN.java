@@ -9,6 +9,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -180,7 +182,7 @@ public class VentanaLOGGINN extends JFrame {
 						cookieUsuario = usuarioLoginTextField.getText();
 						//Cerrar esta ventana y abrir la siguiente ventana
 						VentanaLOGGINN.this.dispose();
-//						VentanaPrincipal p = new VentanaPrincipal(); //TODO no debe ser new, tiene que ser la creada
+						VentanaPrincipal p = new VentanaPrincipal(); //TODO no debe ser new, tiene que ser la creada
 						VentanaPerfil pp = new VentanaPerfil();
 					}
 				}
@@ -192,7 +194,7 @@ public class VentanaLOGGINN extends JFrame {
 						cookieUsuario = usuarioLoginTextField.getText();
 						//Cerrar esta ventana y abrir la siguiente ventana
 						VentanaLOGGINN.this.dispose();
-//						VentanaPrincipal p = new VentanaPrincipal(); //TODO no debe ser new, tiene que ser la creada
+						VentanaPrincipal p = new VentanaPrincipal(); //TODO no debe ser new, tiene que ser la creada
 						VentanaPerfil pp = new VentanaPerfil();
 					}
 				}
@@ -226,6 +228,14 @@ public class VentanaLOGGINN extends JFrame {
 			
 		});
 		
+		// Cierra  la conexion a la Bd
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				BaseDatos.cerrarConexion();
+				
+			}
+		});
 		
 	}
 	

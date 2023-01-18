@@ -46,10 +46,13 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import clothes.shop.clases.BaseDatos;
+import clothes.shop.clases.Cliente;
 import clothes.shop.clases.MySpinnerEditor;
 import clothes.shop.clases.Persona;
+import clothes.shop.clases.Puesto;
 import clothes.shop.clases.Ropa;
 import clothes.shop.clases.Talla;
+import clothes.shop.clases.Trabajador;
 
 public class VentanaPrincipal extends JFrame {
 	
@@ -127,8 +130,21 @@ public class VentanaPrincipal extends JFrame {
 		setIconImage(new ImageIcon("foto/logo.png").getImage());
 		setVisible(true);
 		
+		// Busca el trabajador en la BD
+		Trabajador t = new Trabajador();
+    	if (BaseDatos.existeTrabajador(cookieUsuario) == true) {
+			ArrayList<Trabajador> trabajadores = BaseDatos.getTrabajadores();
+			for (Trabajador trabajador : trabajadores) {
+				if (trabajador.getNombre().equals(cookieUsuario)) {
+					t.setNombre(trabajador.getNombre());
+					t.setApellido(trabajador.getApellido());
+					t.setId(trabajador.getId());
+					t.setPuesto(trabajador.getPuesto());
+				}
+			}
+		}
+		
 		// Aqui va como se van a organizar todos los elementos por la mentan
-
 		pRopaNorte.add(new JLabel("Ropa:"));
 		pRopaNorte.add(comboRopa);
 		pRopaNorte.add(comboTallas);
@@ -148,8 +164,9 @@ public class VentanaPrincipal extends JFrame {
         pStock.add(pStockSur, BorderLayout.SOUTH);
 		
 		pestanas.add("Compra", pCompra);
-		
-		pestanas.add("Stock", pStock);
+		if (BaseDatos.existeTrabajador(cookieUsuario) == true) {
+			pestanas.add("Stock", pStock);
+		}
 		getContentPane().add(pestanas);
 		
 		// Formatear componentes
@@ -337,22 +354,23 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// primero añadira los pedidos al almacen y luego volvera a cargar la tabla para que se vea el almacen actualizado
-				// FALTA ABRIR CONEXION
-				for (int i = 0; i < tStock.getRowCount(); i++) {
-					int pedido = (int) tStock.getValueAt(i, 7);
-					if (pedido != 0) {
-						int cant = (int) tStock.getValueAt(i, 6);
-						BaseDatos.actualizarCantidadRopa( (int)tStock.getValueAt(i, 0) , cant + pedido);
-						tStock.setValueAt(cant + pedido, i, 6);
-						tStock.setValueAt(0, i, 7);
+				if (t.getPuesto().equals(Puesto.ENCARGADO) || t.getPuesto().equals(Puesto.JEFE)) {
+					for (int i = 0; i < tStock.getRowCount(); i++) {
+						int pedido = (int) tStock.getValueAt(i, 7);
+						if (pedido != 0) {
+							int cant = (int) tStock.getValueAt(i, 6);
+							BaseDatos.actualizarCantidadRopa( (int)tStock.getValueAt(i, 0) , cant + pedido);
+							tStock.setValueAt(cant + pedido, i, 6);
+							tStock.setValueAt(0, i, 7);
+						}
 					}
-				}
-				// FALTA CERRAR CONEXION
-				mapAux.clear();
-				carrito.clear();
-				mCarrito.clear();
-				cargarModelosCompra((Talla) comboTallas.getSelectedItem());
-				
+					mapAux.clear();
+					carrito.clear();
+					mCarrito.clear();
+					cargarModelosCompra((Talla) comboTallas.getSelectedItem());
+				} else {
+					JOptionPane.showMessageDialog(null, "No tienes el rango suficiente para pedir stock");
+				}		
 			}
 		});
 		
