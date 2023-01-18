@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -92,6 +93,7 @@ public class VentanaPrincipal extends JFrame {
 	
 	private JLabel labelFoto = new JLabel();
 	private JButton bTerminarCompra = new JButton("Terminar compra");
+	private JButton bPerfil = new JButton("Perfil");
 	private JPanel pCentroCompra = new JPanel( new BorderLayout() );
 	
 	private JPanel pCompra = new JPanel( new BorderLayout() );
@@ -143,6 +145,8 @@ public class VentanaPrincipal extends JFrame {
 				}
 			}
 		}
+    	
+    	
 		
 		// Aqui va como se van a organizar todos los elementos por la mentan
 		pRopaNorte.add(new JLabel("Ropa:"));
@@ -156,6 +160,7 @@ public class VentanaPrincipal extends JFrame {
 		pCarrito.add(bBorrar, BorderLayout.SOUTH); 
 		pCompra.add(sp, BorderLayout.WEST);	
 		pCentroCompra.add(bTerminarCompra, BorderLayout.SOUTH);
+		pCentroCompra.add(bPerfil, BorderLayout.NORTH);
 		pCentroCompra.add(labelFoto, BorderLayout.CENTER);
 		pCompra.add(pCentroCompra, BorderLayout.CENTER);
 		
@@ -291,6 +296,7 @@ public class VentanaPrincipal extends JFrame {
 						if (mapAux.get(id).size() > 0) {
 							BaseDatos.actualizarCantidadRopa(id, mapAux.get(id).get(0).getCantidad() - mapAux.get(id).size());
 						}
+						JOptionPane.showMessageDialog(null, "Su compra se ha realizado correctamente");
 					}
 					recivoTXT(mapAux);
 					mapAux.clear();
@@ -349,7 +355,7 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		
-		// FALTA
+		
 		bPedirStock.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -368,9 +374,17 @@ public class VentanaPrincipal extends JFrame {
 					carrito.clear();
 					mCarrito.clear();
 					cargarModelosCompra((Talla) comboTallas.getSelectedItem());
+					JOptionPane.showMessageDialog(null, "El pedido ha sido realizado correctamente");
 				} else {
 					JOptionPane.showMessageDialog(null, "No tienes el rango suficiente para pedir stock");
 				}		
+			}
+		});
+		
+		bPerfil.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaPerfil vp = new VentanaPerfil();
 			}
 		});
 		
