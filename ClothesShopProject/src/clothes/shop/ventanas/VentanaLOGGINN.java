@@ -228,13 +228,7 @@ public class VentanaLOGGINN extends JFrame {
 			
 		});
 		
-		// Cierra  la conexion a la Bd
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent e) {
-				BaseDatos.cerrarConexion();
-			}
-		});
+		
 		
 	}
 	
