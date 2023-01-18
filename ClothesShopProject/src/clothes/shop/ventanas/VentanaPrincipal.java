@@ -294,12 +294,12 @@ public class VentanaPrincipal extends JFrame {
 						if (mapAux.get(id).size() > 0) {
 							BaseDatos.actualizarCantidadRopa(id, mapAux.get(id).get(0).getCantidad() - mapAux.get(id).size());
 						}
-						JOptionPane.showMessageDialog(null, "Su compra se ha realizado correctamente");
 					}
 					recivoTXT(mapAux);
 					mapAux.clear();
 					carrito.clear();
 					mCarrito.clear();
+					JOptionPane.showMessageDialog(null, "Su compra se ha realizado correctamente");
 					// Carga el modelo de Stock
 					cargarModeloStock();
 					cargarModelosCompra((Talla) comboTallas.getSelectedItem());
