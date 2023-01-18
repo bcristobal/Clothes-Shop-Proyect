@@ -81,6 +81,8 @@ public class VentanaPerfil extends JFrame{
 		JScrollPane tablaSP = new JScrollPane(tabla);
 		tabla.setRowHeight(40);
 		tablaSP.setPreferredSize(new Dimension(300, 63));
+		tablaSP.setEnabled(false);
+		
 		Datos.add(tablaSP);
 		refrescarFoto(t.getFotoPerfil(), foto, 100, 100);
 		Foto.add(foto);
@@ -91,6 +93,7 @@ public class VentanaPerfil extends JFrame{
 		JScrollPane tablaSP = new JScrollPane(tabla);
 		tabla.setRowHeight(40);
 		tablaSP.setPreferredSize(new Dimension(350, 63));
+		tablaSP.setEnabled(false);
 		Datos.add(tablaSP);
 		refrescarFoto(c.getFotoPerfil(), foto, 100, 100);
 		Foto.add(foto);

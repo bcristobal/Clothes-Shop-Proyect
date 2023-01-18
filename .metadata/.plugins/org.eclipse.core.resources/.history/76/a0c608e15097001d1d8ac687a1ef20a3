@@ -72,6 +72,7 @@ public class VentanaPerfil extends JFrame{
     JPanel Datos = new JPanel();
     JLabel perfilHeader = new JLabel(String.format("<html> <center> <br> <h1> Welcome %s! </h1> <h3> Personal Information </h2> </center> </html>", cookieUsuario));
     Datos.add(perfilHeader);
+    tabla.setEnabled(false);
     
         
     if (tipo == true) {
