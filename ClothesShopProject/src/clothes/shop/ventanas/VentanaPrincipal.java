@@ -17,6 +17,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -266,19 +268,22 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				if (!mCarrito.isEmpty()) {
 					for (Integer id : mapAux.keySet()) {
 						// SE AÑADE A LA BASE DE DATOS EL NUEVO STOCK
 						if (mapAux.get(id).size() > 0) {
 							BaseDatos.actualizarCantidadRopa(id, mapAux.get(id).get(0).getCantidad() - mapAux.get(id).size());
 						}
 					}
+					recivoTXT(mapAux);
 					mapAux.clear();
 					carrito.clear();
 					mCarrito.clear();
-				// Carga el modelo de Stock
+					// Carga el modelo de Stock
 					cargarModeloStock();
 					cargarModelosCompra((Talla) comboTallas.getSelectedItem());
 					infoCarrito.setText("Carrito: " + carrito.size() + " productos");
+				}
 			}
 		});
 		
@@ -345,6 +350,7 @@ public class VentanaPrincipal extends JFrame {
 				// FALTA CERRAR CONEXION
 				mapAux.clear();
 				carrito.clear();
+				mCarrito.clear();
 				cargarModelosCompra((Talla) comboTallas.getSelectedItem());
 				
 			}
@@ -376,7 +382,7 @@ public class VentanaPrincipal extends JFrame {
 	private void cargarModelosCompra (Talla talla) {
 		//List<Ropa> listaRopa = BaseDatos.getRopas();
 		List<Ropa> listaRopa = Ropa.getRopaPorTalla(BaseDatos.getRopas(), talla);
-		mCarrito.clear();
+		
 		mRopaId.clear();
 		Ropa.idCreciente(listaRopa);
 		// System.out.println(listaRopa);
@@ -453,19 +459,25 @@ public class VentanaPrincipal extends JFrame {
 	
 	private void recivoTXT (Map<Integer, List<Ropa>> map) {
 		try {
+			 int total = 0;
+	         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy");
+			
 			String home = System.getProperty("user.home");
-            String downloads = home + "/Downloads/team.csv";
+            String downloads = home + "/Downloads/recivo(" + formatter.format(ZonedDateTime.now()) + ").txt";
             FileWriter file = new FileWriter(downloads);
-            PrintWriter printer = new PrintWriter(file);
-
+            PrintWriter printer = new PrintWriter(file);          
+            
 			printer.println("TIENDA DEUSTO");
 			printer.println("producto:");
 			for (Integer id : map.keySet()) {
-				printer.println("- " + map.get(id).get(0).getNombre() + " " + map.get(id).size() + " x " + map.get(id).get(0).getPrecio());
+				printer.println("- " + map.get(id).get(0).getNombre() + " " + map.get(id).size() + " x " 
+				+ (map.get(id).get(0).getPrecio() / 100) + "," + (map.get(id).get(0).getPrecio() - (map.get(id).get(0).getPrecio() / 100) * 100) + "€");
+				total = total + map.get(id).size()*map.get(id).get(0).getPrecio();
 			}
-			printer.println("Total: " ); // 
+			printer.println("_____________________________________");
+			printer.println("Total: " + (total / 100) + "," + (total - (total / 100) * 100) + "€"); // 
 			
-			
+			printer.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
