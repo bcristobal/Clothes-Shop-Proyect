@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -13,7 +12,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.DefaultListModel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -47,9 +44,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import clothes.shop.clases.BaseDatos;
-import clothes.shop.clases.Cliente;
 import clothes.shop.clases.MySpinnerEditor;
-import clothes.shop.clases.Persona;
 import clothes.shop.clases.Puesto;
 import clothes.shop.clases.Ropa;
 import clothes.shop.clases.Talla;
@@ -61,7 +56,6 @@ public class VentanaPrincipal extends JFrame {
 	 *  
 	 */ 
 	private static final long serialVersionUID = 1L;
-	//TODO: Dependiendo de que usuario sea, se modificará la ventana. Para la ventana de perfil, que se accede desde esta ventana, pasará lo mismo.
 	String cookieUsuario = VentanaLOGGINN.getCookieUsuario();
 	
 	private JPanel pRopaNorte = new JPanel( new FlowLayout() );

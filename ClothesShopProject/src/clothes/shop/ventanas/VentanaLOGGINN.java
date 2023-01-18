@@ -28,7 +28,6 @@ import clothes.shop.clases.Cliente;
 import clothes.shop.clases.Trabajador;
 
 public class VentanaLOGGINN extends JFrame {
-	//TODO:Cuando el usuario finalmente ,y con todas las comprobaciones hechas, inicie sesión se guardará aquí su credencial de usuario
 	protected static String cookieUsuario;
 	
 	private static final long serialVersionUID = 1L;
@@ -118,7 +117,6 @@ public class VentanaLOGGINN extends JFrame {
 		registerText.setFont(new Font("Arial", Font.BOLD, 25));
 		
 		//Eventos
-		//TODO Cliente o Trabajador
 		
 		facebookButton.setToolTipText("Coming soon...");
 		googleButton.setToolTipText("Coming soon...");
@@ -180,8 +178,7 @@ public class VentanaLOGGINN extends JFrame {
 						cookieUsuario = usuarioLoginTextField.getText();
 						//Cerrar esta ventana y abrir la siguiente ventana
 						VentanaLOGGINN.this.dispose();
-						VentanaPrincipal p = new VentanaPrincipal(); //TODO no debe ser new, tiene que ser la creada
-//						VentanaPerfil pp = new VentanaPerfil();
+						VentanaPrincipal p = new VentanaPrincipal();
 					}
 				}
 			} else if (BaseDatos.existeCliente(nombreUsuario)) {
@@ -192,8 +189,7 @@ public class VentanaLOGGINN extends JFrame {
 						cookieUsuario = usuarioLoginTextField.getText();
 						//Cerrar esta ventana y abrir la siguiente ventana
 						VentanaLOGGINN.this.dispose();
-						VentanaPrincipal p = new VentanaPrincipal(); //TODO no debe ser new, tiene que ser la creada
-//						VentanaPerfil pp = new VentanaPerfil();
+						VentanaPrincipal p = new VentanaPrincipal();
 					}
 				}
 			}
@@ -214,7 +210,7 @@ public class VentanaLOGGINN extends JFrame {
 					cookieUsuario = usuarioRegisterTextField.getText();
 					//Cerrar esta ventana y abrir la siguiente ventana
 					VentanaLOGGINN.this.dispose();
-					VentanaPrincipal p = new VentanaPrincipal(); //TODO no debe ser new, tiene que ser la creada
+					VentanaPrincipal p = new VentanaPrincipal();
 				 }
 			}
 			

@@ -174,8 +174,6 @@ public class BaseDatos {
 				Boolean esSocio = rs.getBoolean("ES_SOCIO");
 				int edad = rs.getInt("EDAD");
 				String contraseña = rs.getString("PASSWORD");
-				//TODO NO ESTA CREADO EN EL CREATE TABLE ESTA LISTA -> MIRAR PROBLEMA A LA HORA DE BORRAR EL CLIENTE SI SE BORRA SU LISTA ASOCIADA
-				//List<Ropa> listaRopa = (List<Ropa>) rs.getArray("listaRopa"); //Casteo de array a list
 				List<Ropa> listaRopa = new ArrayList<>();
 				ret.add( new Cliente(id, nombre, apellido, fotoPerfil, contraseña, esSocio, edad, listaRopa) );
 			}

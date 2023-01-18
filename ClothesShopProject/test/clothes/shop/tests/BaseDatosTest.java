@@ -30,7 +30,6 @@ public class BaseDatosTest {
 
 	@After
 	public void tearDown() throws SQLException {
-		//TODO 
 	}
 
 	@Test

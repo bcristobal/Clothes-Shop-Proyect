@@ -39,7 +39,6 @@ public class VentanaPerfil extends JFrame{
     public VentanaPerfil() {
     	//SEGUIMIENTO DE LA BD
     	Boolean tipo = true;
-    	//TODO: Crear diferentes VentanaPerfiles
     	Trabajador t = new Trabajador();
     	Cliente c = new Cliente();
     	if (BaseDatos.existeTrabajador(cookieUsuario) == true) {
