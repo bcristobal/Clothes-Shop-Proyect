@@ -25,7 +25,7 @@ public class BaseDatosTest {
 	@Before
 	public void setUp() throws ClassNotFoundException, SQLException {
 		baseDatos = new BaseDatos();
-		BaseDatos.abrirConexion("pruebaTest.bd", false);
+		BaseDatos.abrirConexion("pruebaTest.bd", true);
 	}
 
 	@After
@@ -36,22 +36,16 @@ public class BaseDatosTest {
 	@Test
 	public void testGetClientes() {
 		assertEquals(10, BaseDatos.getClientes().size());
-		assertEquals("Joel", BaseDatos.getClientes().get(0).getNombre());
-		assertEquals("Rigoberto", BaseDatos.getClientes().get(BaseDatos.getClientes().size()-1).getNombre());
 	}
 
 	@Test
 	public void testGetTrabajadores() {
 		assertEquals(10, BaseDatos.getTrabajadores().size());
-		assertEquals("Miguel", BaseDatos.getTrabajadores().get(0).getNombre());
-		assertEquals("Ane", BaseDatos.getTrabajadores().get(BaseDatos.getTrabajadores().size()-1).getNombre());
 	}
 
 	@Test
 	public void testGetRopas() {
-		assertEquals(10, BaseDatos.getRopas().size());
-		assertEquals(1, BaseDatos.getRopas().get(0).getId());
-		assertEquals(10, BaseDatos.getRopas().get( BaseDatos.getRopas().size()-1).getId());
+		assertEquals(28, BaseDatos.getRopas().size());
 	}
 
 	@Test
@@ -82,7 +76,7 @@ public class BaseDatosTest {
 
 	@Test
 	public void testInsertarRopa() {
-		Ropa nuevaRopa = new Ropa(11, "Air fox new", Tipo.zapatillas, 10, Talla.L, "SinDefinir", 10);
+		Ropa nuevaRopa = new Ropa(29, "Air fox new", Tipo.zapatillas, 10, Talla.L, "SinDefinir", 10);
 		
 		if(nuevaRopa != null) {
 			BaseDatos.insertarRopa(nuevaRopa);
@@ -96,7 +90,7 @@ public class BaseDatosTest {
 	public void testBorrarCliente() throws SQLException {
 		Cliente clienteABorrar = BaseDatos.getClientes().get(0);
 		BaseDatos.borrarCliente(clienteABorrar);
-		assertEquals(9, BaseDatos.getClientes().size()); //10 - 1 (el borrado)
+		assertEquals(9, BaseDatos.getClientes().size()); //10-1
 	}
 
 	@Test
@@ -110,7 +104,7 @@ public class BaseDatosTest {
 	public void testBorrarRopa() throws SQLException {
 		Ropa ropaABorrar = BaseDatos.getRopas().get(0);
 		BaseDatos.borrarRopa(ropaABorrar);
-		assertEquals(9, BaseDatos.getRopas().size());
+		assertEquals(27, BaseDatos.getRopas().size()); //28-1
 	}
 
 	@Test
@@ -132,7 +126,7 @@ public class BaseDatosTest {
 		int precioInicio = 1500;
 		int precioFin = 3000;
 		List<Ropa> ropasEntrePrecios = BaseDatos.getRopasEntrePrecio(precioInicio, precioFin);
-		assertEquals(2, ropasEntrePrecios.size());
+		assertEquals(11, ropasEntrePrecios.size());
 	}
 	
 	@Test

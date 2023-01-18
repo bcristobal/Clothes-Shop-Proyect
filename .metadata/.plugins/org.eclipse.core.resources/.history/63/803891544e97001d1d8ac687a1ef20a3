@@ -1,0 +1,11 @@
+ID,NOMBRE,APELLIDO,FOTOPERFIL,SUELDO,PUESTO,CONTRASENA
+1,Miguel,Acha,foto/perfil/trabajador/miguel.jpg,3000,JEFE,achamiguel
+2,Raquel,Santamaria,foto/perfil/trabajador/raquel.jpg,1500,EMPLEADO,santamariaraquel
+3,Iker,Ordonez,foto/perfil/trabajador/iker.jpg,3200,JEFE,ordoneziker
+4,Elisa,Gonzalez,foto/perfil/trabajador/elisa.jpg,1150,EMPLEADO,gonzalezelisa
+5,Benat,Cristobal,foto/perfil/trabajador/benatc.jpg,3000,JEFE,cristobalbenat
+6,Raquel,Rico,foto/perfil/trabajador/raquelr.jpg,1800,ENCARGADO,ricoraquel
+7,Benat,Burgoa,foto/perfil/trabajador/benat,3300,JEFE,burgoabenat
+8,Sandra,Rubio,foto/perfil/trabajador/sandra.jpg,900,EMPLEADO,rubiosandra
+9,Oscar,Perez,foto/perfil/trabajador/oscar.jpg,2000,ENCARGADO,perezoscar
+10,Ane,Telleria,foto/perfil/trabajador/ane.jpg,1600,EMPLEADO,telleriaane

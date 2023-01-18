@@ -1,0 +1,48 @@
+package clothes.shop.ventanas;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Cursor;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class VentanaCarga extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+
+	public VentanaCarga() {
+		this.setTitle("Cloth shop");
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setUndecorated(true);
+		this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));		
+		
+		Container container = this.getContentPane();
+		container.setBackground(Color.white);
+		container.setLayout(new BorderLayout());
+
+		JLabel labelPrincipal = new JLabel();
+		labelPrincipal.setIcon(redimensionarIcono("..foto/logo.png", 400, 400));
+		container.add(labelPrincipal, BorderLayout.CENTER);
+		
+		JLabel labelSecundario = new JLabel();
+		labelSecundario.setIcon(new ImageIcon("..foto/carga.gif"));
+		container.add(labelSecundario, BorderLayout.SOUTH);
+		
+		this.pack();
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+	}
+
+	public ImageIcon redimensionarIcono(String url, int width, int height) {
+		ImageIcon imageIcon = new ImageIcon(url);
+		Image image = imageIcon.getImage();
+		Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // escalar la imagen
+		
+		imageIcon = new ImageIcon(newimg);
+		
+		return(imageIcon);
+	}
+}
