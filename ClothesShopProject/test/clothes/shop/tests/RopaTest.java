@@ -140,7 +140,7 @@ public class RopaTest {
 	
 	@Test
 	public void testToString() {
-		String expected = String.format("(%s)" +  " %s %.2f € %s", id, nombre, (float) precio/100, talla);
+		String expected = String.format("%s -  %.2f €", nombre, (float) precio / 100);
 		assertEquals(ropa.toString(), expected);
 	}
 

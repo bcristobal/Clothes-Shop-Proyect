@@ -104,8 +104,8 @@ public class Ropa implements Pagable{
 
 	@Override
 	public String toString() {
-		return String.format("(%s)" +  " %s %.2f € %s", id, nombre, (float) getPrecio() / 100, talla);
-	//Precio está en euros
+		return String.format("%s -  %.2f €", nombre, (float) getPrecio() / 100);
+		//Precio está en euros
 	}
 	
 	/**
