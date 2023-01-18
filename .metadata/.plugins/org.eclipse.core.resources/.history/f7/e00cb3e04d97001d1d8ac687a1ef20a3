@@ -1,0 +1,11 @@
+ID,NOMBRE,APELLIDO,URL_FOTO_P,ESSOCIO,EDAD,CONTRASENA
+1,Joel,Gonzalez,..foto/perfil/cliente/joel.jpg,true,19,Joel19
+2,Marta,Suarez,..foto/perfil/cliente/marta.jpg,true,35,Marta35
+3,Alfonso,Jimenez,..foto/perfil/cliente/alfonso.jpg,false,42,Alfonso42
+4,Eva,Rovira,..foto/perfil/cliente/eva.jpg,false,56,Eva56
+5,Jon,Villen,..foto/perfil/cliente/jon.jpg,false,38,Jon38
+6,Susana,Sanchez,..foto/perfil/cliente/susana.jpg,false,68,Susana68
+7,Mario,Armellini,..foto/perfil/cliente/mario.jpg,true,23,Mario23
+8,Clara,Merino,..foto/perfil/cliente/clara.jpg,true,22,Clara22
+9,Ibai,Llanos,..foto/perfil/cliente/ibai.jpg,false,25,Ibai25
+10,Rigoberto,Garcia,..foto/perfil/cliente/rigoberto.jpg,false,65,Rigoberto65
