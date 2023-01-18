@@ -25,6 +25,7 @@ import javax.swing.border.EmptyBorder;
 
 import clothes.shop.clases.BaseDatos;
 import clothes.shop.clases.Cliente;
+import clothes.shop.clases.Trabajador;
 
 public class VentanaLOGGINN extends JFrame {
 	//TODO:Cuando el usuario finalmente ,y con todas las comprobaciones hechas, inicie sesión se guardará aquí su credencial de usuario
@@ -161,6 +162,7 @@ public class VentanaLOGGINN extends JFrame {
 		
 		loginButton.addActionListener(e -> {
 			List<Cliente> clientes = new ArrayList<>(BaseDatos.getClientes());
+			List<Trabajador> trabajadores = new ArrayList<>(BaseDatos.getTrabajadores());
 			String nombreUsuario = usuarioLoginTextField.getText();
 			String contraseña = String.valueOf(contraseñaLoginTextField.getPassword());
 			
@@ -170,17 +172,32 @@ public class VentanaLOGGINN extends JFrame {
 				loginButton.setEnabled(true);
 			}
 			
-			//TODO Sino existe ese cliente
-			for (Cliente cliente : clientes) {
-				if(nombreUsuario.equals(cliente.getNombre()) && contraseña.equals(cliente.getContraseña())) {
-					JOptionPane.showMessageDialog(null, "Se ha iniciado sesión correctamente");
-					//Seguimiento de cookie
-					cookieUsuario = usuarioLoginTextField.getText();
-					//Cerrar esta ventana y abrir la siguiente ventana
-					VentanaLOGGINN.this.dispose();
-					VentanaPrincipal p = new VentanaPrincipal(); //TODO no debe ser new, tiene que ser la creada
+			if (BaseDatos.existeTrabajador(nombreUsuario)) {
+				for (Trabajador trabajador : trabajadores) {
+					if(nombreUsuario.equals(trabajador.getNombre()) && contraseña.equals(trabajador.getContraseña())) {
+						JOptionPane.showMessageDialog(null, "Se ha iniciado sesión correctamente");
+						//Seguimiento de cookie
+						cookieUsuario = usuarioLoginTextField.getText();
+						//Cerrar esta ventana y abrir la siguiente ventana
+						VentanaLOGGINN.this.dispose();
+//						VentanaPrincipal p = new VentanaPrincipal(); //TODO no debe ser new, tiene que ser la creada
+						VentanaPerfil pp = new VentanaPerfil();
+					}
+				}
+			} else if (BaseDatos.existeCliente(nombreUsuario)) {
+				for (Cliente cliente : clientes) {
+					if(nombreUsuario.equals(cliente.getNombre()) && contraseña.equals(cliente.getContraseña())) {
+						JOptionPane.showMessageDialog(null, "Se ha iniciado sesión correctamente");
+						//Seguimiento de cookie
+						cookieUsuario = usuarioLoginTextField.getText();
+						//Cerrar esta ventana y abrir la siguiente ventana
+						VentanaLOGGINN.this.dispose();
+//						VentanaPrincipal p = new VentanaPrincipal(); //TODO no debe ser new, tiene que ser la creada
+						VentanaPerfil pp = new VentanaPerfil();
+					}
 				}
 			}
+			
 		});
 		
 		registerButton.addActionListener(e -> {

@@ -51,10 +51,11 @@ public class VentanaPerfil extends JFrame{
 			}
 		}
     	
-    //VISUAL
+    	//VISUAL
     JPanel Datos = new JPanel();
+    Datos.setLayout(new BoxLayout(Datos, BoxLayout.Y_AXIS));
     JLabel perfilHeader = new JLabel(String.format("<html> <center> <br> <h1> Welcome %s! </h1> <h3> Personal Information </h2> </center> </html>", cookieUsuario));
-    Datos.add(perfilHeader);
+    Datos.add(perfilHeader, BoxLayout.Y_AXIS);
         
     if (tipo == true) {
     	String data[][]={{t.getId()+"", t.getNombre() + " " + t.getApellido(), t.getPuesto()+""}};
@@ -63,15 +64,15 @@ public class VentanaPerfil extends JFrame{
 		JScrollPane tablaSP = new JScrollPane(tabla);
 		tabla.setRowHeight(40);
 		tablaSP.setPreferredSize(new Dimension(300, 63));
-		Datos.add(tablaSP);
+		Datos.add(tablaSP, BoxLayout.Y_AXIS);
 	} else if (tipo == false) {
 		String data[][]={{c.getId()+"", c.getNombre() + " " + c.getApellido(), c.getEsSocio()+""}};
 		String column[]={"ID","NOMBRE","SOCIO"};
 		JTable tabla = new JTable(data, column);
 		JScrollPane tablaSP = new JScrollPane(tabla);
 		tabla.setRowHeight(40);
-		tablaSP.setPreferredSize(new Dimension(350, 63));
-		Datos.add(tablaSP);
+		tablaSP.setPreferredSize(new Dimension(300, 63));
+		Datos.add(tablaSP, BoxLayout.Y_AXIS);
 	}
     
     Container contentPane = getContentPane();
