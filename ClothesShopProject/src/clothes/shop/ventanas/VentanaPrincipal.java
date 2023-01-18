@@ -270,6 +270,9 @@ public class VentanaPrincipal extends JFrame {
 				Ropa seleccionado = lCarrito.getSelectedValue(); 
 				if (seleccionado != null) {
 					mapAux.get(seleccionado.getId()).remove(0);
+					if (mapAux.get(seleccionado.getId()).size() == 0) {
+						mapAux.remove(seleccionado.getId());
+					}
 					mCarrito.removeElement(seleccionado); 
 					carrito.remove(seleccionado);
 					infoCarrito.setText("Carrito: " + carrito.size() + " productos");
@@ -485,7 +488,7 @@ public class VentanaPrincipal extends JFrame {
 	private void recivoTXT (Map<Integer, List<Ropa>> map) {
 		try {
 			 int total = 0;
-	         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy");
+	         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-hh-mm-ss");
 			
 			String home = System.getProperty("user.home");
             String downloads = home + "/Downloads/recivo(" + formatter.format(ZonedDateTime.now()) + ").txt";
