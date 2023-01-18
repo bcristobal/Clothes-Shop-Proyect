@@ -3,15 +3,11 @@ package clothes.shop.clases;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import clothes.shop.ventanas.VentanaCarga;
 import clothes.shop.ventanas.VentanaLOGGINN;
-import clothes.shop.ventanas.VentanaPerfil;
-import clothes.shop.ventanas.VentanaPrincipal;
 
 public class Main {
 	
@@ -35,7 +31,6 @@ public class Main {
 				contador++;
 				if (contador > 2) {
 					c.dispose();
-					//VentanaLogin l = new VentanaLogin();
 					VentanaLOGGINN ll = new VentanaLOGGINN();
 					tiempo.cancel();
 				}
