@@ -4,12 +4,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import clothes.shop.ventanas.VentanaCarga;
 import clothes.shop.ventanas.VentanaLOGGINN;
-import clothes.shop.ventanas.VentanaLogin;
 import clothes.shop.ventanas.VentanaPerfil;
 import clothes.shop.ventanas.VentanaPrincipal;
 
@@ -24,29 +24,6 @@ public class Main {
 		} else {
 			BaseDatos.abrirConexion("prueba.bd", true);
 		}
-		
-		
-//		Cliente cliente1 = new Cliente(11, "Paco", "Chocholatero", "fotofotoPerfilPredeterminada.jpg", false, 30, null); //TODO mirar lo de la tabla
-//		Cliente cliente2 = new Cliente(12, "Jordi", "Armellini", "fotofotoPerfilPredeterminada.jpg", true, 60, null); //TODO mirar lo de la tabla
-//		Trabajador trabajador1 = new Trabajador(11, "Pepe", "Palotes", "fotofotoPerfilPredeterminada.jpg", 1000, Puesto.EMPLEADO, "contraseña");
-//		Trabajador trabajador2 = new Trabajador(12, "Paco", "Paquete", "fotofotoPerfilPredeterminada.jpg", 1400, Puesto.ENCARGADO, "contraseña2");
-//		Ropa ropa1 = new Ropa(11, "god g", Tipo.calcetines, 3500, Talla.L, "foto/camisetaJurassicParkNegro.jpg");
-//		Ropa ropa2 = new Ropa(12, "gucci", Tipo.camiseta, 1500, Talla.M, "foto/camisetaJurassicParkAzulMarino.jpg");
-//		
-//		BaseDatos.insertarCliente(cliente1);
-//		BaseDatos.insertarCliente(cliente2);
-//		BaseDatos.insertarTrabajador(trabajador1);
-//		BaseDatos.insertarTrabajador(trabajador2);
-//		BaseDatos.insertarRopa(ropa1);
-//		BaseDatos.insertarRopa(ropa2);
-//		
-//		System.out.println(BaseDatos.getClientes());
-//		System.out.println(BaseDatos.getTrabajadores());
-//		System.out.println(BaseDatos.getRopas());
-//	
-//		BaseDatos.actualizarPasswordTrabajador(trabajador2, "HOLA");
-//		BaseDatos.actualizarPasswordCliente(cliente2, "HOLA");
-//		System.out.println(BaseDatos.getTrabajadores());
 		
 		Timer tiempo = new Timer("ContadorVentanaCarga");
 		
@@ -66,23 +43,6 @@ public class Main {
 		};
 
 		tiempo.scheduleAtFixedRate(actividadTiempo, 30, 1000);
-
-		//VentanaPrincipal v = new VentanaPrincipal();
-		//VentanaPerfil p = new VentanaPerfil();
-		
-//		try {
-//			BaseDatos.borrarCliente(cliente1);
-//			BaseDatos.borrarTrabajador(trabajador1);
-//			BaseDatos.borrarRopa(ropa1);
-//		} catch (SQLException e) {}
-	
-		//Mostrar
-//		System.out.println(BaseDatos.getClientes()); 
-//		System.out.println(BaseDatos.getTrabajadores());
-//		System.out.println(BaseDatos.getRopas());
-//		
-//		BaseDatos.cerrarConexion();
-//		
 
 	}
 
