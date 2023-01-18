@@ -233,7 +233,6 @@ public class VentanaLOGGINN extends JFrame {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				BaseDatos.cerrarConexion();
-				
 			}
 		});
 		
