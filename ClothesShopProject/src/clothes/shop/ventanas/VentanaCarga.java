@@ -15,6 +15,7 @@ public class VentanaCarga extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public VentanaCarga() {
+		setIconImage(new ImageIcon("foto/logo.png").getImage());
 		this.setTitle("Cloth shop");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setUndecorated(true);
