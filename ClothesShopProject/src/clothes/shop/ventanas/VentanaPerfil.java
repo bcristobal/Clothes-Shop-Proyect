@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import clothes.shop.clases.BaseDatos;
@@ -73,11 +74,21 @@ public class VentanaPerfil extends JFrame{
     JLabel perfilHeader = new JLabel(String.format("<html> <center> <br> <h1> Welcome %s! </h1> <h3> Personal Information </h2> </center> </html>", cookieUsuario));
     Datos.add(perfilHeader);
     
+
+    
         
     if (tipo == true) {
-    	String data[][]={{t.getId()+"", t.getNombre() + " " + t.getApellido(), t.getPuesto()+""}};
+    	String data[][]={{t.getId()+"", t.getNombre(), t.getPuesto()+""}};
 		String column[]={"ID","NOMBRE","PUESTO"};
 		tabla = new JTable(data, column);
+		DefaultTableModel tableModel = new DefaultTableModel(data, column) {
+			private static final long serialVersionUID = 1L;
+			@Override
+	        public boolean isCellEditable(int row, int column) {
+	           return false;
+	        }
+	    };
+	    tabla.setModel(tableModel);
 		JScrollPane tablaSP = new JScrollPane(tabla);
 		tabla.setRowHeight(40);
 		tablaSP.setPreferredSize(new Dimension(300, 63));
@@ -85,9 +96,17 @@ public class VentanaPerfil extends JFrame{
 		refrescarFoto(t.getFotoPerfil(), foto, 100, 100);
 		Foto.add(foto);
 	} else if (tipo == false) {
-		String data[][]={{c.getId()+"", c.getNombre() + " " + c.getApellido(), c.getEsSocio()+""}};
+		String data[][]={{c.getId()+"", c.getNombre(), c.getEsSocio()+""}};
 		String column[]={"ID","NOMBRE","SOCIO"};
 		tabla = new JTable(data, column);
+		DefaultTableModel tableModel = new DefaultTableModel(data, column) {
+			private static final long serialVersionUID = 1L;
+			@Override
+	        public boolean isCellEditable(int row, int column) {
+	           return false;
+	        }
+	    };
+	    tabla.setModel(tableModel);
 		JScrollPane tablaSP = new JScrollPane(tabla);
 		tabla.setRowHeight(40);
 		tablaSP.setPreferredSize(new Dimension(350, 63));
@@ -116,24 +135,16 @@ public class VentanaPerfil extends JFrame{
 	
 	TableCellRenderer renderMouseOver = (table, value, isSelected, hasFocus, row, column) -> {
 		JLabel label = new JLabel(value.toString());
-		
-		//Si la fila/columna de la celda se corresponden con la fila/columna
-		//sobre la que está el ratón, el fondo es CYAN.
 		if (column == this.ColumnaRaton) {
 			label.setBackground(Color.CYAN);
 		} else {
 			label.setBackground(table.getBackground());
 		}
-		
-		//Si la celda está seleccionada, se usan los colores por defecto
 		if (isSelected) {
 			label.setBackground(table.getSelectionBackground());
 			label.setForeground(table.getSelectionForeground());
 		}
-		
-		//Se fuerza el pintado del color de fondo del label
 		label.setOpaque(true);
-		
 		return label;
 	};
 	
@@ -141,10 +152,7 @@ public class VentanaPerfil extends JFrame{
 	
 	this.tabla.addMouseMotionListener((MouseMotionListener) new MouseMotionAdapter() {
 		public void mouseMoved(MouseEvent e) {
-			//Se obtiene la fila/columna sobre la que está el ratón mientras se mueve
 			ColumnaRaton = tabla.columnAtPoint(e.getPoint());
-
-			//Se repinta la tabla para forzar el renderizado de las celdas
 			if (ColumnaRaton >-1) {
 				tabla.repaint();
 			}
