@@ -1,9 +1,9 @@
 package clothes.shop.clases;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /** Clase de gestión de base de datos del sistema de compras
@@ -21,11 +22,21 @@ public class BaseDatos {
 	private static Connection conexion;
 	private static Logger logger = Logger.getLogger( "BaseDatos" );
 	
+	public BaseDatos() {
+		
+	}
+	
 	/** Abre conexión con la base de datos
 	 * @param nombreBD	Nombre del fichero de base de datos
 	 * @return	true si la conexión ha sido correcta, false en caso contrario
 	 */
 	public static boolean abrirConexion(String nombreBD, boolean reiniciaBD) {
+		try (FileInputStream fis = new FileInputStream("conf/logger.properties")) {
+			LogManager.getLogManager().readConfiguration(fis);
+		} catch (Exception ex) {
+			logger.warning(String.format("Error al cargar las propiedades del logger: %s", ex.getMessage()));
+		}
+		
 		try {
 			logger.log( Level.INFO, "Carga de librería org.sqlite.JDBC" );
 			Class.forName("org.sqlite.JDBC");  // Carga la clase de BD para sqlite
