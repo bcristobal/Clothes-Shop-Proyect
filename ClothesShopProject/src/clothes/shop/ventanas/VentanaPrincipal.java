@@ -347,14 +347,6 @@ public class VentanaPrincipal extends JFrame {
 			} 
 		});
 		
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent e) {
-				BaseDatos.cerrarConexion();
-				
-			}
-		});
-		
 		
 		bPedirStock.addActionListener(new ActionListener() {	
 			@Override
@@ -514,13 +506,6 @@ public class VentanaPrincipal extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
- 
-	
-	
-	
-	
-	
+	}	
 
 }
