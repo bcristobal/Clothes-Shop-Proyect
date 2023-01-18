@@ -146,7 +146,8 @@ public class VentanaPrincipal extends JFrame {
 			}
 		}
     	
-    	
+    	 ImageIcon fPerfil = new ImageIcon(t.getFotoPerfil());
+         bPerfil = new JButton(redimensionarIcono(fPerfil, 120, 50));
 		
 		// Aqui va como se van a organizar todos los elementos por la mentan
 		pRopaNorte.add(new JLabel("Ropa:"));
@@ -306,6 +307,8 @@ public class VentanaPrincipal extends JFrame {
 					cargarModeloStock();
 					cargarModelosCompra((Talla) comboTallas.getSelectedItem());
 					infoCarrito.setText("Carrito: " + carrito.size() + " productos");
+				} else {
+					JOptionPane.showMessageDialog(null, "Carrito vacio", "Aviso",JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
@@ -516,7 +519,20 @@ public class VentanaPrincipal extends JFrame {
 		}
 	}
 	
-	
+	/**  Redimensiona una imagen
+     * @param imageIcon icono de la imagen a modificar
+     * @param width ancho de la imagen
+     * @param height largo de la imagen
+     * @return Imagen modificada
+     */
+    public ImageIcon redimensionarIcono(ImageIcon imageIcon, int width, int height) {
+        Image image = imageIcon.getImage();
+        Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // escalar la imagen
+
+        imageIcon = new ImageIcon(newimg);
+
+        return(imageIcon);
+    }
 	
 	
 	
